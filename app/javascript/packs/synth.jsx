@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Synth from '../containers/Synth'
+import ADCSynth from '../containers/ADCSynth'
 
 document.addEventListener('DOMContentLoaded', () => {
   // const props = JSON.parse(document.getElementById('data').dataset.props)
 
   ReactDOM.render(
-    <Synth />,
+    <ADCSynth />,
     document.body.appendChild(document.createElement('div'))
   )
 })
