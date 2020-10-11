@@ -18,9 +18,10 @@ export default class ToneSynth extends React.Component {
 
   handleCreateSynth = () => {
     let { band } = this.state
+
     let synth = new Tone.PolySynth().toDestination()
 
-    band.push({ instrument: synth, isPlaying: false, note: 'C4' })
+    band.push({ instrument: synth, isPlaying: false, note: 'C4', effects: [] })
 
     this.setState({
       band
@@ -39,12 +40,37 @@ export default class ToneSynth extends React.Component {
               {synth.isPlaying ? 'Stop' : 'Start'}
             </div>
             <div key={`${i}_notes`}>{this.renderNotes(i)}</div>
+            <div onClick={() => this.handleAddEffect(i)}>
+              {synth.effects.length != 0
+                ? 'Remove Distortion'
+                : 'Add Distortion'}
+            </div>
             _____________________________________________________
           </div>
         )
       })
       return synths
     }
+  }
+
+  handleAddEffect = (effect) => {
+    const { band } = this.state
+    if (band[effect].effects.length != 0) {
+      band[effect].effects.pop()
+    } else {
+      band[effect].effects.push({ name: 'distortion', value: 1 })
+    }
+
+    this.setState({
+      band
+    })
+  }
+
+  playEffect = (synth) => {
+    let value = synth.effects[0].value
+    const dist = new Tone.Distortion(value).toDestination()
+
+    synth.instrument.connect(dist).triggerAttack(synth.note)
   }
 
   handleChangeNote = (id, note) => {
@@ -77,7 +103,11 @@ export default class ToneSynth extends React.Component {
         band
       })
     } else {
-      band[id].instrument.triggerAttack(band[id].note)
+      if (band[id].effects.length != 0) {
+        this.playEffect(band[id])
+      } else {
+        band[id].instrument.triggerAttack(band[id].note)
+      }
       band[id].isPlaying = true
       this.setState({
         band
