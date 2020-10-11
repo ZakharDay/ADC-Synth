@@ -1,0 +1,58 @@
+.PianoWhiteKey {
+  width: 98px;
+  height: 292px;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 224px;
+  margin-left: 28px;
+
+  &.on {
+    background-color: #79fd38;
+  }
+}
+
+.PianoBlackKey {
+  position: absolute;
+  margin-top: 224px;
+  width: 98px;
+  height: 224px;
+  background: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &.on {
+    background-color: #79fd38;
+  }
+}
+
+#PianoKey0 {
+  margin-left: 0px;
+}
+
+#PianoKey1 {
+  left: 118px;
+}
+
+#PianoKey3 {
+  left: 241px;
+}
+#PianoKey6 {
+  left: 489px;
+}
+#PianoKey8 {
+  left: 612px;
+}
+#PianoKey10 {
+  left: 735px;
+}
+#PianoKey13 {
+  left: 983px;
+}
+#PianoKey15 {
+  left: 1106px;
+}
