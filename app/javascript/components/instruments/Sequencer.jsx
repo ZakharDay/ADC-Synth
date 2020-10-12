@@ -26,16 +26,37 @@ export default class Sequencer extends React.Component {
     return gridElements
   }
 
+  thiggerAttackRelease = () => {
+    const {
+      synth,
+      steps,
+      currentPattern,
+      patterns,
+      currentQuarter
+    } = this.props
+
+    const currentPatternSteps = patterns[currentPattern]
+
+    currentPatternSteps.forEach((patternStep, i) => {
+      if (patternStep.step == currentQuarter) {
+        synth.webaudio.triggerAttackRelease(
+          patternStep.note + patternStep.octave,
+          '4n'
+        )
+      }
+    })
+  }
+
   renderRow = (note) => {
     const { steps, currentPattern, patterns } = this.props
+    const currentPatternSteps = patterns[currentPattern]
     let stepElements = []
     let current = false
 
     for (var i = 0; i < steps; i++) {
       if (
-        patterns[currentPattern][i].step === i &&
-        note ===
-          patterns[currentPattern][i].note + patterns[currentPattern][i].octave
+        currentPatternSteps[i].step === i &&
+        note === currentPatternSteps[i].note + currentPatternSteps[i].octave
       ) {
         current = true
       } else {
@@ -64,6 +85,8 @@ export default class Sequencer extends React.Component {
   }
 
   render() {
+    this.thiggerAttackRelease()
+
     return <div className="Sequencer">{this.renderGrid()}</div>
   }
 }

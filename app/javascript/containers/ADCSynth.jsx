@@ -1,11 +1,13 @@
-import React from 'react'
 import * as Tone from 'tone'
+import React from 'react'
 
 import Button from '../components/controls/Button'
-
 import Voice from '../components/instruments/Voice'
 
-const synth = new Tone.Synth().toDestination()
+import * as synthInitials from '../utilities/synths'
+import * as voiceInitials from '../utilities/voices'
+import * as channelInitials from '../utilities/channel'
+import * as effectInitials from '../utilities/effects'
 
 export default class ADCSynth extends React.Component {
   constructor(props) {
@@ -16,66 +18,20 @@ export default class ADCSynth extends React.Component {
         bpm: 120,
         isOn: false
       },
-      voices: [
-        {
-          sequencer: {
-            steps: 4,
-            currentPattern: 0,
-            isPlaying: true,
-            patterns: [
-              [
-                {
-                  step: 0,
-                  note: 'C',
-                  octave: 1
-                },
-                {
-                  step: 1,
-                  note: 'E',
-                  octave: 2
-                },
-                {
-                  step: 2,
-                  note: 'G',
-                  octave: 1
-                },
-                {
-                  step: 3,
-                  note: 'E',
-                  octave: 3
-                }
-              ]
-            ]
-          },
-          synth: {
-            webaudio: synth
-          },
-          effects: [
-            {
-              webaudio: ''
-            }
-          ]
-        }
-      ]
+      voices: []
     }
   }
 
-  nextQuarter = () => {
-    const { synth } = this.state.voices[0]
-    const { patterns } = this.state.voices[0].sequencer
+  // ---------------
+  // SEQUENCER
+  // ---------------
 
+  nextQuarter = () => {
     const regexBefore = /([\w]+)/gm
     const quarter = Tone.Transport.position.match(regexBefore)[1]
 
-    console.log('nextQuarter', quarter)
-
-    patterns[0].forEach((patternStep, i) => {
-      if (patternStep.step == quarter) {
-        synth.webaudio.triggerAttackRelease(
-          patternStep.note + patternStep.octave,
-          '4n'
-        )
-      }
+    this.setState({
+      currentQuarter: quarter
     })
   }
 
@@ -102,8 +58,63 @@ export default class ADCSynth extends React.Component {
     })
   }
 
+  // ---------------
+  // SYNTH
+  // ---------------
+
+  handleCreateVoice = () => {
+    let voices = [...this.state.voices]
+
+    const voice = voiceInitials.voiceState()
+    const synthWebaudio = synthInitials.createToneSynth()
+    const channelWebaudio = channelInitials.createChannel()
+
+    voice.synth.webaudio = synthWebaudio
+    voice.channel.webaudio = channelWebaudio
+    voices.push(voice)
+
+    synthWebaudio.chain(channelWebaudio)
+
+    this.setState({
+      voices
+    })
+  }
+
+  handleCreateEffect = (voiceId) => {
+    let voices = [...this.state.voices]
+    let effect = {}
+
+    voices.forEach((voice, i) => {
+      if (voice.id === voiceId) {
+        effect = effectInitials.feedbackDelay()
+        voices[i].effects.push(effect)
+        voice.synth.webaudio.chain(effect.webaudio, voice.channel.webaudio)
+      }
+    })
+  }
+
+  renderVoices = () => {
+    const { voices, currentQuarter } = this.state
+    let voiceElements = []
+
+    voices.forEach((voice, i) => {
+      voiceElements.push(
+        <Voice
+          {...voice}
+          currentQuarter={currentQuarter}
+          handleCreateEffect={this.handleCreateEffect}
+          key={i}
+        />
+      )
+    })
+
+    return voiceElements
+  }
+
   render() {
     const { isOn } = this.state.transport
+
+    console.log(this.state.voices)
 
     return (
       <div className="ADCSynth">
@@ -116,7 +127,16 @@ export default class ADCSynth extends React.Component {
           handleClick={this.handleTogglePlay}
         />
 
-        <Voice {...this.state.voices[0]} />
+        <Button
+          name="button"
+          property="no"
+          option={true}
+          text="Create Voice"
+          current={isOn}
+          handleClick={this.handleCreateVoice}
+        />
+
+        {this.renderVoices()}
       </div>
     )
   }
