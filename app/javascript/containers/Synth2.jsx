@@ -3,7 +3,7 @@ import * as Tone from 'tone'
 
 import { notes } from '../../utilities/notes'
 
-export default class ToneSynth extends React.Component {
+export default class Synth2 extends React.Component {
   constructor(props) {
     super(props)
 
