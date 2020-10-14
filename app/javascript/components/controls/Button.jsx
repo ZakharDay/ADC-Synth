@@ -15,10 +15,7 @@ export default class Button extends PureComponent {
     })
 
     return (
-      <div
-        className={classes}
-        onClick={() => handleClick(name, property, option)}
-      >
+      <div className={classes} onClick={() => handleClick(property, option)}>
         {text}
       </div>
     )

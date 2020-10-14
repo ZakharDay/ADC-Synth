@@ -60,6 +60,40 @@ export default class ADCSynth extends React.Component {
     }
   }
 
+  changeEnvelopeValue = (property, value) => {
+    // console.log('test', synthName, effectName, value)
+
+    const { transport, voices } = this.state
+    const synth = voices[0].synth.webaudio
+
+    synth.envelope[property] = value
+
+    voices[0].synth.webaudio = synth
+
+    this.setState({
+      transport,
+      voices
+    })
+  }
+
+  changeTypeOscillator = (property, value) => {
+    const { transport, voices } = this.state
+    const synth = voices[0].synth.webaudio
+
+    // synth[property] = value
+    // console.log(synth)
+
+    console.log(voices[0].synth.webaudio.oscillator.type)
+
+    voices[0].synth.webaudio.oscillator.type = value
+    console.log(voices[0].synth.webaudio.oscillator.type)
+
+    this.setState({
+      transport,
+      voices
+    })
+  }
+
   nextQuarter = () => {
     const { synth } = this.state.voices[0]
     const { patterns } = this.state.voices[0].sequencer
@@ -115,8 +149,11 @@ export default class ADCSynth extends React.Component {
           current={isOn}
           handleClick={this.handleTogglePlay}
         />
-
-        <Voice {...this.state.voices[0]} />
+        <Voice
+          {...this.state.voices[0]}
+          changeEnvelopeValue={this.changeEnvelopeValue}
+          changeTypeOscillator={this.changeTypeOscillator}
+        />
       </div>
     )
   }

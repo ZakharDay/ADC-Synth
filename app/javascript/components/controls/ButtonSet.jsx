@@ -8,7 +8,7 @@ export default class ButtonSet extends React.Component {
   }
 
   render() {
-    let { name, property, set, value, handleValueChange } = this.props
+    let { property, set, value, handleChange } = this.props
     let buttons = []
 
     set.forEach((option, i) => {
@@ -17,8 +17,9 @@ export default class ButtonSet extends React.Component {
           name={name}
           property={property}
           option={option}
+          text={option}
           current={value}
-          handleClick={handleValueChange}
+          handleClick={handleChange}
           key={i}
         />
       )

@@ -56,3 +56,13 @@
 #PianoKey15 {
   left: 1106px;
 }
+
+.Button {
+  display: inline-block;
+  width: 150px;
+  margin-left: 50px;
+  background: white;
+  &.on {
+    background: red;
+  }
+}
