@@ -1,9 +1,10 @@
 import React from 'react'
 
-export default class Button extends React.Component {
+export default class PianoButton extends React.Component {
   constructor(props) {
     super(props)
   }
+
   componentDidMount() {
     window.addEventListener('ommouseup', this.props.handleUp)
     window.addEventListener('keydown', this.props.keyDown)
