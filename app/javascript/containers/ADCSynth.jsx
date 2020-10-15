@@ -114,19 +114,6 @@ export default class ADCSynth extends React.Component {
     })
   }
 
-  handleCreateEffect = (voiceId) => {
-    let voices = [...this.state.voices]
-    let effect = {}
-
-    voices.forEach((voice, i) => {
-      if (voice.id === voiceId) {
-        effect = effectInitials.feedbackDelay()
-        voices[i].effects.push(effect)
-        voice.synth.webaudio.chain(effect.webaudio, voice.channel.webaudio)
-      }
-    })
-  }
-
   renderVoices = () => {
     const { voices, currentQuarter } = this.state
     let voiceElements = []
@@ -136,7 +123,6 @@ export default class ADCSynth extends React.Component {
         <Voice
           {...voice}
           currentQuarter={currentQuarter}
-          handleCreateEffect={this.handleCreateEffect}
           changeEnvelopeValue={this.changeEnvelopeValue}
           changeTypeOscillator={this.changeTypeOscillator}
           key={i}

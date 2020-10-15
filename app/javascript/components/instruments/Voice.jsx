@@ -5,6 +5,7 @@ import Button from '../controls/Button'
 
 import Sequencer from './Sequencer'
 import ToneSynth from './ToneSynth'
+import Effects from '../effects/Effects'
 
 export default class Voice extends React.Component {
   constructor(props) {
@@ -12,8 +13,16 @@ export default class Voice extends React.Component {
   }
 
   handleCreateEffect = () => {
-    const { id, handleCreateEffect } = this.props
-    handleCreateEffect(id)
+    console.log('clic')
+    let voice = this.props
+    let effect = {}
+
+    let feedbackDelay = new Tone.FeedbackDelay('8n', 0.5).toDestination()
+
+    //effect = effectInitials.feedbackDelay()
+    voice.effects.push(feedbackDelay)
+
+    voice.synth.webaudio.connect(feedbackDelay)
   }
 
   render() {
@@ -30,19 +39,15 @@ export default class Voice extends React.Component {
           changeEnvelopeValue={this.props.changeEnvelopeValue}
         />
 
+        <Effects
+          effect={this.props.effects}
+          handleCreateEffect={this.handleCreateEffect}
+        />
+
         <Sequencer
           {...sequencer}
           currentQuarter={currentQuarter}
           synth={synth}
-        />
-
-        <Button
-          name="button"
-          property="no"
-          option={true}
-          text="Add Effect"
-          current={true}
-          handleClick={this.handleCreateEffect}
         />
       </div>
     )
