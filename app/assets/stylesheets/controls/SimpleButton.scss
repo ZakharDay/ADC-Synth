@@ -1,0 +1,13 @@
+.SimpleButton {
+  height: 22px;
+  padding: 0 10px;
+  line-height: 22px;
+  font-size: 14px;
+  color: var(--dark-grey);
+  background: var(--dark-green);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--acid-green);
+  }
+}

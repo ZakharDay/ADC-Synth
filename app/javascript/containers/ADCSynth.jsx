@@ -1,11 +1,13 @@
 import * as Tone from 'tone'
 import React from 'react'
 
-import Button from '../components/controls/Button'
-import Voice from '../components/instruments/Voice'
+import Menubar from '../components/parts/Menubar'
+import Parts from '../components/instruments/Parts'
+import Instruments from '../components/parts/Instruments'
+import Mixer from '../components/instruments/Mixer'
 
 import * as synthInitials from '../utilities/synths'
-import * as voiceInitials from '../utilities/voices'
+// import * as voiceInitials from '../utilities/voices'
 import * as channelInitials from '../utilities/channel'
 import * as effectInitials from '../utilities/effects'
 
@@ -14,51 +16,15 @@ export default class ADCSynth extends React.Component {
     super(props)
 
     this.state = {
+      currentPartName: '',
+      currentInstrument: '',
+      currentBarTab: '',
       transport: {
         bpm: 120,
         isOn: false
-      },
-      voices: []
+      }
     }
   }
-
-  changeEnvelopeValue = (property, value) => {
-    // console.log('test', synthName, effectName, value)
-
-    const { transport, voices } = this.state
-    const synth = voices[0].synth.webaudio
-
-    synth.envelope[property] = value
-
-    voices[0].synth.webaudio = synth
-
-    this.setState({
-      transport,
-      voices
-    })
-  }
-
-  changeTypeOscillator = (property, value) => {
-    const { transport, voices } = this.state
-    const synth = voices[0].synth.webaudio
-
-    // synth[property] = value
-    // console.log(synth)
-
-    console.log(voices[0].synth.webaudio.oscillator.type)
-
-    voices[0].synth.webaudio.oscillator.type = value
-    console.log(voices[0].synth.webaudio.oscillator.type)
-
-    this.setState({
-      transport,
-      voices
-    })
-  }
-
-  // ---------------
-  // SEQUENCER
-  // ---------------
 
   nextQuarter = () => {
     const regexBefore = /([\w]+)/gm
@@ -92,73 +58,149 @@ export default class ADCSynth extends React.Component {
     })
   }
 
-  // ---------------
-  // SYNTH
-  // ---------------
+  handleBpmChange = () => {}
 
-  handleCreateVoice = () => {
-    let voices = [...this.state.voices]
+  handleSynthCreate = () => {
+    let instruments = []
 
-    const voice = voiceInitials.voiceState()
+    if (this.state.instruments) {
+      instruments = [...this.state.instruments]
+    }
+
+    const synth = synthInitials.synthState()
     const synthWebaudio = synthInitials.createToneSynth()
     const channelWebaudio = channelInitials.createChannel()
 
-    voice.synth.webaudio = synthWebaudio
-    voice.channel.webaudio = channelWebaudio
-    voices.push(voice)
+    synth.synth.webaudio = synthWebaudio
+    synth.channel.webaudio = channelWebaudio
+    instruments.push(synth)
 
     synthWebaudio.chain(channelWebaudio)
 
+    if (this.state.parts == undefined) {
+      this.setState({
+        currentPartName: 'Part 1',
+        currentInstrument: 'Synth',
+        currentBarTab: 'Sound',
+        instruments,
+        parts: ['Part 1']
+      })
+    } else {
+      this.setState({
+        instruments
+      })
+    }
+  }
+
+  handleSamplerCreate = () => {}
+
+  handleAudioCreate = () => {}
+
+  handlePartCreate = () => {}
+
+  handlePartChange = () => {}
+
+  handleBarTabChange = () => {
+    // Перенести параметр внутрь инструмента
+    // и менять внутри инструмента
+    let { currentBarTab } = this.state
+
+    if (currentBarTab === 'Sound') {
+      currentBarTab = 'Sequence'
+    } else if (currentBarTab === 'Sequence') {
+      currentBarTab = 'Sound'
+    }
+
     this.setState({
-      voices
+      currentBarTab
     })
   }
 
-  renderVoices = () => {
-    const { voices, currentQuarter } = this.state
-    let voiceElements = []
+  // handleVoiceChange = (id, object) => {
+  //   // Get voices from State
+  //   // Change voice from State by id
+  //   // Set State
+  // }
 
-    voices.forEach((voice, i) => {
-      voiceElements.push(
-        <Voice
-          {...voice}
-          currentQuarter={currentQuarter}
-          changeEnvelopeValue={this.changeEnvelopeValue}
-          changeTypeOscillator={this.changeTypeOscillator}
-          key={i}
-        />
-      )
-    })
+  // changeEnvelopeValue = (property, value) => {
+  //   // console.log('test', synthName, effectName, value)
+  //
+  //   const { transport, voices } = this.state
+  //   const synth = voices[0].synth.webaudio
+  //
+  //   synth.envelope[property] = value
+  //
+  //   voices[0].synth.webaudio = synth
+  //
+  //   this.setState({
+  //     transport,
+  //     voices
+  //   })
+  // }
 
-    return voiceElements
+  // changeTypeOscillator = (property, value) => {
+  //   const { transport, voices } = this.state
+  //   const synth = voices[0].synth.webaudio
+  //
+  //   // synth[property] = value
+  //   // console.log(synth)
+  //
+  //   console.log(voices[0].synth.webaudio.oscillator.type)
+  //
+  //   voices[0].synth.webaudio.oscillator.type = value
+  //   console.log(voices[0].synth.webaudio.oscillator.type)
+  //
+  //   this.setState({
+  //     transport,
+  //     voices
+  //   })
+  // }
+
+  renderParts = () => {
+    const { currentPartName, parts } = this.state
+
+    return (
+      <Parts
+        currentPartName={currentPartName}
+        parts={parts}
+        handlePartChange={this.handlePartChange}
+      />
+    )
+  }
+
+  renderInstruments = () => {
+    const { instruments, currentInstrument, currentBarTab } = this.state
+
+    return (
+      <Instruments
+        instruments={instruments}
+        currentInstrument={currentInstrument}
+        currentBarTab={currentBarTab}
+        handleBarTabChange={this.handleBarTabChange}
+      />
+    )
   }
 
   render() {
-    const { isOn } = this.state.transport
-
-    console.log(this.state.voices)
+    const { transport, parts, instruments } = this.state
 
     return (
       <div className="ADCSynth">
-        <Button
-          name="button"
-          property="no"
-          option={true}
-          text={isOn ? 'Stop' : 'Play'}
-          current={isOn}
-          handleClick={this.handleTogglePlay}
+        <Menubar
+          bpm={transport.bpm}
+          isOn={transport.isOn}
+          handleTogglePlay={this.handleTogglePlay}
+          handleBpmChange={this.handleBpmChange}
+          handleSynthCreate={this.handleSynthCreate}
+          handleSamplerCreate={this.handleSamplerCreate}
+          handleAudioCreate={this.handleAudioCreate}
+          handlePartCreate={this.handlePartCreate}
         />
 
-        <Button
-          name="button"
-          property="no"
-          option={true}
-          text="Create Voice"
-          current={isOn}
-          handleClick={this.handleCreateVoice}
-        />
+        {parts ? this.renderParts() : ''}
+        {instruments ? this.renderInstruments() : ''}
 
-        {this.renderVoices()}
+        <Mixer instruments={instruments} />
       </div>
     )
   }

@@ -1,5 +1,5 @@
-import React from 'react'
 import classnames from 'classnames'
+import React from 'react'
 
 export default class ToggleButton extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ export default class ToggleButton extends React.Component {
     })
 
     return (
-      <div className={classes} onClick={() => handleClick()}>
+      <div className={classes} onClick={handleClick}>
         {text}
       </div>
     )
