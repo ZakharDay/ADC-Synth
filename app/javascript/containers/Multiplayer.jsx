@@ -1,28 +1,86 @@
 import * as Tone from 'tone'
 import React from 'react'
 
-import Menubar from '../components/parts/Menubar'
-import Parts from '../components/instruments/Parts'
-import Instruments from '../components/parts/Instruments'
-import Mixer from '../components/instruments/Mixer'
+import Menubar from '../components/views/Menubar'
+import Musician from '../components/views/Musician'
+import Mixer from '../components/views/Mixer'
 
-import * as synthInitials from '../utilities/synths'
-// import * as voiceInitials from '../utilities/voices'
-import * as channelInitials from '../utilities/channel'
 import * as effectInitials from '../utilities/effects'
 
 export default class ADCSynth extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      currentPartName: '',
-      currentInstrument: '',
-      currentBarTab: '',
-      transport: {
-        bpm: 120,
-        isOn: false
-      }
+    // console.log(props)
+
+    const { view, instruments, room } = props
+
+    let state = {
+      room,
+      transportIsOn: false
+    }
+
+    if (view === 'mixer') {
+      state.instruments = instruments
+    }
+
+    this.state = state
+  }
+
+  componentDidMount() {
+    const { instruments } = this.state
+    let newInstruments = []
+
+    if (instruments) {
+      instruments.forEach((instrument, i) => {
+        let newInstrument = Object.assign({}, instrument)
+
+        if (instrument.effects.length) {
+          let effect = { name: instrument.effects[0] }
+
+          console.log(instrument.parts[0].effects)
+
+          instrument.parts[0].effects.forEach((e, i) => {
+            if (e.name === 'feedbackDelay') {
+              console.log('Yo')
+              effect.webaudio = new Tone.FeedbackDelay({
+                delayTime: e.delayTime,
+                maxDelay: e.maxDelay
+              }).toDestination()
+            } else if (e.name === 'chorus') {
+              effect.webaudio = new Tone.Chorus({
+                frequency: e.frequency,
+                delayTime: e.delayTime,
+                depth: e.depth,
+                type: e.type,
+                spread: e.spread
+              }).toDestination()
+            } else if (e.name === 'distortion') {
+              effect.webaudio = new Tone.Distortion({
+                distortion: e.distortion,
+                oversample: e.oversample
+              }).toDestination()
+            }
+          })
+
+          console.log(effect.webaudio)
+
+          effect.webaudio.wet.value = 1
+
+          newInstrument.effects = [effect]
+          newInstrument.webaudio = new Tone.Synth()
+          newInstrument.webaudio.chain(effect.webaudio)
+
+          newInstruments.push(newInstrument)
+        } else {
+          newInstrument.webaudio = new Tone.Synth().toDestination()
+          newInstruments.push(newInstrument)
+        }
+      })
+
+      this.setState({
+        instruments: newInstruments
+      })
     }
   }
 
@@ -36,159 +94,49 @@ export default class ADCSynth extends React.Component {
   }
 
   handleTogglePlay = () => {
-    let { bpm, isOn, scheduleId } = this.state.transport
+    let { room, transportIsOn, transportScheduleId } = this.state
 
-    if (isOn) {
+    if (transportIsOn) {
       Tone.Transport.pause()
-      Tone.Transport.clear(scheduleId)
-      isOn = false
+      Tone.Transport.clear(transportScheduleId)
+      transportIsOn = false
     } else {
-      Tone.Transport.bpm.value = bpm
+      Tone.Transport.bpm.value = room.tempo
       Tone.Transport.start()
-      scheduleId = Tone.Transport.scheduleRepeat(this.nextQuarter, '4n')
-      isOn = true
+
+      transportScheduleId = Tone.Transport.scheduleRepeat(
+        this.nextQuarter,
+        '4n'
+      )
+
+      transportIsOn = true
     }
 
     this.setState({
-      transport: {
-        bpm,
-        isOn,
-        scheduleId
-      }
+      transportIsOn,
+      transportScheduleId
     })
   }
 
-  handleBpmChange = () => {}
-
-  handleSynthCreate = () => {
-    let instruments = []
-
-    if (this.state.instruments) {
-      instruments = [...this.state.instruments]
-    }
-
-    const synth = synthInitials.synthState()
-    const synthWebaudio = synthInitials.createToneSynth()
-    const channelWebaudio = channelInitials.createChannel()
-
-    synth.synth.webaudio = synthWebaudio
-    synth.channel.webaudio = channelWebaudio
-    instruments.push(synth)
-
-    synthWebaudio.chain(channelWebaudio)
-
-    if (this.state.parts == undefined) {
-      this.setState({
-        currentPartName: 'Part 1',
-        currentInstrument: 'Synth',
-        currentBarTab: 'Sound',
-        instruments,
-        parts: ['Part 1']
-      })
-    } else {
-      this.setState({
-        instruments
-      })
-    }
+  renderMusicianView = () => {
+    return <Musician />
   }
 
-  handleSamplerCreate = () => {}
-
-  handleAudioCreate = () => {}
-
-  handlePartCreate = () => {}
-
-  handlePartChange = () => {}
-
-  handleBarTabChange = () => {
-    // Перенести параметр внутрь инструмента
-    // и менять внутри инструмента
-    let { currentBarTab } = this.state
-
-    if (currentBarTab === 'Sound') {
-      currentBarTab = 'Sequence'
-    } else if (currentBarTab === 'Sequence') {
-      currentBarTab = 'Sound'
-    }
-
-    this.setState({
-      currentBarTab
-    })
-  }
-
-  // handleVoiceChange = (id, object) => {
-  //   // Get voices from State
-  //   // Change voice from State by id
-  //   // Set State
-  // }
-
-  // changeEnvelopeValue = (property, value) => {
-  //   // console.log('test', synthName, effectName, value)
-  //
-  //   const { transport, voices } = this.state
-  //   const synth = voices[0].synth.webaudio
-  //
-  //   synth.envelope[property] = value
-  //
-  //   voices[0].synth.webaudio = synth
-  //
-  //   this.setState({
-  //     transport,
-  //     voices
-  //   })
-  // }
-
-  // changeTypeOscillator = (property, value) => {
-  //   const { transport, voices } = this.state
-  //   const synth = voices[0].synth.webaudio
-  //
-  //   // synth[property] = value
-  //   // console.log(synth)
-  //
-  //   console.log(voices[0].synth.webaudio.oscillator.type)
-  //
-  //   voices[0].synth.webaudio.oscillator.type = value
-  //   console.log(voices[0].synth.webaudio.oscillator.type)
-  //
-  //   this.setState({
-  //     transport,
-  //     voices
-  //   })
-  // }
-
-  renderParts = () => {
-    const { currentPartName, parts } = this.state
-
-    return (
-      <Parts
-        currentPartName={currentPartName}
-        parts={parts}
-        handlePartChange={this.handlePartChange}
-      />
-    )
-  }
-
-  renderInstruments = () => {
-    const { instruments, currentInstrument, currentBarTab } = this.state
-
-    return (
-      <Instruments
-        instruments={instruments}
-        currentInstrument={currentInstrument}
-        currentBarTab={currentBarTab}
-        handleBarTabChange={this.handleBarTabChange}
-      />
-    )
+  renderMixerView = () => {
+    const { instruments, currentQuarter } = this.state
+    return <Mixer instruments={instruments} currentQuarter={currentQuarter} />
   }
 
   render() {
-    const { transport, parts, instruments } = this.state
+    const { view, room } = this.props
+    const { transportIsOn } = this.state
 
     return (
       <div className="ADCSynth">
         <Menubar
-          bpm={transport.bpm}
-          isOn={transport.isOn}
+          view={view}
+          tempo={room.tempo}
+          transportIsOn={transportIsOn}
           handleTogglePlay={this.handleTogglePlay}
           handleBpmChange={this.handleBpmChange}
           handleSynthCreate={this.handleSynthCreate}
@@ -197,10 +145,10 @@ export default class ADCSynth extends React.Component {
           handlePartCreate={this.handlePartCreate}
         />
 
-        {parts ? this.renderParts() : ''}
-        {instruments ? this.renderInstruments() : ''}
-
-        <Mixer instruments={instruments} />
+        {
+          // prettier-ignore
+          view === 'musician' ? this.renderMusicianView() : this.renderMixerView()
+        }
       </div>
     )
   }

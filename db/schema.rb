@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_200847) do
   create_table "instruments", force: :cascade do |t|
     t.string "name"
     t.string "kind"
+    t.string "effects", default: [], array: true
     t.integer "user_id"
     t.integer "room_id"
     t.datetime "created_at", precision: 6, null: false

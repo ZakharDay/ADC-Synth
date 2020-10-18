@@ -1,0 +1,43 @@
+<%
+  instruments = @room.instruments
+  parts = @room.parts
+
+  instruments_json = []
+
+  instruments.each do |instrument|
+    settings_json = []
+
+    parts.each do |part|
+      setting = instrument.settings.where(part_id: part.id).first
+
+      settings_json << {
+        partName: part.name,
+        synth: setting.synth,
+        effects: setting.effects,
+        sequence: setting.sequence,
+        channel: setting.channel
+      }
+    end
+
+    instrument_json = {
+      id: instrument.id,
+      kind: instrument.kind,
+      name: instrument.name,
+      effects: instrument.effects,
+      parts: settings_json
+    }
+
+    instruments_json << instrument_json
+  end
+
+  props = {
+    view: 'musician',
+    room: {
+      tempo: @room.tempo,
+      mainChannelLevel: @room.main_channel_level
+    },
+    instruments: instruments_json
+  }
+%>
+
+<div id="data" data-props="<%= props.to_json %>"></div>

@@ -8,6 +8,8 @@
 
   div {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     .SimpleButton {
       margin-left: 20px;

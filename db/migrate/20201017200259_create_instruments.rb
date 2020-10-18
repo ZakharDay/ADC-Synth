@@ -3,6 +3,7 @@ class CreateInstruments < ActiveRecord::Migration[6.0]
     create_table :instruments do |t|
       t.string :name
       t.string :kind
+      t.string :effects, array: true, default: []
       t.integer :user_id
       t.integer :room_id
 

@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_room, only: [:show, :edit, :update, :destroy]
+  before_action :set_room, only: [:show, :edit, :update, :destroy, :musician, :mixer]
 
   # GET /rooms
   # GET /rooms.json
@@ -11,6 +11,12 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
+  end
+
+  def musician
+  end
+
+  def mixer
   end
 
   # GET /rooms/new
