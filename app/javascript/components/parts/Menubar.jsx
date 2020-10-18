@@ -8,14 +8,7 @@ export default class Menubar extends React.Component {
   }
 
   render() {
-    const {
-      bpm,
-      isOn,
-      handleSynthCreate,
-      handleSamplerCreate,
-      handleAudioCreate,
-      handlePartCreate
-    } = this.props
+    const { bpm, isOn, handleTogglePlay } = this.props
 
     let playButtonText = 'Play'
 
@@ -25,18 +18,12 @@ export default class Menubar extends React.Component {
 
     return (
       <div className="Menubar">
-        <div>
-          ADC Synth
-          <SimpleButton text={playButtonText} handleClick={handleSynthCreate} />
+        <div className="logo">ADC Synth</div>
+        <div className="control">
           {bpm} BPM
+          <SimpleButton text={playButtonText} handleClick={handleTogglePlay} />
         </div>
-
-        <div>
-          <SimpleButton text="New Synth" handleClick={handleSynthCreate} />
-          <SimpleButton text="New Sampler" handleClick={handleSamplerCreate} />
-          <SimpleButton text="New Audio" handleClick={handleAudioCreate} />
-          <SimpleButton text="New Part" handleClick={handlePartCreate} />
-        </div>
+        <div className="login">log in</div>
       </div>
     )
   }

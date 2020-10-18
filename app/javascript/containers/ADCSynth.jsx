@@ -7,7 +7,7 @@ import Instruments from '../components/parts/Instruments'
 import Mixer from '../components/instruments/Mixer'
 
 import * as synthInitials from '../utilities/synths'
-// import * as voiceInitials from '../utilities/voices'
+import * as voiceState from '../utilities/voices'
 import * as channelInitials from '../utilities/channel'
 import * as effectInitials from '../utilities/effects'
 
@@ -27,8 +27,9 @@ export default class ADCSynth extends React.Component {
   }
 
   nextQuarter = () => {
+    console.log(Tone.Transport.position)
     const regexBefore = /([\w]+)/gm
-    const quarter = Tone.Transport.position.match(regexBefore)[1]
+    const quarter = Tone.Transport.position.match(regexBefore)[2]
 
     this.setState({
       currentQuarter: quarter
@@ -37,6 +38,7 @@ export default class ADCSynth extends React.Component {
 
   handleTogglePlay = () => {
     let { bpm, isOn, scheduleId } = this.state.transport
+    console.log(bpm, isOn, scheduleId)
 
     if (isOn) {
       Tone.Transport.pause()
@@ -45,7 +47,7 @@ export default class ADCSynth extends React.Component {
     } else {
       Tone.Transport.bpm.value = bpm
       Tone.Transport.start()
-      scheduleId = Tone.Transport.scheduleRepeat(this.nextQuarter, '4n')
+      scheduleId = Tone.Transport.scheduleRepeat(this.nextQuarter, '16n')
       isOn = true
     }
 
@@ -77,13 +79,18 @@ export default class ADCSynth extends React.Component {
 
     synthWebaudio.chain(channelWebaudio)
 
+    const regexBefore = /([\w]+)/gm
+    const quarter = Tone.Transport.position.match(regexBefore)[1]
+
     if (this.state.parts == undefined) {
       this.setState({
+        currentQuarter: quarter,
         currentPartName: 'Part 1',
         currentInstrument: 'Synth',
         currentBarTab: 'Sound',
         instruments,
-        parts: ['Part 1']
+        parts: ['Part 1'],
+        patterns: voiceState.voiceState.sequencer.patterns
       })
     } else {
       this.setState({
@@ -96,7 +103,16 @@ export default class ADCSynth extends React.Component {
 
   handleAudioCreate = () => {}
 
-  handlePartCreate = () => {}
+  handlePartCreate = () => {
+    let { parts } = this.state
+    console.log(parts)
+
+    parts.push('Part 2')
+
+    this.setState({
+      parts
+    })
+  }
 
   handlePartChange = () => {}
 
@@ -156,33 +172,29 @@ export default class ADCSynth extends React.Component {
   //   })
   // }
 
-  renderParts = () => {
-    const { currentPartName, parts } = this.state
-
-    return (
-      <Parts
-        currentPartName={currentPartName}
-        parts={parts}
-        handlePartChange={this.handlePartChange}
-      />
-    )
-  }
-
-  renderInstruments = () => {
-    const { instruments, currentInstrument, currentBarTab } = this.state
-
-    return (
-      <Instruments
-        instruments={instruments}
-        currentInstrument={currentInstrument}
-        currentBarTab={currentBarTab}
-        handleBarTabChange={this.handleBarTabChange}
-      />
-    )
-  }
+  // renderParts = () => {
+  //   const { currentPartName, parts } = this.state
+  //
+  //   return (
+  //     <Parts
+  //       currentPartName={currentPartName}
+  //       parts={parts}
+  //       handlePartChange={this.handlePartChange}
+  //     />
+  //   )
+  // }
 
   render() {
-    const { transport, parts, instruments } = this.state
+    const {
+      transport,
+      parts,
+      instruments,
+      currentInstrument,
+      currentBarTab,
+      currentPartName,
+      patterns,
+      currentQuarter
+    } = this.state
 
     return (
       <div className="ADCSynth">
@@ -191,15 +203,23 @@ export default class ADCSynth extends React.Component {
           isOn={transport.isOn}
           handleTogglePlay={this.handleTogglePlay}
           handleBpmChange={this.handleBpmChange}
+        />
+        <Parts
+          currentPartName={currentPartName}
+          parts={parts}
+          handlePartCreate={this.handlePartCreate}
+        />
+        <Instruments
+          instruments={instruments}
+          patterns={patterns}
+          currentQuarter={currentQuarter}
+          currentInstrument={currentInstrument}
+          currentBarTab={currentBarTab}
+          handleBarTabChange={this.handleBarTabChange}
           handleSynthCreate={this.handleSynthCreate}
           handleSamplerCreate={this.handleSamplerCreate}
           handleAudioCreate={this.handleAudioCreate}
-          handlePartCreate={this.handlePartCreate}
         />
-
-        {parts ? this.renderParts() : ''}
-        {instruments ? this.renderInstruments() : ''}
-
         <Mixer instruments={instruments} />
       </div>
     )
