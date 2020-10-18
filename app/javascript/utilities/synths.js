@@ -3,8 +3,8 @@ import * as Tone from 'tone'
 function synthState() {
   return {
     id: Math.floor(Math.random() * 10000),
-    type: 'synth',
     name: 'Synth',
+    type: 'synth',
     synth: {},
     effects: [],
     sequences: [],

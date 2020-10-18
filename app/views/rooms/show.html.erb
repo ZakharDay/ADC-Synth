@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @room.name %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @room.user_id %>
+</p>
+
+<% if current_user.email == 'mixer@test.com' %>
+  <p>
+    <strong>Main Channel Level:</strong>
+    <%= @room.main_channel_level %>
+  </p>
+
+  <p>
+    <strong>Tempo:</strong>
+    <%= @room.tempo %> BPM
+  </p>
+
+  <p>
+    <% @room.parts.each do |part| %>
+      <div>
+        <div><%= part.name %></div>
+
+        <% @room.instruments.each do |instrument| %>
+          <% i = instrument.settings.where(part_id: part.id).first %>
+
+          <div><%= i.id %></div>
+          <div><%= i.sequence %></div>
+          <div><%= i.channel %></div>
+          <br>
+        <% end %>
+      </div>
+    <% end %>
+  </p>
+<% else %>
+  <p>
+    <% @room.parts.each do |part| %>
+      <div>
+        <div><%= part.name %></div>
+
+        <% current_user.instruments.where(room_id: @room.id).each do |instrument| %>
+          <% i = instrument.settings.where(part_id: part.id).first %>
+
+          <div><%= i.id %></div>
+          <div><%= i.sequence %></div>
+          <div><%= i.channel %></div>
+          <br>
+        <% end %>
+      </div>
+    <% end %>
+  </p>
+<% end %>
+
+<%= link_to 'Edit', edit_room_path(@room) %> |
+<%= link_to 'Back', rooms_path %>
