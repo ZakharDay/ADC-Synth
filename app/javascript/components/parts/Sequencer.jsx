@@ -1,7 +1,7 @@
 import React from 'react'
 import * as Tone from 'tone'
 
-import Button from '../controls/Button'
+import ToggleButton from '../controls/ToggleButton'
 
 import { notes } from '../../utilities/notes'
 
@@ -12,7 +12,7 @@ export default class Sequencer extends React.Component {
 
   renderGrid = () => {
     let gridElements = []
-    let octave = 0
+    let octave = 7
 
     for (var i = 0; i < 8; i++) {
       Object.keys(notes).forEach((noteKey, i) => {
@@ -20,7 +20,7 @@ export default class Sequencer extends React.Component {
         gridElements.push(this.renderRow(note))
       })
 
-      octave++
+      octave--
     }
 
     return gridElements
@@ -39,7 +39,7 @@ export default class Sequencer extends React.Component {
 
     currentPatternSteps.forEach((patternStep, i) => {
       if (patternStep.step == currentQuarter) {
-        synth.webaudio.triggerAttackRelease(
+        synth[0].synth.webaudio.triggerAttackRelease(
           patternStep.note + patternStep.octave,
           '4n'
         )
@@ -54,23 +54,21 @@ export default class Sequencer extends React.Component {
     let current = false
 
     for (var i = 0; i < steps; i++) {
+      let on
       if (
         currentPatternSteps[i].step === i &&
         note === currentPatternSteps[i].note + currentPatternSteps[i].octave
       ) {
-        current = true
+        on = true
       } else {
-        current = false
+        on = false
       }
 
       stepElements.push(
-        <Button
-          name="button"
-          property="no"
-          option={true}
-          text=""
-          current={current}
-          handleClick=""
+        <ToggleButton
+          handleClick={() => console.log('click')}
+          text={note}
+          on={on}
           key={i}
         />
       )
@@ -78,7 +76,6 @@ export default class Sequencer extends React.Component {
 
     return (
       <div className="row" key={Math.floor(Math.random() * 1000000)}>
-        <div className="note">{note}</div>
         {stepElements}
       </div>
     )
@@ -88,5 +85,6 @@ export default class Sequencer extends React.Component {
     this.thiggerAttackRelease()
 
     return <div className="Sequencer">{this.renderGrid()}</div>
+    // return <div className="Sequencer">Sequencer</div>
   }
 }

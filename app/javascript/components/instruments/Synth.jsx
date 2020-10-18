@@ -24,19 +24,22 @@ export default class Synth extends React.Component {
     return (
       <div className="Synth">
         <div className="synthBar">
-          <div className="barHeading">{name}</div>
+          <div className="barHeading">
+            <span>{name}</span>
+          </div>
+          <div className="parts">
+            <ToggleButton
+              text="Sound"
+              on={currentBarTab === 'Sound' ? true : false}
+              handleClick={handleBarTabChange}
+            />
 
-          <ToggleButton
-            text="Sound"
-            on={currentBarTab === 'Sound' ? true : false}
-            handleClick={handleBarTabChange}
-          />
-
-          <ToggleButton
-            text="Sequence"
-            on={currentBarTab === 'Sequence' ? true : false}
-            handleClick={handleBarTabChange}
-          />
+            <ToggleButton
+              text="Sequence"
+              on={currentBarTab === 'Sequence' ? true : false}
+              handleClick={handleBarTabChange}
+            />
+          </div>
         </div>
       </div>
     )

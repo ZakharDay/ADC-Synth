@@ -16,7 +16,7 @@ export default class ToggleButton extends React.Component {
 
     return (
       <div className={classes} onClick={handleClick}>
-        {text}
+        <span>{text}</span>
       </div>
     )
   }

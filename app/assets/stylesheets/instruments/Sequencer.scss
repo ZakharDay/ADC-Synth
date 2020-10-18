@@ -1,0 +1,28 @@
+.Sequencer {
+  .row {
+    display: flex;
+    .note {
+      width: 40px;
+    }
+    .ToggleButton {
+      width: 100%;
+      height: 34px;
+      border: 1px solid var(--grey);
+      background: #ededed;
+      span {
+        display: none;
+      }
+
+      &.on {
+        background: var(--acid-green);
+      }
+      &:hover {
+        background: #c4ffa8;
+        span {
+          color: black;
+          display: block;
+        }
+      }
+    }
+  }
+}

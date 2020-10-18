@@ -10,7 +10,7 @@ export default class SimpleButton extends PureComponent {
 
     return (
       <div className="SimpleButton" onClick={handleClick}>
-        {text}
+        <span>{text}</span>
       </div>
     )
   }
