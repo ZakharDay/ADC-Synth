@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 
-import SimpleButton from '../controls/SimpleButton'
+import EffectTest from '../effects/EffectTest'
+import ChannelTest from '../parts/ChannelTest'
 
 export default class SynthTest extends PureComponent {
   constructor(props) {
@@ -18,8 +19,36 @@ export default class SynthTest extends PureComponent {
     })
   }
 
+  renderEffects = () => {
+    const { instrument } = this.props
+    let effectElements = []
+
+    instrument.effects.forEach((effect, i) => {
+      instrument.parts[0].effects.forEach((e, i) => {
+        if (e.name === effect.name) {
+          effectElements.push(
+            <EffectTest effect={effect} settings={e} key={i} />
+          )
+        }
+      })
+    })
+
+    return effectElements
+  }
+
+  renderChannel = () => {
+    const { instrument } = this.props
+
+    return (
+      <ChannelTest
+        channel={instrument.channel}
+        settings={instrument.parts[0].channel}
+      />
+    )
+  }
+
   render() {
-    const { instrument, handleClick } = this.props
+    const { instrument } = this.props
     const { parts, webaudio } = instrument
 
     // console.log(instrument.webaudio)
@@ -35,7 +64,8 @@ export default class SynthTest extends PureComponent {
 
     return (
       <div className="SynthTest">
-        <SimpleButton text="Play Note" handleClick={handleClick} />
+        {this.renderEffects()}
+        {instrument.channel ? this.renderChannel() : ''}
       </div>
     )
   }

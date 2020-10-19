@@ -77,21 +77,22 @@
 
 @effect1 = {
   name: 'feedbackDelay',
-  delayTime: '8n',maxDelay: 2
+  delayTime: '8n',
+  maxDelay: 0
 }
 
 @effect2 = {
   name: 'chorus',
-  frequency: 1.5,
-  delayTime: 3.5,
-  depth: 0.7,
+  frequency: 0,
+  delayTime: 0,
+  depth: 0,
   type: 'sine',
   spread: 180
 }
 
 @effect3 = {
   name: 'distortion',
-  distortion: 100,
+  distortion: 0,
   oversample: '4x'
 }
 
@@ -128,8 +129,29 @@ def create_room
 end
 
 def create_parts
-  Room.first.parts.create!(name: 'Part 2')
-  Room.first.parts.create!(name: 'Part 3')
+  room = Room.first
+  musician1 = User.find(1)
+  musician2 = User.find(2)
+  musician3 = User.find(3)
+  musician4 = User.find(4)
+
+  musician1.parts.create!(name: 'Part 1', room_id: room.id)
+  musician1.parts.create!(name: 'Part 2', room_id: room.id)
+  musician1.parts.create!(name: 'Part 3', room_id: room.id)
+
+  musician2.parts.create!(name: 'Part 1', room_id: room.id)
+  musician2.parts.create!(name: 'Part 2', room_id: room.id)
+  musician2.parts.create!(name: 'Part 3', room_id: room.id)
+  musician2.parts.create!(name: 'Part 4', room_id: room.id)
+
+  musician3.parts.create!(name: 'Part 1', room_id: room.id)
+  musician3.parts.create!(name: 'Part 2', room_id: room.id)
+
+  musician4.parts.create!(name: 'Part 1', room_id: room.id)
+  musician4.parts.create!(name: 'Part 2', room_id: room.id)
+  musician4.parts.create!(name: 'Part 3', room_id: room.id)
+  musician4.parts.create!(name: 'Part 4', room_id: room.id)
+  musician4.parts.create!(name: 'Part 5', room_id: room.id)
 end
 
 def create_instrument
@@ -138,18 +160,18 @@ def create_instrument
       room = Room.first
 
       if user.email == 'musician1@test.com'
-        instrument1 = user.instruments.create!(name: "Synth 1 for User #{user.id}", kind: 'synth', effects: ['feedbackDelay'], room_id: room.id)
+        instrument1 = user.instruments.create!(name: "Synth 1 for User #{user.id}", kind: 'synth', effects: ['feedbackDelay', 'chorus'], room_id: room.id)
       elsif user.email == 'musician2@test.com'
-        instrument1 = user.instruments.create!(name: "Synth 1 for User #{user.id}", kind: 'synth', effects: ['chorus'], room_id: room.id)
+        instrument1 = user.instruments.create!(name: "Synth 1 for User #{user.id}", kind: 'synth', room_id: room.id)
       elsif user.email == 'musician3@test.com'
-        instrument1 = user.instruments.create!(name: "Synth 1 for User #{user.id}", kind: 'synth', effects: ['distortion'], room_id: room.id)
+        instrument1 = user.instruments.create!(name: "Synth 1 for User #{user.id}", kind: 'synth', effects: ['chorus', 'distortion'], room_id: room.id)
       else
         instrument1 = user.instruments.create!(name: "Synth 1 for User #{user.id}", kind: 'synth', room_id: room.id)
       end
 
-      room.parts.each do |part|
+      instrument1.user.parts.where(room_id: room.id).each do |part|
         if instrument1.effects.any?
-          create_settings_for_instrument(part.id, instrument1.id, instrument1.effects[0])
+          create_settings_for_instrument(part.id, instrument1.id, instrument1.effects)
         else
           create_settings_for_instrument(part.id, instrument1.id)
         end
@@ -157,29 +179,35 @@ def create_instrument
 
       instrument2 = user.instruments.create!(name: "Synth 2 for User #{user.id}", kind: 'synth', room_id: room.id)
 
-      room.parts.each do |part|
+      instrument2.user.parts.where(room_id: room.id).each do |part|
         create_settings_for_instrument(part.id, instrument2.id)
       end
     end
   end
 end
 
-def create_settings_for_instrument(part_id, instrument_id, effect_name = '')
-  effects = []
+def create_settings_for_instrument(part_id, instrument_id, effects = [])
+  effectsSettings = []
 
-  if effect_name == 'feedbackDelay'
-    effects = [@effect1]
-  elsif effect_name == 'chorus'
-    effects = [@effect2]
-  elsif effect_name == 'distortion'
-    effects = [@effect3]
+  effects.each do |effect|
+    if effect == 'feedbackDelay'
+      effectsSettings << @effect1
+    end
+
+    if effect == 'chorus'
+      effectsSettings << @effect2
+    end
+
+    if effect == 'distortion'
+      effectsSettings << @effect3
+    end
   end
 
   Setting.create!(
     part_id: part_id,
     instrument_id: instrument_id,
     synth: generate_synth_settings,
-    effects: effects,
+    effects: effectsSettings,
     sequence: [@sequence1, @sequence2, @sequence3].sample,
     channel: @channel
   )

@@ -16,9 +16,6 @@ export default class Mixer extends PureComponent {
         <SynthTest
           instrument={instrument}
           currentQuarter={currentQuarter}
-          handleClick={() =>
-            instrument.webaudio.triggerAttackRelease(`C${i}`, '4n')
-          }
           key={i}
         />
       )

@@ -1,14 +1,12 @@
 <%
   instruments = @room.instruments
-  parts = @room.parts
-
   instruments_json = []
 
   instruments.each do |instrument|
     settings_json = []
 
-    parts.each do |part|
-      setting = instrument.settings.where(part_id: part.id).first
+    instrument.user.parts.where(room_id: @room.id).each do |part|
+      setting = part.settings.where(instrument_id: instrument.id).first
 
       settings_json << {
         partName: part.name,

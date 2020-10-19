@@ -34,46 +34,51 @@ export default class ADCSynth extends React.Component {
     if (instruments) {
       instruments.forEach((instrument, i) => {
         let newInstrument = Object.assign({}, instrument)
+        let newChannel = { webaudio: new Tone.Channel().toDestination() }
+        newInstrument.channel = newChannel
 
         if (instrument.effects.length) {
-          let effect = { name: instrument.effects[0] }
+          let newEffects = []
 
-          console.log(instrument.parts[0].effects)
+          instrument.effects.forEach((effectName, i) => {
+            let newEffect = { name: effectName }
 
-          instrument.parts[0].effects.forEach((e, i) => {
-            if (e.name === 'feedbackDelay') {
-              console.log('Yo')
-              effect.webaudio = new Tone.FeedbackDelay({
-                delayTime: e.delayTime,
-                maxDelay: e.maxDelay
-              }).toDestination()
-            } else if (e.name === 'chorus') {
-              effect.webaudio = new Tone.Chorus({
-                frequency: e.frequency,
-                delayTime: e.delayTime,
-                depth: e.depth,
-                type: e.type,
-                spread: e.spread
-              }).toDestination()
-            } else if (e.name === 'distortion') {
-              effect.webaudio = new Tone.Distortion({
-                distortion: e.distortion,
-                oversample: e.oversample
-              }).toDestination()
-            }
+            instrument.parts[0].effects.forEach((effect, i) => {
+              // console.log(effect)
+              if (
+                effectName === 'feedbackDelay' &&
+                effect.name === 'feedbackDelay'
+              ) {
+                newEffect.webaudio = new Tone.FeedbackDelay()
+              } else if (effectName === 'chorus' && effect.name === 'chorus') {
+                newEffect.webaudio = new Tone.Chorus()
+              } else if (
+                effectName === 'distortion' &&
+                effect.name === 'distortion'
+              ) {
+                newEffect.webaudio = new Tone.Distortion()
+              }
+            })
+
+            newEffect.webaudio.wet.value = 1
+            newEffects.push(newEffect)
           })
 
-          console.log(effect.webaudio)
-
-          effect.webaudio.wet.value = 1
-
-          newInstrument.effects = [effect]
+          newInstrument.effects = newEffects
           newInstrument.webaudio = new Tone.Synth()
-          newInstrument.webaudio.chain(effect.webaudio)
 
+          let webaudioObjects = []
+
+          newEffects.forEach((effect, i) => {
+            webaudioObjects.push(effect.webaudio)
+          })
+
+          webaudioObjects.push(newChannel.webaudio)
+          newInstrument.webaudio.chain(...webaudioObjects)
           newInstruments.push(newInstrument)
         } else {
-          newInstrument.webaudio = new Tone.Synth().toDestination()
+          newInstrument.webaudio = new Tone.Synth()
+          newInstrument.webaudio.chain(newChannel.webaudio)
           newInstruments.push(newInstrument)
         }
       })
@@ -130,6 +135,8 @@ export default class ADCSynth extends React.Component {
   render() {
     const { view, room } = this.props
     const { transportIsOn } = this.state
+
+    console.log(this.state)
 
     return (
       <div className="ADCSynth">
