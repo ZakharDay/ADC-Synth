@@ -1,45 +1,43 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
+
 import ToggleButton from '../controls/ToggleButton'
 import SimpleButton from '../controls/SimpleButton'
 
-export default class Parts extends PureComponent {
+export default class Parts extends React.Component {
   constructor(props) {
     super(props)
   }
 
   render() {
-    const {
-      currentPartName,
-      parts,
-      handlePartChange,
-      handlePartCreate
-    } = this.props
+    const { parts, handlePartCreate, handlePartChange } = this.props
     let partElements = []
 
-    if (parts) {
-      parts.forEach((part, i) => {
-        const on = part === currentPartName ? true : false
+    let it = 0
 
-        partElements.push(
-          <ToggleButton
-            text={part}
-            on={on}
-            handleClick={handlePartChange}
-            key={i}
-          />
-        )
-      })
-      return (
-        <div className="Parts">
-          <div className="barHeading">
-            <span>Parts</span>
-          </div>
-          <div className="partElements">{partElements}</div>
-          <SimpleButton text="+" handleClick={handlePartCreate} />
-        </div>
+    parts.forEach((part, i) => {
+      partElements.push(
+        <ToggleButton
+          text={part.name}
+          on={part.current}
+          handleClick={() => handlePartChange(i)}
+        />
       )
-    } else {
-      return ''
-    }
+
+      it++
+    })
+
+    partElements.push(
+      <div onClick={handlePartCreate} key={it}>
+        New Part
+      </div>
+    )
+
+    return (
+      <div className="Parts">
+        <div className="barHeading">Parts</div>
+
+        {partElements}
+      </div>
+    )
   }
 }

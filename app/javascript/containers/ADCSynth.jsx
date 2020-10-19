@@ -16,105 +16,166 @@ export default class ADCSynth extends React.Component {
     super(props)
 
     this.state = {
-      currentPartName: '',
-      currentInstrument: '',
-      currentBarTab: '',
-      transport: {
-        bpm: 120,
-        isOn: false
-      }
+      instruments: []
     }
   }
-
-  nextQuarter = () => {
-    console.log(Tone.Transport.position)
-    const regexBefore = /([\w]+)/gm
-    const quarter = Tone.Transport.position.match(regexBefore)[2]
-
-    this.setState({
-      currentQuarter: quarter
-    })
-  }
-
-  handleTogglePlay = () => {
-    let { bpm, isOn, scheduleId } = this.state.transport
-    console.log(bpm, isOn, scheduleId)
-
-    if (isOn) {
-      Tone.Transport.pause()
-      Tone.Transport.clear(scheduleId)
-      isOn = false
-    } else {
-      Tone.Transport.bpm.value = bpm
-      Tone.Transport.start()
-      scheduleId = Tone.Transport.scheduleRepeat(this.nextQuarter, '16n')
-      isOn = true
-    }
-
-    this.setState({
-      transport: {
-        bpm,
-        isOn,
-        scheduleId
-      }
-    })
-  }
-
-  handleBpmChange = () => {}
 
   handleSynthCreate = () => {
     let instruments = []
-
-    if (this.state.instruments) {
-      instruments = [...this.state.instruments]
+    console.log(this.state.instruments.length)
+    if (this.state.instruments.length > 0) {
+      instruments = this.state.instruments
     }
-
-    const synth = synthInitials.synthState()
-    const synthWebaudio = synthInitials.createToneSynth()
-    const channelWebaudio = channelInitials.createChannel()
-
-    synth.synth.webaudio = synthWebaudio
-    synth.channel.webaudio = channelWebaudio
-    instruments.push(synth)
-
-    synthWebaudio.chain(channelWebaudio)
-
-    const regexBefore = /([\w]+)/gm
-    const quarter = Tone.Transport.position.match(regexBefore)[1]
-
-    if (this.state.parts == undefined) {
-      this.setState({
-        currentQuarter: quarter,
-        currentPartName: 'Part 1',
-        currentInstrument: 'Synth',
-        currentBarTab: 'Sound',
-        instruments,
-        parts: ['Part 1'],
-        patterns: voiceState.voiceState.sequencer.patterns
-      })
-    } else {
-      this.setState({
-        instruments
-      })
-    }
-  }
-
-  handleSamplerCreate = () => {}
-
-  handleAudioCreate = () => {}
-
-  handlePartCreate = () => {
-    let { parts } = this.state
-    console.log(parts)
-
-    parts.push('Part 2')
+    instruments.push({
+      kind: 'synth',
+      name: 'name',
+      effects: [],
+      parts: [
+        {
+          name: 'part 1',
+          current: true,
+          settings: [
+            {
+              synth: { envelope: {}, detune: 30 },
+              effects: [{ name: 'effectName' }]
+            }
+          ]
+        }
+      ]
+    })
 
     this.setState({
-      parts
+      instruments
+    })
+    // if (this.state) {
+    //   console.log(this.state.instruments)
+    //   console.log('none')
+    // } else {
+    //   this.setState({
+    //     instruments: []
+    //   })
+    // }
+    // let instruments = []
+    //
+    // if (this.state.instruments) {
+    //   instruments = [...this.state.instruments]
+    // }
+    //
+    // const synth = synthInitials.synthState()
+    // const synthWebaudio = synthInitials.createToneSynth()
+    // const channelWebaudio = channelInitials.createChannel()
+    //
+    // synth.synth.webaudio = synthWebaudio
+    // synth.channel.webaudio = channelWebaudio
+    // instruments.push(synth)
+    //
+    // synthWebaudio.chain(channelWebaudio)
+    //
+    // if (this.state.parts == undefined) {
+    //   this.setState({
+    //     currentPartName: 'Part 1',
+    //     currentInstrument: 'Synth',
+    //     currentBarTab: 'Sound',
+    //     instruments,
+    //     parts: ['Part 1']
+    //   })
+    // } else {
+    //   this.setState({
+    //     instruments
+    //   })
+    // }
+  }
+  handleSampleCreate = () => {
+    let instruments = []
+    console.log(this.state.instruments.length)
+    if (this.state.instruments.length > 0) {
+      instruments = this.state.instruments
+    }
+    instruments.push({
+      kind: 'sampler',
+      name: 'name',
+      effects: [],
+      parts: [
+        {
+          name: 'part 1',
+          current: true,
+          settings: [
+            {
+              synth: { envelope: {}, detune: 30 },
+              effects: [{ name: 'effectName' }]
+            }
+          ]
+        }
+      ]
+    })
+
+    this.setState({
+      instruments
+    })
+    // if (this.state) {
+    //   console.log(this.state.instruments)
+    //   console.log('none')
+    // } else {
+    //   this.setState({
+    //     instruments: []
+    //   })
+    // }
+    // let instruments = []
+    //
+    // if (this.state.instruments) {
+    //   instruments = [...this.state.instruments]
+    // }
+    //
+    // const synth = synthInitials.synthState()
+    // const synthWebaudio = synthInitials.createToneSynth()
+    // const channelWebaudio = channelInitials.createChannel()
+    //
+    // synth.synth.webaudio = synthWebaudio
+    // synth.channel.webaudio = channelWebaudio
+    // instruments.push(synth)
+    //
+    // synthWebaudio.chain(channelWebaudio)
+    //
+    // if (this.state.parts == undefined) {
+    //   this.setState({
+    //     currentPartName: 'Part 1',
+    //     currentInstrument: 'Synth',
+    //     currentBarTab: 'Sound',
+    //     instruments,
+    //     parts: ['Part 1']
+    //   })
+    // } else {
+    //   this.setState({
+    //     instruments
+    //   })
+    // }
+  }
+
+  handlePartCreate = () => {
+    const { instruments } = this.state
+    instruments.forEach((instrument, i) => {
+      instrument.parts.forEach((part, i) => {
+        part.current = false
+      })
+
+      instrument.parts.push({ name: 'new part', current: true, settings: [] })
+    })
+    this.setState({
+      instruments
     })
   }
 
-  handlePartChange = () => {}
+  handlePartChange = (currentPartId) => {
+    const { instruments } = this.state
+    instruments.forEach((instrument, i) => {
+      instrument.parts.forEach((part, y) => {
+        y === currentPartId ? (part.current = true) : (part.current = false)
+      })
+    })
+    this.setState({
+      instruments
+    })
+  }
 
   handleBarTabChange = () => {
     // Перенести параметр внутрь инструмента
@@ -172,55 +233,33 @@ export default class ADCSynth extends React.Component {
   //   })
   // }
 
-  // renderParts = () => {
-  //   const { currentPartName, parts } = this.state
-  //
-  //   return (
-  //     <Parts
-  //       currentPartName={currentPartName}
-  //       parts={parts}
-  //       handlePartChange={this.handlePartChange}
-  //     />
-  //   )
-  // }
-
   render() {
-    const {
-      transport,
-      parts,
-      instruments,
-      currentInstrument,
-      currentBarTab,
-      currentPartName,
-      patterns,
-      currentQuarter
-    } = this.state
+    // const { transport, parts, instruments } = this.state
 
+    // {parts ? this.renderParts() : ''}
+    // {instruments ? this.renderInstruments() : ''}
     return (
       <div className="ADCSynth">
-        <Menubar
-          bpm={transport.bpm}
-          isOn={transport.isOn}
-          handleTogglePlay={this.handleTogglePlay}
-          handleBpmChange={this.handleBpmChange}
-        />
-        <Parts
-          currentPartName={currentPartName}
-          parts={parts}
-          handlePartCreate={this.handlePartCreate}
-        />
-        <Instruments
-          instruments={instruments}
-          patterns={patterns}
-          currentQuarter={currentQuarter}
-          currentInstrument={currentInstrument}
-          currentBarTab={currentBarTab}
-          handleBarTabChange={this.handleBarTabChange}
-          handleSynthCreate={this.handleSynthCreate}
-          handleSamplerCreate={this.handleSamplerCreate}
-          handleAudioCreate={this.handleAudioCreate}
-        />
-        <Mixer instruments={instruments} />
+        <Menubar />
+
+        {this.state.instruments.length > 0 ? (
+          <Parts
+            parts={this.state.instruments[0].parts}
+            handlePartChange={this.handlePartChange}
+            handlePartCreate={this.handlePartCreate}
+          />
+        ) : (
+          ''
+        )}
+        <div onClick={this.handleSynthCreate}>Create Synth</div>
+        <div onClick={this.handleSampleCreate}>Create Sampler</div>
+        {this.state.instruments.length > 0 ? (
+          <Instruments instruments={this.state.instruments} />
+        ) : (
+          ''
+        )}
+
+        <Mixer />
       </div>
     )
   }
