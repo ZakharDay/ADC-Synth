@@ -11,43 +11,26 @@ export default class Instruments extends React.Component {
 
   render() {
     const {
-      instruments,
-      currentInstrument,
-      currentBarTab,
-      handleBarTabChange
+      instruments
+      // currentBarTab,
+      // handleBarTabChange
     } = this.props
     let instrumentElements = []
 
     instruments.forEach((instrument, i) => {
-      if (instrument.type === 'synth') {
+      if (instrument.kind === 'synth') {
+        instrumentElements.push(<Synth instrument={instrument} key={i} />)
+      } else if (instrument.kind === 'sampler') {
         instrumentElements.push(
-          <Synth
-            {...instrument}
-            currentInstrument={currentInstrument}
-            currentBarTab={currentBarTab}
-            handleBarTabChange={handleBarTabChange}
-            key={i}
-          />
-        )
-      } else if (instrument.type === 'sampler') {
-        instrumentElements.push(
-          <Sampler
-            {...instrument}
-            currentInstrument={currentInstrument}
-            currentBarTab={currentBarTab}
-            handleBarTabChange={handleBarTabChange}
-            key={i}
-          />
-        )
-      } else if (instrument.type === 'audio') {
-        instrumentElements.push(
-          <Audio
-            {...instrument}
-            currentInstrument={currentInstrument}
-            currentBarTab={currentBarTab}
-            handleBarTabChange={handleBarTabChange}
-            key={i}
-          />
+          <div key={i}>Sampler</div>
+
+          // <Sampler
+          //   {...instrument}
+          //   currentInstrument={currentInstrument}
+          //   currentBarTab={currentBarTab}
+          //   handleBarTabChange={handleBarTabChange}
+          //   key={i}
+          // />
         )
       }
     })

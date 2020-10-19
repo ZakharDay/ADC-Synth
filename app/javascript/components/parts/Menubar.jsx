@@ -25,18 +25,8 @@ export default class Menubar extends React.Component {
 
     return (
       <div className="Menubar">
-        <div>
-          ADC Synth
-          <SimpleButton text={playButtonText} handleClick={handleSynthCreate} />
-          {bpm} BPM
-        </div>
-
-        <div>
-          <SimpleButton text="New Synth" handleClick={handleSynthCreate} />
-          <SimpleButton text="New Sampler" handleClick={handleSamplerCreate} />
-          <SimpleButton text="New Audio" handleClick={handleAudioCreate} />
-          <SimpleButton text="New Part" handleClick={handlePartCreate} />
-        </div>
+        <div className="logo">ADC Synth</div>
+        <div>SignIN</div>
       </div>
     )
   }
