@@ -1,36 +1,37 @@
 import React from 'react'
 
-import SimpleButton from './SimpleButton'
+import ToggleButton from './ToggleButton'
 
 export default class ButtonSet extends React.Component {
   constructor(props) {
     super(props)
   }
 
-  handleClick = (set) => {
-    let list = document.getElementsByClassName('list')
-    list = Array.from(list)
-    list[0].classList.toggle('on')
-  }
   render() {
-    let { text, set } = this.props
+    let { text, set, current } = this.props
     let buttonList = []
     Object.keys(set).forEach((button, i) => {
-      buttonList.push(
-        <SimpleButton text={button} handleClick={set[button]} key={i} />
-      )
+      console.log(current, button)
+      if (current === button) {
+        buttonList.push(
+          <ToggleButton
+            text={button}
+            on={true}
+            handleClick={set[button]}
+            key={i}
+          />
+        )
+      } else {
+        buttonList.push(
+          <ToggleButton
+            text={button}
+            on={false}
+            handleClick={set[button]}
+            key={i}
+          />
+        )
+      }
     })
-    return (
-      <div className="ButtonSet">
-        <div
-          className="current"
-          onMouseOver={this.handleClick}
-          onMouseOut={this.handleClick}
-        >
-          {text}
-        </div>
-        <div className="list">{buttonList}</div>
-      </div>
-    )
+    return <div className="ButtonSet">{buttonList}</div>
   }
 }

@@ -1,71 +1,253 @@
 import React from 'react'
-import ButtonSet from '../controls/ButtonSet'
+import Select from '../controls/Select'
 // import Button from '../controls/Button'
 
+import AutoFilter from './effects/AutoFilter'
+import AutoPanner from './effects/AutoPanner'
+import AutoWah from './effects/AutoWah'
+import BitCrusher from './effects/BitCrusher'
+import Chebyshev from './effects/Chebyshev'
 import Chorus from './effects/Chorus'
-import FeedbackDelay from './effects/FeedbackDelay'
 import Distortion from './effects/Distortion'
+import FeedbackDelay from './effects/FeedbackDelay'
+import FeedbackEffect from './effects/FeedbackEffect'
+import Freeverb from './effects/Freeverb'
+import JcReverb from './effects/JcReverb'
+import Phaser from './effects/Phaser'
+import PingPongDelay from './effects/PingPongDelay'
+import PitchShift from './effects/PitchShift'
+import Reverb from './effects/Reverb'
+import StereoWidener from './effects/StereoWidener'
+import Tremolo from './effects/Tremolo'
+import Vibrato from './effects/Vibrato'
 
 export default class Effects extends React.Component {
   constructor(props) {
     super(props)
   }
 
+  existenceСheck = (prop) => {
+    if (prop) {
+      prop = prop
+    } else {
+      prop = 0
+    }
+    return prop
+  }
+
   renderEffects = () => {
-    const { settings } = this.props
+    const { settings, instrumentId, chanheEffectSetValue } = this.props
     let effectItems = []
     settings.effects.forEach((effect, i) => {
       if (effect.name === 'autoFilter') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <AutoFilter
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'autoPanner') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <AutoPanner
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'autoWah') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <AutoWah
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'bitCrusher') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <BitCrusher
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'chebyshev') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <Chebyshev
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'chorus') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <Chorus
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'distortion') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <Distortion
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'feedbackDelay') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <FeedbackDelay
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'feedbackEffect') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <FeedbackEffect
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'freeverb') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <Freeverb
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'jcReverb') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <JcReverb
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'phaser') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <Phaser
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'pingPongDelay') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <PingPongDelay
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'pitchShift') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <PitchShift
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'reverb') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <Reverb
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'stereoWidener') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <StereoWidener
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'tremolo') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <Tremolo
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       } else if (effect.name === 'vibrato') {
-        effectItems.push(<div>{effect.name}</div>)
+        effectItems.push(
+          <Vibrato
+            instrumentId={instrumentId}
+            settings={settings}
+            chanheEffectSetValue={chanheEffectSetValue}
+            createProp={this.createProp}
+            existenceСheck={this.existenceСheck}
+            key={Math.floor(Math.random() * 100)}
+          />
+        )
       }
     })
 
-    console.log(effectItems)
     return effectItems
   }
 
   render() {
     const { settings, instrumentId, addEffects } = this.props
 
-    console.log(settings.effects)
-
     settings.effects.forEach((effect, i) => {
       const name = effect.name
-      console.log(name)
       return this.renderEffects(name)
     })
 
@@ -103,7 +285,7 @@ export default class Effects extends React.Component {
     // {this.renderEffects()}
     return (
       <div className="Effects">
-        <ButtonSet text="Add Effect" set={typeSetButtonEffects} />
+        <Select text="Add Effect" set={typeSetButtonEffects} />
         {this.renderEffects()}
       </div>
     )

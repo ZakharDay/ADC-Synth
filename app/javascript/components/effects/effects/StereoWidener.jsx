@@ -1,25 +1,27 @@
 import React from 'react'
 
-import PlaySwitch from '../controls/PlaySwitch'
-import ToggleButton from '../controls/ToggleButton'
-import Slider from '../controls/Slider'
-import Knob from '../controls/Knob'
-import ButtonSet from '../controls/ButtonSet'
+// import PlaySwitch from '../controls/PlaySwitch'
+import ToggleButton from '../../controls/ToggleButton'
+import Slider from '../../controls/Slider'
+import Knob from '../../controls/Knob'
+import ButtonSet from '../../controls/ButtonSet'
+import Select from '../../controls/Select'
 
 export default class StereoWidener extends React.Component {
   constructor(props) {
     super(props)
   }
 
+  createProp = (prop) => {
+    return { stereoWidener: prop }
+  }
+
   render() {
     const {
-      name,
-      effect,
-      on,
-      wet,
-      toggleEffect,
-      changeEffectWetValue,
-      changeEffectValue
+      settings,
+      instrumentId,
+      chanheEffectSetValue,
+      existenceСheck
     } = this.props
 
     return (

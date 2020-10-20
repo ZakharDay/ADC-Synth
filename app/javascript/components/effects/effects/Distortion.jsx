@@ -1,62 +1,78 @@
 import React from 'react'
 
+// import PlaySwitch from '../controls/PlaySwitch'
 import ToggleButton from '../../controls/ToggleButton'
 import Slider from '../../controls/Slider'
+import Knob from '../../controls/Knob'
 import ButtonSet from '../../controls/ButtonSet'
+import Select from '../../controls/Select'
 
 export default class Distortion extends React.Component {
   constructor(props) {
     super(props)
   }
 
-  render() {
-    const set = ['none', '2x', '4x']
+  createProp = (prop) => {
+    return { distortion: prop }
+  }
 
-    const {
-      name,
-      effect,
-      wet,
-      on,
-      toggleEffect,
-      changeEffectWetValue,
-      changeEffectValue
+  render() {
+    let {
+      settings,
+      instrumentId,
+      chanheEffectSetValue,
+      existenceСheck
+      // name,
+      // effect,
+      // wet,
+      // toggleEffect,
+      // changeEffectWetValue,
+      // changeEffectValue
     } = this.props
+    const set = {
+      none: () => chanheEffectSetValue(instrumentId, this.createProp(''), ''),
+      x2: () => chanheEffectSetValue(instrumentId, this.createProp('2x'), '2x'),
+      x4: () => chanheEffectSetValue(instrumentId, this.createProp(), '4x')
+    }
+
+    settings.effects.forEach((effect, i) => {
+      if (effect.name === 'distortion') {
+        settings = effect
+      }
+    })
+
+    let { wet, distortion, oversample } = settings
+    wet = existenceСheck(wet)
+    distortion = existenceСheck(distortion)
+    oversample = existenceСheck(oversample)
 
     return (
       <div className="Effect">
-        <ToggleButton text="Distortion" on={on} handleClick={toggleEffect} />
-
         <div className="controlsContainer">
           <div className="controlsRow">
             <h2>Wet</h2>
             <Slider
-              name={name}
-              property="wet"
+              property={this.createProp('wet')}
               min="0"
               max="1"
-              value={wet}
-              handleValueChange={changeEffectWetValue}
+              step="0.1"
+              current={wet}
+              handleChange={chanheEffectSetValue}
+              instrumentId={instrumentId}
             />
 
             <h2>Distortion</h2>
             <Slider
-              name={name}
-              property="distortion"
+              property={this.createProp('distortion')}
               min="0"
               max="20"
-              on={on}
-              value={effect.distortion}
-              handleValueChange={changeEffectValue}
+              step="1"
+              current={distortion}
+              handleChange={chanheEffectSetValue}
+              instrumentId={instrumentId}
             />
-
             <h2>Oversample</h2>
-            <ButtonSet
-              name={name}
-              property="oversample"
-              set={set}
-              value={effect.oversample}
-              handleValueChange={changeEffectValue}
-            />
+            <ButtonSet set={set} current={oversample} />
           </div>
         </div>
       </div>

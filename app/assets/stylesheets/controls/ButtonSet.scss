@@ -1,37 +1,26 @@
 .ButtonSet {
-  width: 197px;
   font-size: 18px;
   color: var(--medium-grey);
-  background-color: var(--white);
   padding: 8px 23px 9px;
-  position: relative;
   margin-top: 16px;
   margin-left: 30px;
   font-weight: bold;
-  &:hover {
-    color: var(--dark-green);
-  }
-  .list {
-    position: absolute;
-    display: none;
-    background-color: var(--grey);
-    left: 73px;
-    top: 0;
-    &.on {
-      display: block;
-    }
-    &:hover {
-      display: block;
-    }
-    .SimpleButton {
-      font-size: 14px;
-      background-color: var(--grey);
-      padding: 9px 17px 11px;
-      width: 139px;
-      height: auto;
 
-      color: var(--black);
-      text-transform: capitalize;
+  .ToggleButton {
+    font-size: 14px;
+    background-color: var(--white);
+    padding: 9px 17px 11px;
+    width: 139px;
+    height: auto;
+
+    color: var(--black);
+    text-transform: capitalize;
+    &.on {
+      color: var(--dark-green);
+    }
+
+    & + .ToggleButton {
+      margin-top: 20px;
     }
   }
 }

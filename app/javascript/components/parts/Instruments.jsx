@@ -6,7 +6,7 @@ import Sequencer from './Sequencer'
 import Sampler from '../instruments/Sampler'
 import Audio from '../instruments/Audio'
 import SimpleButton from '../controls/SimpleButton'
-import ButtonSet from '../controls/ButtonSet'
+import Select from '../controls/Select'
 
 export default class Instruments extends React.Component {
   constructor(props) {
@@ -20,11 +20,11 @@ export default class Instruments extends React.Component {
       changeEnvelopeValue,
       handleChangeDetune,
       handleChangeSequence,
-      addEffects
+      addEffects,
+      chanheEffectSetValue
     } = this.props
 
     let instrumentElements = []
-    let instrumentSetting
 
     instruments.forEach((instrument, i) => {
       if (instrument.kind === 'synth') {
@@ -37,6 +37,7 @@ export default class Instruments extends React.Component {
             handleChangeSequence={handleChangeSequence}
             addEffects={addEffects}
             key={i}
+            chanheEffectSetValue={chanheEffectSetValue}
           />
         )
       } else if (instrument.kind === 'sampler') {
@@ -52,9 +53,8 @@ export default class Instruments extends React.Component {
     return (
       <div className="Instruments">
         {instrumentElements}
-        {instrumentSetting}
 
-        <ButtonSet text="+ Add Instrument" set={set} />
+        <Select text="+ Add Instrument" set={set} />
       </div>
     )
   }

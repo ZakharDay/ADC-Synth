@@ -1,15 +1,19 @@
 import React from 'react'
 
-import PlaySwitch from '../controls/PlaySwitch'
-import ToggleButton from '../controls/ToggleButton'
-import Slider from '../controls/Slider'
-import Knob from '../controls/Knob'
-import ButtonSet from '../controls/ButtonSet'
-import Select from '../controls/Select'
+// import PlaySwitch from '../controls/PlaySwitch'
+import ToggleButton from '../../controls/ToggleButton'
+import Slider from '../../controls/Slider'
+import Knob from '../../controls/Knob'
+import ButtonSet from '../../controls/ButtonSet'
+import Select from '../../controls/Select'
 
 export default class AutoFilter extends React.Component {
   constructor(props) {
     super(props)
+  }
+
+  createProp = (prop) => {
+    return { autoFilter: prop }
   }
 
   render() {
@@ -20,19 +24,16 @@ export default class AutoFilter extends React.Component {
     const rolloffSet = [-12, -24, -48, -96]
 
     const {
-      name,
-      effect,
-      wet,
-      on,
-      toggleEffect,
-      changeEffectWetValue,
-      changeEffectValue
+      settings,
+      instrumentId,
+      chanheEffectSetValue,
+      existenceСheck
     } = this.props
 
     return (
       <div className="Effect">
+        //{' '}
         <ToggleButton text="Auto Filter" on={on} handleClick={toggleEffect} />
-
         <div className="controlsContainer">
           <div className="controlsRow">
             <h2>Wet</h2>

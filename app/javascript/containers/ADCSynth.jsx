@@ -55,12 +55,11 @@ export default class ADCSynth extends React.Component {
 
   handleInstrumentCreate = (kind) => {
     let instruments = []
-    console.log(this.state.instruments.length)
     if (this.state.instruments.length > 0) {
       instruments = this.state.instruments
     }
     instruments.push({
-      kind: { kind },
+      kind: kind,
       name: 'name',
       effects: [],
       parts: [
@@ -199,7 +198,6 @@ export default class ADCSynth extends React.Component {
   addEffects = (instrumentId, effectName) => {
     const { instruments } = this.state
     const instrument = instruments[instrumentId]
-    console.log(instrument)
     instrument.effects.push(effectName)
     instrument.parts.forEach((part, i) => {
       if (part.current) {
@@ -211,6 +209,54 @@ export default class ADCSynth extends React.Component {
       instruments
     })
   }
+
+  chanheEffectSetValue = (instrumentId, effect, value) => {
+    const { instruments } = this.state
+    const instrument = instruments[instrumentId]
+    const effectName = Object.keys(effect)[0]
+    const property = effect[effectName]
+    instrument.parts.forEach((part, i) => {
+      if (part.current) {
+        let it
+        part.effects.forEach((ef, y) => {
+          if (ef.name === effectName) {
+            it = y
+          }
+        })
+        if (!part.effects[it]) {
+          part.effects[it][property] = 0
+        } else {
+          part.effects[it][property] = value
+        }
+      }
+    })
+
+    this.setState({
+      instruments
+    })
+  }
+  // const { instruments } = this.state
+  // const instrument = instruments[instrumentId]
+  // const effectName = Object.keys(effect)[0]
+  // const effectProp = effect[effectName]
+
+  // instrument.parts.forEach((part, i) => {
+  //   if (part.current) {
+  //     part.effects.forEach((ef, y) => {
+  //       if (ef.name === effectName) {
+  //         if (ef[effectProp]) {
+  //           ef[effectProp] = value
+  //         } else {
+  //           ef[effectProp] = 0
+  //         }
+  //       }
+  //     })
+  //   }
+  // })
+
+  // this.setState({
+  //   instruments
+  // })
 
   // changeTypeOscillator = (property, value) => {
   //   const { transport, voices } = this.state
@@ -254,6 +300,7 @@ export default class ADCSynth extends React.Component {
               handleChangeDetune={this.handleChangeDetune}
               handleChangeSequence={this.handleChangeSequence}
               addEffects={this.addEffects}
+              chanheEffectSetValue={this.chanheEffectSetValue}
             />
           ) : (
             ''
