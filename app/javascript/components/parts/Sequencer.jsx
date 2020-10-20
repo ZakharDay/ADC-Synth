@@ -1,30 +1,30 @@
 import React from 'react'
 // import * as Tone from 'tone'
 
-// import Button from '../controls/Button'
+import ToggleButton from '../controls/ToggleButton'
 
-// import { notes } from '../../utilities/notes'
+import { notes } from '../../utilities/notes'
 
 export default class Sequencer extends React.Component {
   constructor(props) {
     super(props)
   }
 
-  // renderGrid = () => {
-  //   let gridElements = []
-  //   let octave = 0
-  //
-  //   for (var i = 0; i < 8; i++) {
-  //     Object.keys(notes).forEach((noteKey, i) => {
-  //       const note = noteKey + octave
-  //       gridElements.push(this.renderRow(note))
-  //     })
-  //
-  //     octave++
-  //   }
-  //
-  //   return gridElements
-  // }
+  renderGrid = () => {
+    let gridElements = []
+    let octave = 0
+
+    for (var i = 0; i < 8; i++) {
+      Object.keys(notes).forEach((noteKey, i) => {
+        const fullNote = noteKey + octave
+        gridElements.push(this.renderRow(fullNote, noteKey, octave))
+      })
+
+      octave++
+    }
+
+    return gridElements
+  }
 
   // thiggerAttackRelease = () => {
   //   const {
@@ -47,47 +47,44 @@ export default class Sequencer extends React.Component {
   //   })
   // }
 
-  // renderRow = (note) => {
-  //   const { steps, currentPattern, patterns } = this.props
-  //   const currentPatternSteps = patterns[currentPattern]
-  //   let stepElements = []
-  //   let current = false
-  //
-  //   for (var i = 0; i < steps; i++) {
-  //     if (
-  //       currentPatternSteps[i].step === i &&
-  //       note === currentPatternSteps[i].note + currentPatternSteps[i].octave
-  //     ) {
-  //       current = true
-  //     } else {
-  //       current = false
-  //     }
-  //
-  //     stepElements.push(
-  //       <Button
-  //         name="button"
-  //         property="no"
-  //         option={true}
-  //         text=""
-  //         current={current}
-  //         handleClick=""
-  //         key={i}
-  //       />
-  //     )
-  //   }
+  renderRow = (note, noteKey, octave) => {
+    const { instrumentId, settings, handleChangeSequence } = this.props
+    const currentPatternSteps = settings.sequence
+    const steps = currentPatternSteps.length
+    let stepElements = []
+    let current = false
 
-  //   return (
-  //     <div className="row" key={Math.floor(Math.random() * 1000000)}>
-  //       <div className="note">{note}</div>
-  //       {stepElements}
-  //     </div>
-  //   )
-  // }
+    for (var i = 0; i < steps; i++) {
+      let step = i
+      if (
+        currentPatternSteps[i].step === i &&
+        note === currentPatternSteps[i].note + currentPatternSteps[i].octave
+      ) {
+        current = true
+      } else {
+        current = false
+      }
+
+      stepElements.push(
+        <ToggleButton
+          text={note}
+          on={current}
+          handleClick={() =>
+            handleChangeSequence(instrumentId, step, noteKey, octave)
+          }
+          key={i}
+        />
+      )
+    }
+
+    return (
+      <div className="row" key={Math.floor(Math.random() * 1000000)}>
+        {stepElements}
+      </div>
+    )
+  }
 
   render() {
-    // this.thiggerAttackRelease()
-
-    return <div className="Sequencer">Sequencer</div>
-    // return <div className="Sequencer">{this.renderGrid()}</div>
+    return <div className="Sequencer">{this.renderGrid()}</div>
   }
 }

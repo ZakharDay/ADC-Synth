@@ -9,7 +9,7 @@ export default class Parts extends React.Component {
   }
 
   render() {
-    const { parts, handlePartCreate, handlePartChange } = this.props
+    const { parts, handlePartCreate, handlePartChange, instrument } = this.props
     let partElements = []
 
     let it = 0
@@ -17,9 +17,10 @@ export default class Parts extends React.Component {
     parts.forEach((part, i) => {
       partElements.push(
         <ToggleButton
-          text={part.name}
-          on={part.current}
+          text={part}
+          on={instrument.parts[i].current}
           handleClick={() => handlePartChange(i)}
+          key={i}
         />
       )
 
@@ -36,7 +37,7 @@ export default class Parts extends React.Component {
       <div className="Parts">
         <div className="barHeading">Parts</div>
 
-        {partElements}
+        <div className="partElements">{partElements}</div>
       </div>
     )
   }

@@ -15,9 +15,11 @@ export default class Instruments extends React.Component {
 
   render() {
     const {
-      instruments
-      // currentBarTab,
-      // handleBarTabChange
+      instruments,
+      handleInstrumentCreate,
+      changeEnvelopeValue,
+      handleChangeDetune,
+      handleChangeSequence
     } = this.props
 
     let instrumentElements = []
@@ -25,16 +27,24 @@ export default class Instruments extends React.Component {
 
     instruments.forEach((instrument, i) => {
       if (instrument.kind === 'synth') {
-        instrumentElements.push(<Synth instrument={instrument} key={i} />)
+        instrumentElements.push(
+          <Synth
+            instrumentId={i}
+            instrument={instrument}
+            changeEnvelopeValue={changeEnvelopeValue}
+            handleChangeDetune={handleChangeDetune}
+            handleChangeSequence={handleChangeSequence}
+            key={i}
+          />
+        )
       } else if (instrument.kind === 'sampler') {
         instrumentElements.push(<div key={i}>Sampler</div>)
       }
     })
 
     let set = {
-      Synth: this.props.handleSynthCreate,
-      Sampler: this.props.handleSamplerCreate,
-      Audio: this.props.handleAudioCreate
+      Synth: () => handleInstrumentCreate('synth'),
+      Sampler: () => handleInstrumentCreate('sampler')
     }
 
     return (

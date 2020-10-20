@@ -7,6 +7,8 @@
     border-bottom: 1px solid var(--medium-grey);
 
     .barHeading {
+      width: 200px;
+
       padding: 16px 0 17px 25px;
       border-right: 1px solid var(--medium-grey);
 
@@ -16,32 +18,35 @@
       }
     }
 
-    .parts {
+    .ToggleButtons {
       display: flex;
       width: 100%;
-
-      .ToggleButtons {
-        display: flex;
+      .ToggleButton {
+        min-width: 100px;
         width: 100%;
-        .ToggleButton {
-          min-width: 100px;
-          width: 100%;
 
-          height: 50px;
-          padding: 0 20px;
-          line-height: 50px;
-          text-align: center;
-          text-transform: uppercase;
-          background: var(--dark-grey);
-          cursor: pointer;
+        height: 50px;
+        padding: 0 20px;
+        line-height: 50px;
+        text-align: center;
+        text-transform: uppercase;
+        background: var(--dark-grey);
+        cursor: pointer;
 
-          &.on {
-            color: var(--dark-grey);
-            background: var(--dark-green);
-            cursor: default;
-          }
+        &.on {
+          color: var(--dark-grey);
+          background: var(--dark-green);
+          cursor: default;
         }
       }
+    }
+  }
+  .settings {
+    display: flex;
+    width: 100%;
+    .Synth,
+    .Effects {
+      width: 100%;
     }
   }
 }

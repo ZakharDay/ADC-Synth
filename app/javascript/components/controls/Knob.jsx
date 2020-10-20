@@ -54,7 +54,7 @@ export default class Knob extends React.Component {
   }
 
   handleMouseMove = (e) => {
-    const { min, max, handleChange } = this.props
+    const { min, max, handleChange, instrumentId, property } = this.props
     const { cursorY } = this.state
 
     if (this.state.mouseDown) {
@@ -72,7 +72,7 @@ export default class Knob extends React.Component {
           nextValue = max
         }
 
-        handleChange(nextValue)
+        handleChange(instrumentId, property, nextValue)
 
         this.setState({
           cursorY: e.screenY,

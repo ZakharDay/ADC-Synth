@@ -1,6 +1,10 @@
 import React from 'react'
 import ButtonSet from '../controls/ButtonSet'
-import Button from '../controls/Button'
+// import Button from '../controls/Button'
+
+import Chorus from './effects/Chorus'
+import FeedbackDelay from './effects/FeedbackDelay'
+import Distortion from './effects/Distortion'
 
 export default class Effects extends React.Component {
   constructor(props) {
@@ -8,43 +12,46 @@ export default class Effects extends React.Component {
   }
 
   renderEffects = () => {
-    const effects = this.props.effect
+    const { settings } = this.props
+
     let effectItems = []
-    console.log(effects.length)
-    if (effects.length != 0) {
-      effects.forEach((effect, i) => {
-        effectItems.push(<div key={i}>effect</div>)
-      })
-    } else {
-      effectItems.push(
-        <div key={Math.floor(Math.random() * 100)}>No effect</div>
-      )
-    }
+    settings.effects.forEach((effect, i) => {
+      const name = effect.name
+      effectItems.push(effect.name)
+      if (name === 'chorus') {
+        // effectItems.push(<Chorus settings={settings} />)
+      } else if (name === 'feedbackDelay') {
+        // effectItems.push(<FeedbackDelay settings={settings} />)
+      } else if (name === 'distortion') {
+        // effectItems.push(<Distortion settings={settings} />)
+      }
+    })
 
     return effectItems
   }
 
   render() {
-    const typeSetButtonEffects = ['distortion', 'feedbackDelay', 'tremolo']
-    this.renderEffects()
+    // const typeSetButtonEffects = ['distortion', 'feedbackDelay', 'tremolo']
+    // this.renderEffects()
+    // <ButtonSet
+    //   property="oscillator.type"
+    //   set={typeSetButtonEffects}
+    //   value=""
+    //   handleChange={this.handleAddEffects}
+    // />
+    //
+    // <Button
+    //   name="button"
+    //   property="no"
+    //   option={true}
+    //   text="Add Effect"
+    //   current={true}
+    //   handleClick={this.props.handleCreateEffect}
+    // />
+    // {this.renderEffects()}
     return (
-      <div>
-        <ButtonSet
-          property="oscillator.type"
-          set={typeSetButtonEffects}
-          value=""
-          handleChange={this.handleAddEffects}
-        />
-
-        <Button
-          name="button"
-          property="no"
-          option={true}
-          text="Add Effect"
-          current={true}
-          handleClick={this.props.handleCreateEffect}
-        />
-        {this.renderEffects()}
+      <div className="Effects">
+        {this.renderEffects()} <div>Add Effect</div>
       </div>
     )
   }

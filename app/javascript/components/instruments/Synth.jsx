@@ -1,7 +1,10 @@
 import React from 'react'
 
-import ToggleButton from '../controls/ToggleButton'
 import Sequencer from '../parts/Sequencer'
+import ToneSynth from '../synths/ToneSynth'
+import Effects from '../effects/Effects'
+
+import ToggleButton from '../controls/ToggleButton'
 
 export default class Synth extends React.Component {
   constructor(props) {
@@ -43,10 +46,40 @@ export default class Synth extends React.Component {
 
   renderSettings = () => {
     const { currentBarTab } = this.state
+    const {
+      instrument,
+      changeEnvelopeValue,
+      instrumentId,
+      handleChangeDetune,
+      handleChangeSequence
+    } = this.props
+    let settings
+    instrument.parts.forEach((part, i) => {
+      if (part.current) {
+        settings = part
+      }
+    })
     if (currentBarTab === 'Sound') {
-      return <div>Sound</div>
+      return (
+        <div className="settings">
+          <ToneSynth
+            instrumentId={instrumentId}
+            settings={settings}
+            changeEnvelopeValue={changeEnvelopeValue}
+            handleChangeDetune={handleChangeDetune}
+          />
+          <Effects settings={settings} instrumentId={instrumentId} />
+        </div>
+      )
+      return <div></div>
     } else if (currentBarTab === 'Sequence') {
-      return <Sequencer />
+      return (
+        <Sequencer
+          instrumentId={instrumentId}
+          settings={settings}
+          handleChangeSequence={handleChangeSequence}
+        />
+      )
     } else {
       return ''
     }
