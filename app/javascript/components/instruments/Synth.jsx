@@ -51,7 +51,8 @@ export default class Synth extends React.Component {
       changeEnvelopeValue,
       instrumentId,
       handleChangeDetune,
-      handleChangeSequence
+      handleChangeSequence,
+      addEffects
     } = this.props
     let settings
     instrument.parts.forEach((part, i) => {
@@ -68,7 +69,11 @@ export default class Synth extends React.Component {
             changeEnvelopeValue={changeEnvelopeValue}
             handleChangeDetune={handleChangeDetune}
           />
-          <Effects settings={settings} instrumentId={instrumentId} />
+          <Effects
+            settings={settings}
+            instrumentId={instrumentId}
+            addEffects={addEffects}
+          />
         </div>
       )
       return <div></div>

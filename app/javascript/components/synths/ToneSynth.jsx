@@ -38,9 +38,7 @@ export default class ToneSynth extends React.Component {
     // const { harmonicity, modulationIndex, resonance, octaves } = instrument
     const { attack, decay, sustain, release } = settings.synth.envelope
     let { detune } = settings.synth
-    console.log(detune)
     detune = this.existenceСheck(detune)
-    console.log(detune)
     //
     const typeSet = ['sine', 'square', 'triangle', 'sawtooth']
     // const sourceTypeSet = ['fm', 'am', 'fat', 'pwm', 'pulse']

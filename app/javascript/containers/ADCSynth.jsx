@@ -30,11 +30,12 @@ export default class ADCSynth extends React.Component {
     })
 
     instruments.forEach((instrument, i) => {
+      effects = []
       instrument.effects.forEach((effect, y) => {
         effects.push(effect)
       })
       partsToInstrument = []
-      instrument.parts.forEach((part, i) => {
+      instrument.parts.forEach((part, k) => {
         part.current = false
         partsToInstrument.push(part)
       })
@@ -52,37 +53,6 @@ export default class ADCSynth extends React.Component {
     })
   }
 
-  fillingState = () => {
-    const { instruments } = this.props
-  }
-
-  handleSynthCreate = () => {
-    let instruments = []
-    if (this.state.instruments.length > 0) {
-      instruments = this.state.instruments
-    }
-    instruments.push({
-      kind: 'synth',
-      name: 'name',
-      effects: [],
-      parts: [
-        {
-          name: 'part 1',
-          current: true,
-          settings: [
-            {
-              synth: { envelope: {}, detune: 30 },
-              effects: [{ name: 'effectName' }]
-            }
-          ]
-        }
-      ]
-    })
-
-    this.setState({
-      instruments
-    })
-  }
   handleInstrumentCreate = (kind) => {
     let instruments = []
     console.log(this.state.instruments.length)
@@ -226,6 +196,22 @@ export default class ADCSynth extends React.Component {
     })
   }
 
+  addEffects = (instrumentId, effectName) => {
+    const { instruments } = this.state
+    const instrument = instruments[instrumentId]
+    console.log(instrument)
+    instrument.effects.push(effectName)
+    instrument.parts.forEach((part, i) => {
+      if (part.current) {
+        part.effects.push({ name: effectName })
+      }
+    })
+
+    this.setState({
+      instruments
+    })
+  }
+
   // changeTypeOscillator = (property, value) => {
   //   const { transport, voices } = this.state
   //   const synth = voices[0].synth.webaudio
@@ -243,15 +229,6 @@ export default class ADCSynth extends React.Component {
   //     voices
   //   })
   // }
-
-  setCurrentPart = () => {
-    const { instruments } = this.state
-    instruments[0].parts.current = true
-
-    this.setState({
-      instruments
-    })
-  }
 
   render() {
     if (this.state) {
@@ -276,6 +253,7 @@ export default class ADCSynth extends React.Component {
               changeEnvelopeValue={this.changeEnvelopeValue}
               handleChangeDetune={this.handleChangeDetune}
               handleChangeSequence={this.handleChangeSequence}
+              addEffects={this.addEffects}
             />
           ) : (
             ''
