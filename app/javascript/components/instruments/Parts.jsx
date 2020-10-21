@@ -9,35 +9,34 @@ export default class Parts extends React.Component {
   }
 
   render() {
-    const { parts, handlePartCreate, handlePartChange, instrument } = this.props
-    let partElements = []
+    const {
+      parts,
+      currentPartId,
+      handlePartCreate,
+      handlePartChange
+    } = this.props
 
-    let it = 0
+    let partElements = []
 
     parts.forEach((part, i) => {
       partElements.push(
         <ToggleButton
-          text={part}
-          on={instrument.parts[i].current}
-          handleClick={() => handlePartChange(i)}
+          text={part.name}
+          on={part.id === currentPartId}
+          handleClick={() => handlePartChange(part.id)}
           key={i}
         />
       )
-
-      it++
     })
-
-    partElements.push(
-      <div onClick={handlePartCreate} key={it}>
-        New Part
-      </div>
-    )
 
     return (
       <div className="Parts">
         <div className="barHeading">Parts</div>
-
         <div className="partElements">{partElements}</div>
+
+        <div className="barAside">
+          <SimpleButton text="New Part" handleClick={handlePartCreate} />
+        </div>
       </div>
     )
   }

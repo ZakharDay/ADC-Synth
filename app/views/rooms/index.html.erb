@@ -28,4 +28,10 @@
 
 <br>
 
+<% if user_signed_in? %>
+  <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+<% end %>
+
+<br>
+
 <%= link_to 'New Room', new_room_path %>

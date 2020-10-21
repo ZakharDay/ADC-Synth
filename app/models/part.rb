@@ -4,4 +4,6 @@ class Part < ApplicationRecord
 
   has_many :settings
   has_many :instruments, through: :settings
+
+  default_scope { order(created_at: :asc) }
 end

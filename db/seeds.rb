@@ -135,19 +135,19 @@ def create_parts
   musician3 = User.find(3)
   musician4 = User.find(4)
 
-  musician1.parts.create!(name: 'Part 1', room_id: room.id)
+  musician1.parts.create!(name: 'Part 1', room_id: room.id, current: true)
   musician1.parts.create!(name: 'Part 2', room_id: room.id)
   musician1.parts.create!(name: 'Part 3', room_id: room.id)
 
-  musician2.parts.create!(name: 'Part 1', room_id: room.id)
+  musician2.parts.create!(name: 'Part 1', room_id: room.id, current: true)
   musician2.parts.create!(name: 'Part 2', room_id: room.id)
   musician2.parts.create!(name: 'Part 3', room_id: room.id)
   musician2.parts.create!(name: 'Part 4', room_id: room.id)
 
-  musician3.parts.create!(name: 'Part 1', room_id: room.id)
+  musician3.parts.create!(name: 'Part 1', room_id: room.id, current: true)
   musician3.parts.create!(name: 'Part 2', room_id: room.id)
 
-  musician4.parts.create!(name: 'Part 1', room_id: room.id)
+  musician4.parts.create!(name: 'Part 1', room_id: room.id, current: true)
   musician4.parts.create!(name: 'Part 2', room_id: room.id)
   musician4.parts.create!(name: 'Part 3', room_id: room.id)
   musician4.parts.create!(name: 'Part 4', room_id: room.id)

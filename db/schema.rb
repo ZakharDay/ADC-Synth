@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_200847) do
     t.string "name"
     t.integer "room_id"
     t.integer "user_id"
+    t.boolean "current", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -46,8 +47,8 @@ ActiveRecord::Schema.define(version: 2020_10_17_200847) do
     t.integer "instrument_id"
     t.integer "part_id"
     t.json "synth"
-    t.json "effects"
-    t.json "sequence"
+    t.json "effects", default: []
+    t.json "sequence", default: []
     t.json "channel"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

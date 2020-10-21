@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     member do
       get 'musician'
       get 'mixer'
+      get 'create_part'
+      post 'change_part'
+      get 'create_instrument'
     end
   end
 

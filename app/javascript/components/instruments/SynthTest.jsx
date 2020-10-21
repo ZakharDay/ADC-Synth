@@ -9,8 +9,15 @@ export default class SynthTest extends PureComponent {
   }
 
   thiggerAttackRelease = () => {
+    // console.log(this.props)
     const { instrument, currentQuarter } = this.props
-    const { sequence } = instrument.parts[0]
+    let sequence = []
+
+    instrument.parts.forEach((part, i) => {
+      if (part.current) {
+        sequence = part.sequence
+      }
+    })
 
     sequence.forEach((step, i) => {
       if (step.step == currentQuarter) {

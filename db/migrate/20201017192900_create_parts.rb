@@ -4,6 +4,7 @@ class CreateParts < ActiveRecord::Migration[6.0]
       t.string :name
       t.integer :room_id
       t.integer :user_id
+      t.boolean :current, default: false
 
       t.timestamps
     end

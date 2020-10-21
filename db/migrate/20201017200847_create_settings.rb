@@ -4,8 +4,8 @@ class CreateSettings < ActiveRecord::Migration[6.0]
       t.integer :instrument_id
       t.integer :part_id
       t.json :synth
-      t.json :effects
-      t.json :sequence
+      t.json :effects, default: []
+      t.json :sequence, default: []
       t.json :channel
 
       t.timestamps
