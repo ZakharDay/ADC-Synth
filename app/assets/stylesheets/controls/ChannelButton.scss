@@ -1,0 +1,27 @@
+.ChannelButton {
+  background-color: var(--dark-green);
+  width: 24px;
+  height: 24px;
+  color: var(--black);
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ChannelButton span {
+  width: 18px;
+  height: 14px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ChannelButton.on {
+  background-color: none;
+  border: 1px solid var(--dark-green);
+  box-sizing: border-box;
+  color: var(--dark-green);
+}
