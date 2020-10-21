@@ -1,26 +1,32 @@
 .Knob {
+  width: 180px;
+  height: 180px;
   position: relative;
-  width: 50px;
-  height: 69px;
+}
+
+.KnobBody {
+  position: absolute;
+  left: 60px;
+  top: 86px;
 
   .body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 50px;
-    height: 50px;
-    background: var(--acid-green);
-    border-radius: 25px;
+    width: 60px;
+    height: 60px;
+    background: var(--white);
+    border-radius: 50px;
 
     &::before {
       position: absolute;
       top: 0;
-      left: 23px;
+      left: 28px;
       display: block;
       content: '';
       width: 4px;
-      height: 15px;
-      background: white;
+      height: 20px;
+      background: var(--dark-green);
     }
   }
 
@@ -32,4 +38,141 @@
     font-family: sans-serif;
     font-size: 12px;
   }
+}
+
+.Billet {
+  width: 4px;
+  height: 9px;
+  background-color: var(--white);
+}
+
+#BilletGroup1 {
+  position: absolute;
+  height: 93px;
+  width: 4px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  transform: rotate(90deg);
+  left: 88px;
+  top: 70px;
+}
+#BilletGroup2 {
+  position: absolute;
+  height: 93px;
+  width: 4px;
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  transform: rotate(45deg);
+  left: 89px;
+  top: 70px;
+}
+#BilletGroup3 {
+  position: absolute;
+  height: 93px;
+  width: 4px;
+  top: 70px;
+  left: 87px;
+  transform: rotate(-45deg);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.LastBillet {
+  width: 4px;
+  height: 9px;
+  left: 88px;
+  top: 70px;
+  background-color: var(--white);
+  position: absolute;
+}
+
+.KnobName {
+  position: absolute;
+  top: 14px;
+  left: 15px;
+  width: 150px;
+  height: 20px;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.BilletValue {
+  position: absolute;
+  width: 22px;
+  height: 13px;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+#Value7 {
+  top: 148px;
+  left: 31px;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+#Value9 {
+  top: 109px;
+  left: 15px;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+#Value11 {
+  top: 71px;
+  left: 31px;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+#Value12 {
+  top: 52px;
+  display: flex;
+  justify-content: center;
+  left: 79px;
+  text-align: center;
+  align-items: center;
+}
+#Value2 {
+  top: 71px;
+  right: 31px;
+  text-align: left;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+#Value3 {
+  top: 109px;
+  right: 15px;
+  text-align: left;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+#Value5 {
+  top: 148px;
+  right: 31px;
+  text-align: left;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
 }

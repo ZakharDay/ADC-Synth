@@ -1,0 +1,98 @@
+.AddButtonMedium {
+  color: var(--acid-green);
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.AddButtonMedium:hover {
+  color: var(--dark-green);
+  .AddButtonMediumCircle {
+    background-color: var(--dark-green);
+  }
+  cursor: pointer;
+}
+
+.AddButtonMediumCircle {
+  width: 25px;
+  height: 25px;
+  background-color: var(--acid-green);
+  border-radius: 100px;
+  position: relative;
+  &::before {
+    position: absolute;
+    top: 11.27px;
+    left: 5.77px;
+    display: block;
+    content: '';
+    width: 13.23px;
+    height: 2.12px;
+    background: var(--black);
+  }
+
+  &::after {
+    position: absolute;
+    top: 11.45px;
+    left: 5.77px;
+    width: 13.46px;
+    height: 2.08px;
+    display: block;
+    content: '';
+    transform: rotate(90deg);
+    background: var(--black);
+  }
+}
+
+.AddButtonMedium span {
+  margin-left: 8px;
+}
+
+.AddButtonLarge {
+  color: var(--acid-green);
+  font-weight: bold;
+  font-size: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.AddButtonLarge:hover {
+  color: var(--dark-green);
+  .AddButtonLargeCircle {
+    background-color: var(--dark-green);
+  }
+  cursor: pointer;
+}
+
+.AddButtonLargeCircle {
+  width: 45px;
+  height: 45px;
+  background-color: var(--acid-green);
+  border-radius: 100px;
+  position: relative;
+  &::before {
+    position: absolute;
+    top: 9px;
+    left: 20.53px;
+    display: block;
+    content: '';
+    width: 4.03px;
+    height: 25.62px;
+    background: var(--black);
+  }
+
+  &::after {
+    position: absolute;
+    top: 19.66px;
+    left: 10px;
+    width: 25.62px;
+    height: 4.03px;
+    display: block;
+    content: '';
+    background: var(--black);
+  }
+}
+
+.AddButtonLarge span {
+  margin-left: 8px;
+}

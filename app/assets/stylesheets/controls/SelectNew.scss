@@ -1,0 +1,48 @@
+.SelectButton {
+  margin-top: 16px;
+}
+
+.SelectCurrent {
+  background-color: var(--black);
+  width: 150px;
+  height: 30px;
+  border: 1px solid var(--white);
+  box-sizing: border-box;
+  font-size: 16px;
+  font-weight: 300;
+  display: flex;
+  &::after {
+    display: block;
+    width: 10px;
+    height: 10px;
+    content: '';
+    background-image: asset-url('../images/SelectTriangle.svg');
+    background-repeat: no-repeat;
+    margin-left: 10px;
+    margin-top: 10px;
+    transform: rotate(180deg);
+  }
+}
+
+.SelectCurrent span {
+  display: block;
+  margin-top: 5px;
+  margin-left: 15px;
+  width: 104px;
+  height: 20px;
+}
+
+.OpenedSelect {
+  height: 30px;
+  width: 150px;
+  padding-left: 15px;
+  padding-top: 5px;
+  color: var(--black);
+  background-color: var(--white);
+}
+
+.OpenedSelect:hover {
+  color: var(--black);
+  background-color: var(--dark-green);
+  cursor: pointer;
+}
