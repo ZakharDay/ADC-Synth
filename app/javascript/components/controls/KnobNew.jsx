@@ -86,7 +86,7 @@ export default class Knob extends React.Component {
           nextValue = max
         }
 
-        // Метод который вызывает изменения по вращанию кноба в родительском компаненте
+        // Метод который вызывает изменения по вращанию кноба в родительском компоненте
 
         // handleChange(instrumentId, property, nextValue)
 
