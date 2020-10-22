@@ -1,31 +1,13 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
 import ToggleButton from '../controls/ToggleButton'
 import Slider from '../controls/Slider'
 import KnobNew from '../controls/KnobNew'
 import ButtonSet from '../controls/ButtonSet'
 
-export default class ToneSynth extends React.Component {
+export default class ToneSynth extends PureComponent {
   constructor(props) {
     super(props)
-  }
-
-  // handleEnvelopeChange = (property, value) => {
-  //   const { changeEnvelopeValue } = this.props
-  //   changeEnvelopeValue(property, value)
-  //   // console.log(property, value)
-  // }
-  // handleChangeTypeOscillator = (property, value) => {
-  //   const { changeTypeOscillator } = this.props
-  //   changeTypeOscillator(property, value)
-  //   // console.log(property, value)
-  // }
-
-  existenceСheck = (prop) => {
-    if (!prop) {
-      prop = 0
-    }
-    return prop
   }
 
   render() {

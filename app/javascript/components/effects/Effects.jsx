@@ -20,6 +20,7 @@ import Reverb from './effects/Reverb'
 import StereoWidener from './effects/StereoWidener'
 import Tremolo from './effects/Tremolo'
 import Vibrato from './effects/Vibrato'
+import AddButton from '../controls/AddButtonNew'
 
 export default class Effects extends React.Component {
   constructor(props) {
@@ -242,6 +243,9 @@ export default class Effects extends React.Component {
       <div className="Effects">
         <Select text="Add Effect" set={typeSetButtonEffects} />
         {this.renderEffects()}
+        <div>
+          <AddButton text="Add Chorus" size="medium" />
+        </div>
       </div>
     )
   }

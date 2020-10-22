@@ -2,9 +2,51 @@
   .settings {
     display: flex;
     width: 100%;
+    margin-top: 40px;
+
     .Synth,
     .Effects {
       width: 100%;
+    }
+  }
+
+  .SynthSettings {
+    display: flex;
+    //margin-top: 40px;
+    .TitleComponents {
+      font-size: 20px;
+      font-family: 'PT Root UI';
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    .KnobCommonSettings {
+      width: 360px;
+      margin-left: 30px;
+
+      .KnobSet {
+        display: flex;
+      }
+    }
+
+    .EnvelopeSettings {
+      width: 180px;
+      margin-left: 30px;
+
+      .ParametrSlider {
+        margin-top: 46px;
+      }
+      .ParametrButtonSet {
+        margin-top: 71px;
+      }
+
+      .GroupEnvelopeSettings {
+        display: flex;
+      }
+
+      #i {
+        margin-left: 30px;
+      }
     }
   }
 }
