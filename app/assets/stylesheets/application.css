@@ -13,6 +13,7 @@
  *= require reset
  *= require vars
  *= require ADCSynth
+ *= require fonts
  *= require_tree ./controls
  *= require_tree ./instruments
  *= require_tree ./parts
