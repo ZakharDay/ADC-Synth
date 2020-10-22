@@ -215,6 +215,14 @@ end
 
 def generate_synth_settings
   settings = {
+    detune: 0,
+    portamento: 0,
+    oscillator: {
+      type: 'square',
+      sourceType: 'fm',
+      modulationType: 'sine',
+      phase: 0
+    },
     envelope: {
       attack: (Random.new().rand(1.9) - 1).abs,
       decay: (Random.new().rand(1.9) - 1).abs,

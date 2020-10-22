@@ -13,6 +13,7 @@ export default class ToneSynth extends PureComponent {
   render() {
     const { instrument, settings, handleSynthValueChange } = this.props
     const { id } = instrument
+
     let { detune, portamento } = settings.synth
     let { type, sourceType, modulationType, phase } = settings.synth.oscillator
     let { attack, decay, sustain, release } = settings.synth.envelope

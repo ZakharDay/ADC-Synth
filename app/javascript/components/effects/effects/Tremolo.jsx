@@ -1,7 +1,7 @@
 import React from 'react'
 
 // import PlaySwitch from '../controls/PlaySwitch'
-import ToggleButton from '../../controls/ToggleButton'
+// import ToggleButton from '../../controls/ToggleButton'
 import Slider from '../../controls/Slider'
 import Knob from '../../controls/Knob'
 import ButtonSet from '../../controls/ButtonSet'
@@ -28,8 +28,6 @@ export default class Tremolo extends React.Component {
 
     return (
       <div className="Effect">
-        <ToggleButton text="Tremolo" on={on} handleClick={toggleEffect} />
-
         <div className="controlsContainer">
           <div className="controlsRow">
             <h2>Wet</h2>
