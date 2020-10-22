@@ -1,5 +1,5 @@
 import React from 'react'
-import ButtonSet from '../components/controls/ButtonSet'
+import ButtonSet from '../components/controls/ButtonSetNew'
 import AddButton from '../components/controls/AddButtonNew'
 import ChannelButton from '../components/controls/ChannelButtonNew'
 import Select from '../components/controls/SelectNew'
@@ -14,7 +14,15 @@ export default class SynthG extends React.Component {
   }
 
   render() {
-    // let typeSet = ['sine', 'square', 'triangle', 'sawtooth', 'fatsawtooth']
+    let typeSet = [
+      'sine',
+      'square',
+      'triangle',
+      'sawtooth',
+      'fatsawtooth',
+      'ssada',
+      'ssada'
+    ]
     // // prettier-ignore
     // const curveSet = ['linear', 'exponential', 'sine', 'cosine', 'bounce', 'ripple', 'step']
     // const decayCurveSet = ['linear', 'exponential']
@@ -66,21 +74,20 @@ export default class SynthG extends React.Component {
         />
         <Knob
           name="Name"
-          min={-60}
-          max={60}
+          min={-1000}
+          max={-100}
           current={-500}
           handleChange={this.handleLog}
         />
+        <ButtonSet
+          text={'synth'}
+          property={'[' + 1 + ']oscillator.type'}
+          set={typeSet}
+          current={typeSet[0]}
+          // value={type}
+          // handleValueChange={this.handleValueChange}
+        />
       </div>
-
-      // <ButtonSet
-      //   text={'synth'}
-      //   property={'[' + 1 + ']oscillator.type'}
-      //   set={typeSet}
-      //   current={typeSet[0]}
-      //   // value={type}
-      //   // handleValueChange={this.handleValueChange}
-      // />
     )
   }
 }
