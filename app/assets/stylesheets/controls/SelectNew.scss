@@ -1,8 +1,15 @@
-.SelectButton {
+.select {
   margin-top: 16px;
+  user-select: none;
 }
 
-.SelectCurrent {
+.select.on .selectCurrent {
+  &::after {
+    transform: rotate(0deg);
+  }
+}
+
+.selectCurrent {
   background-color: var(--black);
   width: 150px;
   height: 30px;
@@ -24,7 +31,7 @@
   }
 }
 
-.SelectCurrent span {
+.selectCurrent span {
   display: block;
   margin-top: 5px;
   margin-left: 15px;
@@ -32,7 +39,7 @@
   height: 20px;
 }
 
-.OpenedSelect {
+.openedSelect {
   height: 30px;
   width: 150px;
   padding-left: 15px;
@@ -41,7 +48,7 @@
   background-color: var(--white);
 }
 
-.OpenedSelect:hover {
+.openedSelect:hover {
   color: var(--black);
   background-color: var(--dark-green);
   cursor: pointer;

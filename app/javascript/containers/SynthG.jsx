@@ -19,12 +19,44 @@ export default class SynthG extends React.Component {
     // const curveSet = ['linear', 'exponential', 'sine', 'cosine', 'bounce', 'ripple', 'step']
     // const decayCurveSet = ['linear', 'exponential']
 
+    const selectOption1 = {
+      text: 'Option1',
+      handleClick: () => this.handleLog(1)
+    }
+
+    const selectOption2 = {
+      text: 'Option2',
+      handleClick: () => this.handleLog(2)
+    }
+
+    const selectOption3 = {
+      text: 'Option3',
+      handleClick: () => this.handleLog(3)
+    }
+    const selectOption4 = {
+      text: 'Option4',
+      handleClick: () => this.handleLog(4)
+    }
+
+    const selectOption5 = {
+      text: 'Option5',
+      handleClick: () => this.handleLog(5)
+    }
+
+    const selectOptions = [
+      selectOption1,
+      selectOption2,
+      selectOption3,
+      selectOption4,
+      selectOption5
+    ]
+
     return (
       <div>
         <AddButton text="Add synth" size="Large" handleClick={null} />
         <AddButton text="Add synth" size="Medium" handleClick={null} />
         <ChannelButton text="1" on={false} handleClick={null} />
-        <Select current={'Option 1'} />
+        <Select current={'Option 1'} options={selectOptions} />
         <Knob
           name="Name"
           min={-60}

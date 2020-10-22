@@ -1,33 +1,61 @@
 import classnames from 'classnames'
 import React from 'react'
+import SelectToggleButton from './SelectToggleButton'
 
 export default class Select extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      optionsList: [],
+      isOpened: false
+    }
   }
 
-  calcSelectOptions = () => {}
+  calcSelectOptions = () => {
+    const { options } = this.props
+    const { optionsList, isOpened } = this.state
+
+    let selectOptions = []
+
+    options.forEach((option, i) => {
+      selectOptions.push(
+        <SelectToggleButton
+          onClick={option.handleClick}
+          text={option.text}
+          key={i}
+        />
+      )
+    })
+
+    if (isOpened == false) {
+      this.setState({
+        optionsList: selectOptions,
+        isOpened: !isOpened
+      })
+    } else {
+      this.setState({
+        optionsList: [],
+        isOpened: !isOpened
+      })
+    }
+  }
 
   render() {
-    const { current, on } = this.props
+    const { current, on, options } = this.props
+    const { optionsList, isOpened } = this.state
 
     const classes = classnames({
-      SelectCurrent: true,
-      open: on
+      select: true,
+      on: isOpened
     })
 
     return (
-      <div className="SelectButton">
-        <div className={classes}>
+      <div className={classes}>
+        <div onClick={() => this.calcSelectOptions()} className="selectCurrent">
           <span>{current}</span>
         </div>
-        <div className="OpenedList">
-          <div className="OpenedSelect">Option 2</div>
-          <div className="OpenedSelect">Option 3</div>
-          <div className="OpenedSelect">Option 4</div>
-          <div className="OpenedSelect">Option 5</div>
-          <div className="OpenedSelect">Option 6</div>
-        </div>
+        <div className="openedList">{optionsList}</div>
       </div>
     )
   }
