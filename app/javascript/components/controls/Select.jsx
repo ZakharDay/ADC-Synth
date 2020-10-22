@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
 import SimpleButton from './SimpleButton'
 
-export default class Select extends React.Component {
+export default class Select extends PureComponent {
   constructor(props) {
     super(props)
   }

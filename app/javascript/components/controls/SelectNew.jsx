@@ -1,7 +1,7 @@
 import classnames from 'classnames'
-import React from 'react'
+import React, { PureComponent } from 'react'
 
-export default class Select extends React.Component {
+export default class Select extends PureComponent {
   constructor(props) {
     super(props)
   }

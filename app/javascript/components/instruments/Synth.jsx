@@ -54,12 +54,7 @@ export default class Synth extends React.Component {
       instrument,
       handleSynthValueChange,
       handleEffectCreate,
-      //
-      changeEnvelopeValue,
-      instrumentId,
-      handleChangeDetune,
-      handleChangeSequence,
-      chanheEffectSetValue
+      handleEffectValueChange
     } = this.props
 
     let settings
@@ -77,15 +72,13 @@ export default class Synth extends React.Component {
             instrument={instrument}
             settings={settings}
             handleSynthValueChange={handleSynthValueChange}
-            changeEnvelopeValue={changeEnvelopeValue}
-            handleChangeDetune={handleChangeDetune}
           />
 
           <Effects
             instrument={instrument}
-            handleEffectCreate={handleEffectCreate}
             settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
+            handleEffectCreate={handleEffectCreate}
+            handleEffectValueChange={handleEffectValueChange}
           />
         </div>
       )

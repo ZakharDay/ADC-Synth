@@ -26,217 +26,180 @@ export default class Effects extends React.Component {
     super(props)
   }
 
-  existenceСheck = (prop) => {
-    if (prop) {
-      prop = prop
-    } else {
-      prop = 0
-    }
-    return prop
-  }
+  // filterEffectSettings = (name, settings) => {
+  //   return settings.effects.filter((effect) => {
+  //     if (effect.name === 'name') {
+  //       return effect
+  //     }
+  //   })
+  // }
 
   renderEffects = () => {
-    const { settings, instrument, chanheEffectSetValue } = this.props
-    const instrumentId = instrument.id
+    const { settings, instrument, handleEffectValueChange } = this.props
+    const { id } = instrument
     let effectItems = []
 
     settings.effects.forEach((effect, i) => {
       if (effect.name === 'autoFilter') {
         effectItems.push(
           <AutoFilter
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'autoPanner') {
         effectItems.push(
           <AutoPanner
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'autoWah') {
         effectItems.push(
           <AutoWah
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'bitCrusher') {
         effectItems.push(
           <BitCrusher
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'chebyshev') {
         effectItems.push(
           <Chebyshev
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'chorus') {
         effectItems.push(
           <Chorus
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'distortion') {
         effectItems.push(
           <Distortion
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'feedbackDelay') {
         effectItems.push(
           <FeedbackDelay
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'feedbackEffect') {
         effectItems.push(
           <FeedbackEffect
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'freeverb') {
         effectItems.push(
           <Freeverb
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'jcReverb') {
         effectItems.push(
           <JcReverb
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'phaser') {
         effectItems.push(
           <Phaser
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'pingPongDelay') {
         effectItems.push(
           <PingPongDelay
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'pitchShift') {
         effectItems.push(
           <PitchShift
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'reverb') {
         effectItems.push(
           <Reverb
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'stereoWidener') {
         effectItems.push(
           <StereoWidener
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'tremolo') {
         effectItems.push(
           <Tremolo
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       } else if (effect.name === 'vibrato') {
         effectItems.push(
           <Vibrato
-            instrumentId={instrumentId}
-            settings={settings}
-            chanheEffectSetValue={chanheEffectSetValue}
-            createProp={this.createProp}
-            existenceСheck={this.existenceСheck}
-            key={Math.floor(Math.random() * 100)}
+            parentId={id}
+            effect={effect}
+            handleEffectValueChange={handleEffectValueChange}
+            key={i}
           />
         )
       }

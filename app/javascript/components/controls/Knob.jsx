@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
-export default class Knob extends React.Component {
+export default class Knob extends PureComponent {
   constructor(props) {
     super(props)
 

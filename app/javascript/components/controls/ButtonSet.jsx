@@ -1,37 +1,27 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
 import ToggleButton from './ToggleButton'
 
-export default class ButtonSet extends React.Component {
+export default class ButtonSet extends PureComponent {
   constructor(props) {
     super(props)
   }
 
   render() {
-    let { text, set, current } = this.props
-    let buttonList = []
-    Object.keys(set).forEach((button, i) => {
-      console.log(current, button)
-      if (current === button) {
-        buttonList.push(
-          <ToggleButton
-            text={button}
-            on={true}
-            handleClick={set[button]}
-            key={i}
-          />
-        )
-      } else {
-        buttonList.push(
-          <ToggleButton
-            text={button}
-            on={false}
-            handleClick={set[button]}
-            key={i}
-          />
-        )
-      }
+    let { parentId, property, set, value, handleChange } = this.props
+    let buttonElements = []
+
+    set.forEach((option, i) => {
+      buttonElements.push(
+        <ToggleButton
+          text={option}
+          on={option === value}
+          handleClick={() => handleChange(parentId, property, option)}
+          key={i}
+        />
+      )
     })
-    return <div className="ButtonSet">{buttonList}</div>
+
+    return <div className="ButtonSet">{buttonElements}</div>
   }
 }

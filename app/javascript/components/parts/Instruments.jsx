@@ -18,11 +18,7 @@ export default class Instruments extends React.Component {
       instruments,
       handleSynthValueChange,
       handleEffectCreate,
-      //
-      changeEnvelopeValue,
-      handleChangeDetune,
-      handleChangeSequence,
-      chanheEffectSetValue
+      handleEffectValueChange
     } = this.props
 
     let instrumentElements = []
@@ -34,11 +30,7 @@ export default class Instruments extends React.Component {
             instrument={instrument}
             handleSynthValueChange={handleSynthValueChange}
             handleEffectCreate={handleEffectCreate}
-            //
-            changeEnvelopeValue={changeEnvelopeValue}
-            handleChangeDetune={handleChangeDetune}
-            handleChangeSequence={handleChangeSequence}
-            chanheEffectSetValue={chanheEffectSetValue}
+            handleEffectValueChange={handleEffectValueChange}
             key={i}
           />
         )

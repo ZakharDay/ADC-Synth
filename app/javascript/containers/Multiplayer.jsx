@@ -193,36 +193,40 @@ export default class ADCSynth extends React.Component {
       })
   }
 
-  handleSynthValueChange(id, settingName, value) {
+  handleSynthValueChange = (id, property, value) => {
     const { instruments, currentPartId } = this.state
     let newInstruments = [...instruments]
 
-    instrument = instruments.filter((i) => {
-      return i.id === id
-    })
+    let instrument = instruments.filter((instrument) => {
+      if (instrument.id === id) {
+        return instrument
+      }
+    })[0]
 
     // const getSynthById = (id) => parts.find(part => partId === id)?.synth ?? 'default value'; если уникальный, то можно вот так
 
-    instrumentSynthSettings = instrument.parts.filter((part) => {
-      if (part.id === currentPartId) {
+    let instrumentSynthSettings = instrument.parts.filter((part) => {
+      if (part.partId === currentPartId) {
         return part.synth
       }
-    })
+    })[0]
 
     let regexBefore = /(.*)\./
     let regexAfter = /\.(.*)/
-    let settingNameNamespace = settingName.match(regexBefore)[1]
-    let settingNameInNamespace = settingName.match(regexAfter)[1]
+    let settingNameNamespace = property.match(regexBefore)
+    let settingNameInNamespace
+
+    if (settingNameNamespace) {
+      settingNameNamespace = settingNameNamespace[1]
+      settingNameInNamespace = property.match(regexAfter)[1]
+    }
 
     if (settingNameNamespace == 'oscillator') {
-      console.log('oscillator')
-      instrumentSynthSettings.oscillator[settingNameInNamespace] = value
+      instrumentSynthSettings.synth.oscillator[settingNameInNamespace] = value
     } else if (settingNameNamespace == 'envelope') {
-      console.log('envelope')
-      instrumentSynthSettings.envelope[settingNameInNamespace] = value
+      instrumentSynthSettings.synth.envelope[settingNameInNamespace] = value
     } else {
-      console.log('root')
-      instrumentSynthSettings[settingName] = value
+      instrumentSynthSettings.synth[property] = value
     }
 
     newInstruments.map((newInstrument) => {
@@ -231,7 +235,7 @@ export default class ADCSynth extends React.Component {
 
         newInstrument.parts.map((part) => {
           if (instrumentSynthSettings.id === part.id) {
-            part.synth = instrumentSynthSettings
+            part = instrumentSynthSettings
             return part
           } else {
             return part
@@ -258,6 +262,10 @@ export default class ADCSynth extends React.Component {
       .then((data) => {
         this.setState(data)
       })
+  }
+
+  handleEffectValueChange = () => {
+    console.log('yo')
   }
 
   handleMixerDataReceived = (data) => {
@@ -313,6 +321,7 @@ export default class ADCSynth extends React.Component {
         handlePartChange={this.handlePartChange}
         handleSynthValueChange={this.handleSynthValueChange}
         handleEffectCreate={this.handleEffectCreate}
+        handleEffectValueChange={this.handleEffectValueChange}
       />
     )
   }

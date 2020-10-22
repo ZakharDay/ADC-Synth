@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
-export default class Knob extends React.Component {
+export default class Knob extends PureComponent {
   constructor(props) {
     super(props)
 
@@ -21,11 +21,11 @@ export default class Knob extends React.Component {
     window.addEventListener('mouseup', this.handleMouseUp)
     window.addEventListener('mousemove', this.handleMouseMove)
 
-    const { current } = this.props
+    const { value } = this.props
     const { range } = this.state
 
     this.setState({
-      deg: this.calcDeg(current)
+      deg: this.calcDeg(value)
     })
   }
 
@@ -68,7 +68,7 @@ export default class Knob extends React.Component {
   }
 
   handleMouseMove = (e) => {
-    const { min, max, handleChange, instrumentId, property } = this.props
+    const { min, max, handleChange, parentId, property } = this.props
     const { cursorY } = this.state
 
     if (this.state.mouseDown) {
@@ -86,9 +86,7 @@ export default class Knob extends React.Component {
           nextValue = max
         }
 
-        // Метод который вызывает изменения по вращанию кноба в родительском компоненте
-
-        // handleChange(instrumentId, property, nextValue)
+        handleChange(parentId, property, nextValue)
 
         this.setState({
           cursorY: e.screenY,
@@ -108,7 +106,7 @@ export default class Knob extends React.Component {
   }
 
   render() {
-    const { current, name } = this.props
+    const { value, name } = this.props
     const { deg } = this.state
     // this.calcBilletValue()
     const styles = {
