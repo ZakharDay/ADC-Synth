@@ -16,11 +16,12 @@ export default class Instruments extends React.Component {
   render() {
     const {
       instruments,
-      handleInstrumentCreate,
+      handleSynthValueChange,
+      handleEffectCreate,
+      //
       changeEnvelopeValue,
       handleChangeDetune,
       handleChangeSequence,
-      addEffects,
       chanheEffectSetValue
     } = this.props
 
@@ -30,14 +31,15 @@ export default class Instruments extends React.Component {
       if (instrument.kind === 'synth') {
         instrumentElements.push(
           <Synth
-            instrumentId={i}
             instrument={instrument}
+            handleSynthValueChange={handleSynthValueChange}
+            handleEffectCreate={handleEffectCreate}
+            //
             changeEnvelopeValue={changeEnvelopeValue}
             handleChangeDetune={handleChangeDetune}
             handleChangeSequence={handleChangeSequence}
-            addEffects={addEffects}
-            key={i}
             chanheEffectSetValue={chanheEffectSetValue}
+            key={i}
           />
         )
       } else if (instrument.kind === 'sampler') {
@@ -45,17 +47,6 @@ export default class Instruments extends React.Component {
       }
     })
 
-    let set = {
-      Synth: () => handleInstrumentCreate('synth'),
-      Sampler: () => handleInstrumentCreate('sampler')
-    }
-
-    return (
-      <div className="Instruments">
-        {instrumentElements}
-
-        <Select text="+ Add Instrument" set={set} />
-      </div>
-    )
+    return <div className="Instruments">{instrumentElements}</div>
   }
 }

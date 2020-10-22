@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get 'create_part'
       post 'change_part'
       get 'create_instrument'
+      get 'create_effect'
     end
   end
 

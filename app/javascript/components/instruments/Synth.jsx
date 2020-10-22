@@ -17,11 +17,13 @@ export default class Synth extends React.Component {
 
   handleBarTabChange = (button) => {
     let newCurrentBarTab
+
     if (this.state.currentBarTab === button) {
       newCurrentBarTab = 'none'
     } else {
       newCurrentBarTab = button
     }
+
     this.setState({
       currentBarTab: newCurrentBarTab
     })
@@ -35,6 +37,7 @@ export default class Synth extends React.Component {
           on={this.state.currentBarTab === 'Sound' ? true : false}
           handleClick={() => this.handleBarTabChange('Sound')}
         />
+
         <ToggleButton
           text="Sequence"
           on={this.state.currentBarTab === 'Sequence' ? true : false}
@@ -46,43 +49,52 @@ export default class Synth extends React.Component {
 
   renderSettings = () => {
     const { currentBarTab } = this.state
+
     const {
       instrument,
+      handleSynthValueChange,
+      handleEffectCreate,
+      //
       changeEnvelopeValue,
       instrumentId,
       handleChangeDetune,
       handleChangeSequence,
-      addEffects,
       chanheEffectSetValue
     } = this.props
+
     let settings
+
     instrument.parts.forEach((part, i) => {
       if (part.current) {
         settings = part
       }
     })
+
     if (currentBarTab === 'Sound') {
       return (
         <div className="settings">
           <ToneSynth
-            instrumentId={instrumentId}
+            instrument={instrument}
             settings={settings}
+            handleSynthValueChange={handleSynthValueChange}
             changeEnvelopeValue={changeEnvelopeValue}
             handleChangeDetune={handleChangeDetune}
           />
+
           <Effects
+            instrument={instrument}
+            handleEffectCreate={handleEffectCreate}
             settings={settings}
-            instrumentId={instrumentId}
-            addEffects={addEffects}
             chanheEffectSetValue={chanheEffectSetValue}
           />
         </div>
       )
+
       return <div></div>
     } else if (currentBarTab === 'Sequence') {
       return (
         <Sequencer
-          instrumentId={instrumentId}
+          instrument={instrument}
           settings={settings}
           handleChangeSequence={handleChangeSequence}
         />
@@ -101,6 +113,7 @@ export default class Synth extends React.Component {
           <div className="barHeading">{instrument.name}</div>
           {this.renderToggleButtons()}
         </div>
+
         {this.renderSettings()}
       </div>
     )

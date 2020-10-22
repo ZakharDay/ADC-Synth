@@ -1,6 +1,13 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_room, only: [:show, :edit, :update, :destroy, :musician, :mixer, :create_part, :change_part, :create_instrument]
+
+  before_action :set_room, only: [
+    :show, :edit, :update, :destroy,
+    :musician, :mixer,
+    :create_part, :change_part,
+    :create_instrument, :create_effect
+  ]
+
   before_action :musician_props, only: :musician
   before_action :mixer_props, only: :mixer
 
@@ -78,6 +85,44 @@ class RoomsController < ApplicationController
           solo: false
         }
       )
+    end
+
+    musician_props
+
+    render json: @props
+  end
+
+  def create_effect
+    instrument = Instrument.find(params[:instrument_id])
+    effect_json = {}
+
+    if params[:effect_name] == 'feedbackDelay'
+      new_effect = {
+        name: 'feedbackDelay',
+        delayTime: '8n',
+        maxDelay: 0
+      }
+    elsif params[:effect_name] == 'chorus'
+      new_effect = {
+        name: 'chorus',
+        frequency: 0,
+        delayTime: 0,
+        depth: 0,
+        type: 'sine',
+        spread: 180
+      }
+    elsif params[:effect_name] == 'distortion'
+      new_effect = {
+        name: 'distortion',
+        distortion: 0,
+        oversample: '4x'
+      }
+    end
+
+    instrument.settings.each do |setting|
+      effects = setting.effects
+      effects << new_effect
+      setting.update_attribute(:effects, effects)
     end
 
     musician_props

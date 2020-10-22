@@ -143,8 +143,9 @@ export default class ADCSynth extends React.Component {
     console.log('Server call, render response')
 
     const { room } = this.state
+    const url = `/rooms/${room.id}/create_part`
 
-    fetch(`/rooms/${room.id}/create_part`)
+    fetch(url)
       .then((response) => response.json())
       .then((data) => {
         this.setState(data)
@@ -183,8 +184,76 @@ export default class ADCSynth extends React.Component {
 
   handleInstrumentCreate = (type) => {
     const { room } = this.state
+    const url = `/rooms/${room.id}/create_instrument?type=${type}`
 
-    fetch(`/rooms/${room.id}/create_instrument?type=${type}`)
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState(data)
+      })
+  }
+
+  handleSynthValueChange(id, settingName, value) {
+    const { instruments, currentPartId } = this.state
+    let newInstruments = [...instruments]
+
+    instrument = instruments.filter((i) => {
+      return i.id === id
+    })
+
+    // const getSynthById = (id) => parts.find(part => partId === id)?.synth ?? 'default value'; если уникальный, то можно вот так
+
+    instrumentSynthSettings = instrument.parts.filter((part) => {
+      if (part.id === currentPartId) {
+        return part.synth
+      }
+    })
+
+    let regexBefore = /(.*)\./
+    let regexAfter = /\.(.*)/
+    let settingNameNamespace = settingName.match(regexBefore)[1]
+    let settingNameInNamespace = settingName.match(regexAfter)[1]
+
+    if (settingNameNamespace == 'oscillator') {
+      console.log('oscillator')
+      instrumentSynthSettings.oscillator[settingNameInNamespace] = value
+    } else if (settingNameNamespace == 'envelope') {
+      console.log('envelope')
+      instrumentSynthSettings.envelope[settingNameInNamespace] = value
+    } else {
+      console.log('root')
+      instrumentSynthSettings[settingName] = value
+    }
+
+    newInstruments.map((newInstrument) => {
+      if (newInstrument.id === id) {
+        newInstrument.parts = [...newInstrument.parts]
+
+        newInstrument.parts.map((part) => {
+          if (instrumentSynthSettings.id === part.id) {
+            part.synth = instrumentSynthSettings
+            return part
+          } else {
+            return part
+          }
+        })
+
+        return newInstrument
+      } else {
+        return newInstrument
+      }
+    })
+
+    this.setState({
+      instruments: newInstruments
+    })
+  }
+
+  handleEffectCreate = (instrumentId, effectName) => {
+    const { room } = this.state
+    const url = `/rooms/${room.id}/create_effect?instrument_id=${instrumentId}&effect_name=${effectName}`
+
+    fetch(url)
       .then((response) => response.json())
       .then((data) => {
         this.setState(data)
@@ -242,6 +311,8 @@ export default class ADCSynth extends React.Component {
         instruments={instruments}
         handlePartCreate={this.handlePartCreate}
         handlePartChange={this.handlePartChange}
+        handleSynthValueChange={this.handleSynthValueChange}
+        handleEffectCreate={this.handleEffectCreate}
       />
     )
   }

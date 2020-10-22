@@ -36,8 +36,10 @@ export default class Effects extends React.Component {
   }
 
   renderEffects = () => {
-    const { settings, instrumentId, chanheEffectSetValue } = this.props
+    const { settings, instrument, chanheEffectSetValue } = this.props
+    const instrumentId = instrument.id
     let effectItems = []
+
     settings.effects.forEach((effect, i) => {
       if (effect.name === 'autoFilter') {
         effectItems.push(
@@ -244,7 +246,8 @@ export default class Effects extends React.Component {
   }
 
   render() {
-    const { settings, instrumentId, addEffects } = this.props
+    const { settings, instrument, handleEffectCreate } = this.props
+    const instrumentId = instrument.id
 
     settings.effects.forEach((effect, i) => {
       const name = effect.name
@@ -252,37 +255,26 @@ export default class Effects extends React.Component {
     })
 
     const typeSetButtonEffects = {
-      autoFilter: () => addEffects(instrumentId, 'autoFilter'),
-      autoPanner: () => addEffects(instrumentId, 'autoPanner'),
-      autoWah: () => addEffects(instrumentId, 'autoWah'),
-      bitCrusher: () => addEffects(instrumentId, 'bitCrusher'),
-      chebyshev: () => addEffects(instrumentId, 'chebyshev'),
-      chorus: () => addEffects(instrumentId, 'chorus'),
-      distortion: () => addEffects(instrumentId, 'distortion'),
-      feedbackDelay: () => addEffects(instrumentId, 'feedbackDelay'),
-      feedbackEffect: () => addEffects(instrumentId, 'feedbackEffect'),
-      freeverb: () => addEffects(instrumentId, 'freeverb'),
-      jcReverb: () => addEffects(instrumentId, 'jcReverb'),
-      phaser: () => addEffects(instrumentId, 'phaser'),
-      pingPongDelay: () => addEffects(instrumentId, 'pingPongDelay'),
-      pitchShift: () => addEffects(instrumentId, 'pitchShift'),
-      reverb: () => addEffects(instrumentId, 'reverb'),
-      stereoWidener: () => addEffects(instrumentId, 'stereoWidener'),
-      tremolo: () => addEffects(instrumentId, 'tremolo'),
-      vibrato: () => addEffects(instrumentId, 'vibrato')
+      autoFilter: () => handleEffectCreate(instrumentId, 'autoFilter'),
+      autoPanner: () => handleEffectCreate(instrumentId, 'autoPanner'),
+      autoWah: () => handleEffectCreate(instrumentId, 'autoWah'),
+      bitCrusher: () => handleEffectCreate(instrumentId, 'bitCrusher'),
+      chebyshev: () => handleEffectCreate(instrumentId, 'chebyshev'),
+      chorus: () => handleEffectCreate(instrumentId, 'chorus'),
+      distortion: () => handleEffectCreate(instrumentId, 'distortion'),
+      feedbackDelay: () => handleEffectCreate(instrumentId, 'feedbackDelay'),
+      feedbackEffect: () => handleEffectCreate(instrumentId, 'feedbackEffect'),
+      freeverb: () => handleEffectCreate(instrumentId, 'freeverb'),
+      jcReverb: () => handleEffectCreate(instrumentId, 'jcReverb'),
+      phaser: () => handleEffectCreate(instrumentId, 'phaser'),
+      pingPongDelay: () => handleEffectCreate(instrumentId, 'pingPongDelay'),
+      pitchShift: () => handleEffectCreate(instrumentId, 'pitchShift'),
+      reverb: () => handleEffectCreate(instrumentId, 'reverb'),
+      stereoWidener: () => handleEffectCreate(instrumentId, 'stereoWidener'),
+      tremolo: () => handleEffectCreate(instrumentId, 'tremolo'),
+      vibrato: () => handleEffectCreate(instrumentId, 'vibrato')
     }
 
-    // this.renderEffects()
-    //
-    // <Button
-    //   name="button"
-    //   property="no"
-    //   option={true}
-    //   text="Add Effect"
-    //   current={true}
-    //   handleClick={this.props.handleCreateEffect}
-    // />
-    // {this.renderEffects()}
     return (
       <div className="Effects">
         <Select text="Add Effect" set={typeSetButtonEffects} />

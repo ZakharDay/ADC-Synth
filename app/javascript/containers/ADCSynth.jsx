@@ -170,6 +170,7 @@ export default class ADCSynth extends React.Component {
   changeEnvelopeValue = (instrumentId, property, value) => {
     const { instruments } = this.state
     const instrument = instruments[instrumentId]
+
     instrument.parts.forEach((part, i) => {
       if (part.current) {
         part.synth.envelope[property] = value
@@ -184,6 +185,7 @@ export default class ADCSynth extends React.Component {
   handleChangeDetune = (instrumentId, property, value) => {
     const { instruments } = this.state
     const instrument = instruments[instrumentId]
+
     instrument.parts.forEach((part, i) => {
       if (part.current) {
         part.synth[property] = value
@@ -195,34 +197,37 @@ export default class ADCSynth extends React.Component {
     })
   }
 
-  addEffects = (instrumentId, effectName) => {
-    const { instruments } = this.state
-    const instrument = instruments[instrumentId]
-    instrument.effects.push(effectName)
-    instrument.parts.forEach((part, i) => {
-      if (part.current) {
-        part.effects.push({ name: effectName })
-      }
-    })
-
-    this.setState({
-      instruments
-    })
-  }
+  // handleEffectCreate = (instrumentId, effectName) => {
+  //   const { instruments } = this.state
+  //   const instrument = instruments[instrumentId]
+  //   instrument.effects.push(effectName)
+  //   instrument.parts.forEach((part, i) => {
+  //     if (part.current) {
+  //       part.effects.push({ name: effectName })
+  //     }
+  //   })
+  //
+  //   this.setState({
+  //     instruments
+  //   })
+  // }
 
   changeEffectValue = (instrumentId, effect, value) => {
     const { instruments } = this.state
     const instrument = instruments[instrumentId]
     const effectName = Object.keys(effect)[0]
     const property = effect[effectName]
+
     instrument.parts.forEach((part, i) => {
       if (part.current) {
         let it
+
         part.effects.forEach((ef, y) => {
           if (ef.name === effectName) {
             it = y
           }
         })
+
         if (!part.effects[it]) {
           part.effects[it][property] = 0
         } else {
