@@ -1,0 +1,65 @@
+.RecedingToggleButton {
+  border-right: 1px solid var(--medium-grey);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  min-width: 100px;
+  width: 100%;
+
+  height: 50px;
+  padding: 0 20px;
+  line-height: 50px;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  .close {
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 15.98px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 19.4px;
+    height: 19.4px;
+    transform: rotate(45deg);
+    &::before {
+      display: block;
+      content: '';
+      width: 2px;
+      height: 14px;
+      transform: rotate(90deg);
+    }
+    &::after {
+      display: block;
+      margin-left: -2px;
+      content: '';
+      width: 2px;
+      height: 14px;
+    }
+  }
+
+  &:hover {
+    .close {
+      &::before,
+      &::after {
+        background: var(--dark-green);
+      }
+    }
+  }
+
+  &.on {
+    color: var(--dark-grey);
+    background: var(--dark-green);
+    cursor: default;
+
+    .close {
+      &::before,
+      &::after {
+        background: var(--dark-grey);
+      }
+    }
+  }
+}

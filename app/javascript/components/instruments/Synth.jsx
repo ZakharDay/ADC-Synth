@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Sequencer from '../parts/Sequencer'
+import InstrumentMenu from '../parts/InstrumentMenu'
 import ToneSynth from '../synths/ToneSynth'
 import Effects from '../effects/Effects'
 
@@ -9,46 +10,29 @@ import ToggleButton from '../controls/ToggleButton'
 export default class Synth extends React.Component {
   constructor(props) {
     super(props)
-
     this.state = {
-      currentBarTab: 'none'
+      currentTab: 'none'
     }
   }
 
   handleBarTabChange = (button) => {
     let newCurrentBarTab
 
-    if (this.state.currentBarTab === button) {
+    console.log(button)
+
+    if (this.state.currentTab === button) {
       newCurrentBarTab = 'none'
     } else {
       newCurrentBarTab = button
     }
 
     this.setState({
-      currentBarTab: newCurrentBarTab
+      currentTab: newCurrentBarTab
     })
   }
 
-  renderToggleButtons = () => {
-    return (
-      <div className="ToggleButtons">
-        <ToggleButton
-          text="Sound"
-          on={this.state.currentBarTab === 'Sound' ? true : false}
-          handleClick={() => this.handleBarTabChange('Sound')}
-        />
-
-        <ToggleButton
-          text="Sequence"
-          on={this.state.currentBarTab === 'Sequence' ? true : false}
-          handleClick={() => this.handleBarTabChange('Sequence')}
-        />
-      </div>
-    )
-  }
-
   renderSettings = () => {
-    const { currentBarTab } = this.state
+    const { currentTab } = this.state
 
     const {
       instrument,
@@ -65,7 +49,7 @@ export default class Synth extends React.Component {
       }
     })
 
-    if (currentBarTab === 'Sound') {
+    if (currentTab === 'Sound') {
       return (
         <div className="settings">
           <ToneSynth
@@ -84,7 +68,7 @@ export default class Synth extends React.Component {
       )
 
       return <div></div>
-    } else if (currentBarTab === 'Sequence') {
+    } else if (currentTab === 'Sequence') {
       return (
         <Sequencer
           instrument={instrument}
@@ -100,13 +84,26 @@ export default class Synth extends React.Component {
   render() {
     const { instrument } = this.props
 
+    const buttons = [
+      {
+        name: 'Sound',
+        isOn: this.state.currentTab === 'Sound' ? true : false,
+        handleClick: () => this.handleBarTabChange('Sound')
+      },
+      {
+        name: 'Sequence',
+        isOn: this.state.currentTab === 'Sequence' ? true : false,
+        handleClick: () => this.handleBarTabChange('Sequence')
+      }
+    ]
+
     return (
       <div className="Synth">
-        <div className="synthBar">
-          <div className="barHeading">{instrument.name}</div>
-          {this.renderToggleButtons()}
-        </div>
-
+        <InstrumentMenu
+          name={instrument.name}
+          open={this.state.currentTab}
+          buttons={buttons}
+        />
         {this.renderSettings()}
       </div>
     )

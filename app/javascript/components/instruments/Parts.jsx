@@ -1,7 +1,8 @@
 import React from 'react'
 
-import ToggleButton from '../controls/ToggleButton'
-import SimpleButton from '../controls/SimpleButton'
+// import ToggleButton from '../controls/ToggleButton'
+// import SimpleButton from '../controls/SimpleButton'
+import InstrumentMenu from '../parts/InstrumentMenu'
 
 export default class Parts extends React.Component {
   constructor(props) {
@@ -16,28 +17,15 @@ export default class Parts extends React.Component {
       handlePartChange
     } = this.props
 
-    let partElements = []
+    let items = []
 
     parts.forEach((part, i) => {
-      partElements.push(
-        <ToggleButton
-          text={part.name}
-          on={part.id === currentPartId}
-          handleClick={() => handlePartChange(part.id)}
-          key={i}
-        />
-      )
+      items.push({
+        name: part.name,
+        isOn: part.id === currentPartId ? true : false,
+        handleClick: () => handlePartChange(part.id)
+      })
     })
-
-    return (
-      <div className="Parts">
-        <div className="barHeading">Parts</div>
-        <div className="partElements">{partElements}</div>
-
-        <div className="barAside">
-          <SimpleButton text="New Part" handleClick={handlePartCreate} />
-        </div>
-      </div>
-    )
+    return <InstrumentMenu name="Parts" buttons={items} />
   }
 }

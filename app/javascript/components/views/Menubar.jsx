@@ -1,6 +1,7 @@
 import React from 'react'
 
 import SimpleButton from '../controls/SimpleButton'
+import AddButton from '../controls/AddButtonNew'
 
 export default class Menubar extends React.Component {
   constructor(props) {
@@ -29,15 +30,19 @@ export default class Menubar extends React.Component {
 
     return (
       <div>
-        <SimpleButton
+        <AddButton
           text="New Synth"
           handleClick={() => handleInstrumentCreate('synth')}
+          size="Medium"
         />
 
-        <SimpleButton
+        <AddButton
           text="New Sampler"
           handleClick={() => handleInstrumentCreate('sampler')}
+          size="Medium"
         />
+
+        <div> SIGN OUT </div>
       </div>
     )
   }
@@ -47,7 +52,7 @@ export default class Menubar extends React.Component {
 
     return (
       <div className="Menubar">
-        <div>ADC Synth</div>
+        <div className="logo"></div>
 
         {
           // prettier-ignore

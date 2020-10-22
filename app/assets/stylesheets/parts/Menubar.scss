@@ -12,10 +12,22 @@
     align-items: center;
   }
 
+  .logo {
+    width: 136px;
+    height: 25px;
+    background-image: image_url('logo.svg');
+  }
+
   div {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .AddButtonMedium {
+      margin: 0 56px 0 20px;
+      span {
+        width: 109px;
+      }
+    }
 
     .SimpleButton {
       margin-left: 20px;
