@@ -4,6 +4,10 @@ import Menubar from '../components/views/Menubar'
 import Parts from '../components/instruments/Parts'
 import Instruments from '../components/parts/Instruments'
 import Mixer from '../components/instruments/Mixer'
+// import Knob from '../components/controls/KnobNew'
+// import AddButton from '../components/controls/AddButtonNew'
+// import ChannelButton from '../components/controls/ChannelButtonNew'
+// import Select from '../components/controls/SelectNew'
 
 import * as synthInitials from '../utilities/synths'
 import * as voiceState from '../utilities/voices'
@@ -13,6 +17,10 @@ import * as effectInitials from '../utilities/effects'
 export default class ADCSynth extends React.Component {
   constructor(props) {
     super(props)
+  }
+
+  handleLog = (a) => {
+    console.log(a)
   }
 
   // componentDidMount() {
@@ -282,40 +290,20 @@ export default class ADCSynth extends React.Component {
   // }
 
   render() {
-    // if (this.state) {
-    //   return (
-    //     <div className="ADCSynth">
-    //       <Menubar />
-    //
-    //       {this.state.parts.length > 0 ? (
-    //         <Parts
-    //           parts={this.state.parts}
-    //           instrument={this.state.instruments[0]}
-    //           handlePartChange={this.handlePartChange}
-    //           handlePartCreate={this.handlePartCreate}
-    //         />
-    //       ) : (
-    //         ''
-    //       )}
-    //       {this.state.instruments.length > 0 ? (
-    //         <Instruments
-    //           instruments={this.state.instruments}
-    //           handleInstrumentCreate={this.handleInstrumentCreate}
-    //           changeEnvelopeValue={this.changeEnvelopeValue}
-    //           handleChangeDetune={this.handleChangeDetune}
-    //           handleChangeSequence={this.handleChangeSequence}
-    //           addEffects={this.addEffects}
-    //           chanheEffectSetValue={this.chanheEffectSetValue}
-    //         />
-    //       ) : (
-    //         ''
-    //       )}
-    //
-    //       <Mixer />
-    //     </div>
-    //   )
-    // } else {
-    //   return ''
-    // }
+    return (
+      <div>
+        <AddButton text="Add synth" size="Large" handleClick={null} />
+        <AddButton text="Add synth" size="Medium" handleClick={null} />
+        <ChannelButton text="1" on={false} handleClick={null} />
+        <Select current={'Option 1'} />
+        <Knob
+          name="Name"
+          min={-60}
+          max={60}
+          current={-60}
+          handleChange={this.handleLog}
+        />
+      </div>
+    )
   }
 }

@@ -31,7 +31,6 @@ export default class ToneSynth extends React.Component {
     const {
       instrumentId,
       settings,
-      handleSynthValueChange,
       changeEnvelopeValue,
       handleChangeDetune
     } = this.props
@@ -58,70 +57,61 @@ export default class ToneSynth extends React.Component {
     // />
     //
     return (
-      // handleSynthValueChange(id, settingName, value)
       <div className="Synth">
         <div className="controlsContainer">
           <div className="controlsRow">
-            <h2>Type</h2>
-
-            <h2>Source Type</h2>
-
-            <h2>Modulation Type</h2>
-
-            <h2>Phase</h2>
-
             <h2>Detune</h2>
             <Knob
-              property="detune"
               current={detune}
               min={-1000}
               max={1000}
               instrumentId={instrumentId}
-              handleChange={handleSynthValueChange}
+              property="detune"
+              handleChange={handleChangeDetune}
             />
             <h2>Envelope</h2>
             <h2>Attack</h2>
             <Slider
-              property="envelope.attack"
+              property="attack"
               step="0.01"
               min="0"
               max="1"
               current={attack}
               instrumentId={instrumentId}
-              handleChange={handleSynthValueChange}
+              handleChange={changeEnvelopeValue}
             />
 
             <h2>Decay</h2>
             <Slider
-              property="envelope.decay"
+              property="decay"
               step="0.01"
               min="0"
               max="1"
               current={decay}
               instrumentId={instrumentId}
-              handleChange={handleSynthValueChange}
+              handleChange={changeEnvelopeValue}
             />
 
             <h2>Sustain</h2>
             <Slider
-              property="envelope.sustain"
+              property="sustain"
               step="0.01"
               min="0"
               max="1"
               current={sustain}
               instrumentId={instrumentId}
-              handleChange={handleSynthValueChange}
+              handleChange={changeEnvelopeValue}
             />
 
             <h2>Release</h2>
             <Slider
-              property="envelope.release"
+              property="release"
               step="0.01"
               min="0"
               max="1"
               current={release}
               instrumentId={instrumentId}
-              handleChange={handleSynthValueChange}
+              handleChange={changeEnvelopeValue}
             />
           </div>
         </div>
