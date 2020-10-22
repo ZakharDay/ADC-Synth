@@ -29,41 +29,25 @@ export default class ToneSynth extends React.Component {
   }
 
   render() {
-    const {
-      instrument,
-      settings,
-      handleSynthValueChange,
-      changeEnvelopeValue,
-      handleChangeDetune
-    } = this.props
-
+    const { instrument, settings, handleSynthValueChange } = this.props
     const { id } = instrument
-
-    // const { harmonicity, modulationIndex, resonance, octaves } = instrument
-    let { attack, decay, sustain, release } = settings.synth.envelope
     let { detune, portamento } = settings.synth
-    // detune = this.existenceСheck(detune)
-    // attack = this.existenceСheck(attack)
-    // decay = this.existenceСheck(decay)
-    // sustain = this.existenceСheck(sustain)
-    // release = this.existenceСheck(release)
-    //
+    let { type, sourceType, modulationType, phase } = settings.synth.oscillator
+    let { attack, decay, sustain, release } = settings.synth.envelope
+
     const typeSet = ['sine', 'square', 'triangle', 'sawtooth']
-    // const sourceTypeSet = ['fm', 'am', 'fat', 'pwm', 'pulse']
-    // const modulationTypeSet = ['sine', 'square', 'triangle', 'sawtooth']
+    const sourceTypeSet = ['fm', 'am', 'fat', 'pwm', 'pulse']
+    const modulationTypeSet = ['sine', 'square', 'triangle', 'sawtooth']
 
     return (
       <div className="Synth">
         <div className="controlsContainer">
           <div className="controlsRow">
+            // Detune, Portamento // Oscillator
             <h2>Type</h2>
-
             <h2>Source Type</h2>
-
             <h2>Modulation Type</h2>
-
             <h2>Phase</h2>
-
             <h2>Detune</h2>
             <KnobNew
               parentId={id}
@@ -84,7 +68,6 @@ export default class ToneSynth extends React.Component {
               value={attack}
               handleChange={handleSynthValueChange}
             />
-
             <h2>Decay</h2>
             <Slider
               parentId={id}
@@ -95,7 +78,6 @@ export default class ToneSynth extends React.Component {
               value={decay}
               handleChange={handleSynthValueChange}
             />
-
             <h2>Sustain</h2>
             <Slider
               parentId={id}
@@ -106,7 +88,6 @@ export default class ToneSynth extends React.Component {
               value={sustain}
               handleChange={handleSynthValueChange}
             />
-
             <h2>Release</h2>
             <Slider
               parentId={id}
