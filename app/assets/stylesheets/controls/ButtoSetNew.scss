@@ -1,0 +1,25 @@
+.ButtonSetLine {
+  display: flex;
+  margin-top: 4px;
+
+  .ButtonSets {
+    height: 19px;
+    width: 88px;
+    line-height: 18px;
+    font-size: 14px;
+    color: var(--dark-grey);
+    background: #ffff;
+    cursor: pointer;
+    &.on {
+      background: var(--dark-green);
+    }
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+.Title {
+}
