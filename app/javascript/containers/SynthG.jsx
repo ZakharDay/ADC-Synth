@@ -59,9 +59,16 @@ export default class SynthG extends React.Component {
         <Select current={'Option 1'} options={selectOptions} />
         <Knob
           name="Name"
+          min={0}
+          max={100}
+          current={60}
+          handleChange={this.handleLog}
+        />
+        <Knob
+          name="Name"
           min={-60}
           max={60}
-          current={-60}
+          current={-500}
           handleChange={this.handleLog}
         />
       </div>

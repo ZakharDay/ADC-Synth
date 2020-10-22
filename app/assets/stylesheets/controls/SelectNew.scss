@@ -39,6 +39,11 @@
   height: 20px;
 }
 
+.openedList {
+  position: absolute;
+  z-index: 100;
+}
+
 .openedSelect {
   height: 30px;
   width: 150px;
