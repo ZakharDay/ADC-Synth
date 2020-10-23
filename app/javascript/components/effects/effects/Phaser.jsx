@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 
-import Slider from '../../controls/Slider'
-import ButtonSet from '../../controls/ButtonSet'
+import Slider from '../../controls/SliderNew'
+import ButtonSet from '../../controls/ButtonSetNew'
 import Select from '../../controls/Select'
 
 export default class Phaser extends PureComponent {
@@ -11,7 +11,7 @@ export default class Phaser extends PureComponent {
 
   render() {
     const { parentId, effect, handleEffectValueChange } = this.props
-    const { wet, frequency, octaves, filter, baseFrequency } = effect
+    const { wet, stages, frequency, octaves, filter, baseFrequency } = effect
 
     return (
       <div className="Effect">
@@ -59,6 +59,7 @@ export default class Phaser extends PureComponent {
           handleChange={handleEffectValueChange}
         />
 
+        <h2>Filter</h2>
         <h2>Q</h2>
         <Slider
           parentId={parentId}

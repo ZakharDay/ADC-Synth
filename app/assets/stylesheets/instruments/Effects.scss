@@ -1,5 +1,6 @@
 .Effects {
   display: flex;
+  height: 600px;
 }
 .Effect {
   border: 1px solid var(--medium-grey);
@@ -52,12 +53,14 @@
 }
 
 .smallBar span {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   height: 20px;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
 }
-.effectControls {
+.narrowEffectControls {
   width: 180px;
   height: 246px;
   margin-left: 60px;
@@ -65,6 +68,7 @@
 }
 .effectHeading {
   margin-bottom: 12px;
+  margin-top: 24px;
 }
 
 .effectMiddleHeading {
@@ -72,8 +76,8 @@
   margin-bottom: 12px;
 }
 
-.effectHeading:last-of-type {
-  margin-top: 24px;
+.effectHeading:first-of-type {
+  margin-top: 6px;
   margin-bottom: 12px;
 }
 
@@ -108,7 +112,8 @@
   margin-left: 20px;
   padding-top: 16px;
   justify-content: space-between;
-  /* height: 20px; */
+  height: 31px;
+  padding-top: 17px;
 }
 
 .mediumBar p {
@@ -120,15 +125,63 @@
 }
 
 .mediumBar span {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
 }
 
-.chorusEffectControlsContainer {
+.middleEffectControlsContainer {
   display: flex;
   width: 390px;
   margin-left: 60px;
-  margin-top: 80px;
+  margin-top: 104px;
   justify-content: space-between;
+}
+
+#firstInAutoFilter {
+  margin-top: 30px;
+}
+
+#secondInAutoFilter {
+  margin-top: 10px;
+}
+
+.autoFilterMiddleEffectControlsContainer {
+  display: flex;
+  width: 390px;
+  margin-left: 60px;
+  margin-top: 74px;
+  justify-content: space-between;
+}
+
+.autoWahMiddleEffectControlsContainer {
+  display: flex;
+  width: 390px;
+  margin-left: 60px;
+  margin-top: 104px;
+  margin-right: 60px;
+  justify-content: space-between;
+}
+
+.subEffectHeading {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.largeBar {
+  height: 51px;
+  width: 661px;
+  position: relative;
+
+  &::after {
+    /* margin-top: 19px; */
+    position: absolute;
+    /* left: 28px; */
+    display: block;
+    content: '';
+    top: 50px;
+    width: 661px;
+    height: 1px;
+    background: var(--medium-grey);
+  }
 }

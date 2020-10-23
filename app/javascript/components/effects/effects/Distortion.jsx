@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 
-import Slider from '../../controls/Slider'
-import ButtonSet from '../../controls/ButtonSet'
+import Slider from '../../controls/SliderNew'
+import ButtonSet from '../../controls/ButtonSetNew'
 import Select from '../../controls/Select'
 
 export default class Distortion extends PureComponent {
@@ -23,7 +23,7 @@ export default class Distortion extends PureComponent {
           </div>
         </div>
 
-        <div className="effectControls">
+        <div className="narrowEffectControls">
           <h2 className="effectHeading">Wet</h2>
           <Slider
             parentId={parentId}

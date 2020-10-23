@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react'
 
-import Slider from '../../controls/Slider'
-import ButtonSet from '../../controls/ButtonSet'
-import Select from '../../controls/Select'
+import Slider from '../../controls/SliderNew'
+import ButtonSet from '../../controls/ButtonSetNew'
+import Select from '../../controls/SelectNew'
+import KnobNew from '../../controls/KnobNew'
 
 export default class AutoFilter extends PureComponent {
   constructor(props) {
@@ -19,7 +20,8 @@ export default class AutoFilter extends PureComponent {
       depth,
       baseFrequency,
       octaves,
-      filter
+      filter,
+      name
     } = effect
 
     // prettier-ignore
@@ -30,99 +32,114 @@ export default class AutoFilter extends PureComponent {
 
     return (
       <div className="Effect">
-        <h2>Wet</h2>
-        <Slider
-          parentId={parentId}
-          property="wet"
-          step="0.01"
-          min="0"
-          max="1"
-          value={wet}
-          handleChange={handleEffectValueChange}
-        />
+        <div className="largeBar">
+          <div className="largeContainer">
+            <span>Auto Filter</span>
+            <Slider
+              parentId={parentId}
+              property="wet"
+              step="0.01"
+              min="0"
+              max="1"
+              value={wet}
+              handleChange={handleEffectValueChange}
+            />
+            <p></p>
+          </div>
+        </div>
+        <div className="autoFilterLargeEffectControlsContainer">
+          <div className="largeEffectControls">
+            <h2 id="firstInAutoFilter" className="effectHeading">
+              Frequency
+            </h2>
+            <KnobNew
+              parentId={parentId}
+              property="frequency.value"
+              min={0}
+              max={100}
+              value={0}
+              name="Frequency"
+              handleChange={handleEffectValueChange}
+            />
 
-        <h2>Frequency</h2>
-        <Slider
-          parentId={parentId}
-          property="frequency.value"
-          step="1"
-          min="0"
-          max="100"
-          value={frequency.value}
-          handleChange={handleEffectValueChange}
-        />
+            <h2 className="effectHeading">Base Frequency</h2>
+            <KnobNew
+              parentId={parentId}
+              property="baseFrequency"
+              min={0}
+              max={1800}
+              value={0}
+              name="Base Frequency"
+              handleChange={handleEffectValueChange}
+            />
+            <h2 className="effectHeading">Octaves</h2>
+            <Slider
+              parentId={parentId}
+              property="octaves"
+              step="1"
+              min="0"
+              max="6"
+              value={octaves}
+              handleChange={handleEffectValueChange}
+            />
+          </div>
+          <div className="largeEffectControls">
+            <h2 className="effectHeading">Depth</h2>
+            <Slider
+              parentId={parentId}
+              property="depth.value"
+              step="0.01"
+              min="0"
+              max="1"
+              value={depth}
+              handleChange={handleEffectValueChange}
+            />
 
-        <h2>Type</h2>
-        <Select
-          parentId={parentId}
-          property="type"
-          set={typeSet}
-          value={type}
-          handleValueChange={handleEffectValueChange}
-        />
+            <h2 className="effectHeading">Type</h2>
+            <Select
+              parentId={parentId}
+              property="type"
+              set={typeSet}
+              value={type}
+              current={type}
+              options={typeSet}
+              handleValueChange={handleEffectValueChange}
+            />
+            <h3 className="subEffectHeading">Filter</h3>
+            <h2 id="secondInAutoFilter" className="effectHeading">
+              Type
+            </h2>
+            <ButtonSet
+              parentId={parentId}
+              property="filter.type"
+              set={filterTypeSet}
+              value={filter.type}
+              current={filter.type}
+              handleChange={handleEffectValueChange}
+            />
 
-        <h2>Depth</h2>
-        <Slider
-          parentId={parentId}
-          property="depth.value"
-          step="0.01"
-          min="0"
-          max="1"
-          value={depth.value}
-          handleChange={handleEffectValueChange}
-        />
+            <h2 className="effectHeading">Rolloff</h2>
+            <ButtonSet
+              parentId={parentId}
+              property="filter.rolloff"
+              set={rolloffSet}
+              value={filter.rolloff}
+              current={filter.rolloff}
+              handleChange={handleEffectValueChange}
+            />
 
-        <h2>Base Frequency</h2>
-        <Slider
-          parentId={parentId}
-          property="baseFrequency"
-          step="10"
-          min="0"
-          max="1800"
-          value={baseFrequency}
-          handleChange={handleEffectValueChange}
-        />
-
-        <h2>Octaves</h2>
-        <Slider
-          parentId={parentId}
-          property="octaves"
-          step="1"
-          min="0"
-          max="6"
-          value={octaves}
-          handleChange={handleEffectValueChange}
-        />
-
-        <h2>Filter</h2>
-        <h2>Type</h2>
-        <ButtonSet
-          parentId={parentId}
-          property="filter.type"
-          set={filterTypeSet}
-          value={filter.type}
-          handleChange={handleEffectValueChange}
-        />
-
-        <h2>Rolloff</h2>
-        <ButtonSet
-          parentId={parentId}
-          property="filter.rolloff"
-          set={rolloffSet}
-          value={filter.rolloff}
-          handleChange={handleEffectValueChange}
-        />
-
-        <h2>Q</h2>
-        <Slider
-          parentId={parentId}
-          property="filter.q"
-          step="0.1"
-          min="0"
-          max="10"
-          value={filter.q}
-          handleChange={handleEffectValueChange}
-        />
+            <h2 className="effectHeading">Q</h2>
+            <Slider
+              parentId={parentId}
+              property="filter.q"
+              step="0.1"
+              min="0"
+              max="10"
+              value={filter.q}
+              handleChange={handleEffectValueChange}
+            />
+          </div>
+        </div>
       </div>
     )
   }

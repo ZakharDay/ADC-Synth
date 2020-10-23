@@ -142,6 +142,104 @@ class RoomsController < ApplicationController
         distortion: 0,
         oversample: '4x'
       }
+    elsif params[:effect_name] == 'autoPanner'
+      new_effect = {
+        name: 'autoPanner',
+        frequency: 50,
+        type: 'sine',
+        depth: 0.5
+      }
+    elsif params[:effect_name] == 'autoWah'
+      new_effect = {
+        name: 'autoWah',
+        frequency: 50,
+        octaves: 1,
+        sensitivity: 0,
+        q: 0,
+        gain: 1,
+        follower: {
+          attack: 0.5,
+          release: 0.5
+        }
+      }
+    elsif params[:effect_name] == 'bitCrusher'
+      new_effect = {
+        name: 'bitCrusher',
+        bits: 0.5,
+      }
+    elsif params[:effect_name] == 'chebyshev'
+      new_effect = {
+        name: 'chebyshev',
+        order: 50,
+        oversample: 'none',
+      }
+    elsif params[:effect_name] == 'feedbackEffect'
+      new_effect = {
+        name: 'feedbackEffect',
+        feedback: 0.5,
+      }
+    elsif params[:effect_name] == 'freeverb'
+      new_effect = {
+        name: 'freeverb',
+        roomSize: 0.5,
+        dampening: 1000,
+      }
+    elsif params[:effect_name] == 'jcReverb'
+      new_effect = {
+        name: 'jcReverb',
+        roomSize: 0.5,
+      }
+    elsif params[:effect_name] == 'phaser'
+      new_effect = {
+        name: 'phaser',
+        frequency: 50,
+        octaves: 1,
+        stages: 5,
+        filter: {
+          q: 5,
+        },
+        baseFrequency: 100
+      }
+    elsif params[:effect_name] == 'pingPongDelay'
+      new_effect = {
+        name: 'pingPongDelay',
+        delayTime: 0.5,
+        maxDelayTime: 0.5,
+      }
+    elsif params[:effect_name] == 'pitchShift'
+      new_effect = {
+        name: 'pitchShift',
+        pitch: 0,
+        windowSize: 0.050,
+        feedback: 50,
+      }
+    elsif params[:effect_name] == 'reverb'
+      new_effect = {
+        name: 'reverb',
+        decay: 5,
+        preDelay: 0.5,
+      }
+    elsif params[:effect_name] == 'stereoWidener'
+      new_effect = {
+        name: 'stereoWidener',
+        width: 0.5,
+        }
+    elsif params[:effect_name] == 'tremolo'
+      new_effect = {
+        name: 'tremolo',
+        frequency: 50,
+        type: "sine",
+        depth: 0.5,
+        spread: 90,
+      }
+    elsif params[:effect_name] == 'vibrato'
+      new_effect = {
+        name: 'vibrato',
+        maxDelay: 0.5,
+        frequency: 500,
+        depth: 0.5,
+        type: "sine"
+      }
     end
 
     instrument.settings.each do |setting|

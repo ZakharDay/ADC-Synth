@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 
-import Slider from '../../controls/Slider'
-import ButtonSet from '../../controls/ButtonSet'
+import Slider from '../../controls/SliderNew'
+import ButtonSet from '../../controls/ButtonSetNew'
 import Select from '../../controls/Select'
 
 export default class AutoPanner extends PureComponent {
@@ -16,47 +16,55 @@ export default class AutoPanner extends PureComponent {
 
     return (
       <div className="Effect">
-        <h2>Wet</h2>
-        <Slider
-          parentId={parentId}
-          property="wet"
-          step="0.01"
-          min="0"
-          max="1"
-          value={wet}
-          handleChange={handleEffectValueChange}
-        />
+        <div className="smallBar">
+          <div>
+            <span>Auto Panner</span>
+            <p></p>
+          </div>
+        </div>
+        <div className="narrowEffectControls">
+          <h2 className="effectHeading">Wet</h2>
+          <Slider
+            parentId={parentId}
+            property="wet"
+            step="0.01"
+            min="0"
+            max="1"
+            value={wet}
+            handleChange={handleEffectValueChange}
+          />
 
-        <h2>Frequency</h2>
-        <Slider
-          parentId={parentId}
-          property="frequency.value"
-          step="1"
-          min="0"
-          max="100"
-          value={frequency.value}
-          handleChange={handleEffectValueChange}
-        />
+          <h2 className="effectHeading">Frequency</h2>
+          <Slider
+            parentId={parentId}
+            property="frequency.value"
+            step="1"
+            min="0"
+            max="100"
+            value={frequency.value}
+            handleChange={handleEffectValueChange}
+          />
 
-        <h2>Type</h2>
-        <ButtonSet
-          parentId={parentId}
-          property="type"
-          set={set}
-          value={type}
-          handleChange={handleEffectValueChange}
-        />
+          <h2 className="effectHeading">Type</h2>
+          <ButtonSet
+            parentId={parentId}
+            property="type"
+            set={set}
+            current={type}
+            handleChange={handleEffectValueChange}
+          />
 
-        <h2>Depth</h2>
-        <Slider
-          parentId={parentId}
-          property="depth.value"
-          step="0.01"
-          min="0"
-          max="1"
-          value={depth.value}
-          handleChange={handleEffectValueChange}
-        />
+          <h2 className="effectHeading">Depth</h2>
+          <Slider
+            parentId={parentId}
+            property="depth.value"
+            step="0.01"
+            min="0"
+            max="1"
+            value={depth.value}
+            handleChange={handleEffectValueChange}
+          />
+        </div>
       </div>
     )
   }
