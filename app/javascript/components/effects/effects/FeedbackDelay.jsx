@@ -17,38 +17,48 @@ export default class FeedbackDelay extends PureComponent {
 
     return (
       <div className="Effect">
-        <h2>Wet</h2>
-        <Slider
-          parentId={parentId}
-          property="wet"
-          step="0.01"
-          min="0"
-          max="1"
-          value={wet}
-          handleChange={handleEffectValueChange}
-        />
+        <div className="smallBar">
+          <div>
+            {' '}
+            <span>Feedback Delay</span>
+            <p></p>
+          </div>
+        </div>
 
-        <h2>Delay Time</h2>
-        <Slider
-          parentId={parentId}
-          property="delayTime.value"
-          step="1"
-          min="0"
-          max="100"
-          value={delayTime.value}
-          handleChange={handleEffectValueChange}
-        />
+        <div className="effectControls">
+          <h2 class="effectHeading">Wet</h2>
+          <Slider
+            parentId={parentId}
+            property="wet"
+            step="0.01"
+            min="0"
+            max="1"
+            value={wet}
+            handleChange={handleEffectValueChange}
+          />
 
-        <h2>Max Delay</h2>
-        <Slider
-          parentId={parentId}
-          property="maxDelay"
-          step="1"
-          min="0"
-          max="100"
-          value={maxDelay}
-          handleChange={handleEffectValueChange}
-        />
+          <h2 class="effectMiddleHeading">Delay Time</h2>
+          <Slider
+            parentId={parentId}
+            property="delayTime.value"
+            step="1"
+            min="0"
+            max="100"
+            value={delayTime.value}
+            handleChange={handleEffectValueChange}
+          />
+
+          <h2 class="effectHeading">Max Delay</h2>
+          <Slider
+            parentId={parentId}
+            property="maxDelay"
+            step="1"
+            min="0"
+            max="100"
+            value={maxDelay}
+            handleChange={handleEffectValueChange}
+          />
+        </div>
       </div>
     )
   }

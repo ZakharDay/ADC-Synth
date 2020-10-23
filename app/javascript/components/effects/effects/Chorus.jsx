@@ -18,69 +18,79 @@ export default class Chorus extends PureComponent {
 
     return (
       <div className="Effect">
-        <h2>Wet</h2>
-        <Slider
-          parentId={parentId}
-          property="wet"
-          step="0.01"
-          min="0"
-          max="1"
-          value={wet}
-          handleChange={handleEffectValueChange}
-        />
+        <div className="mediumBar">
+          <div className="mediumBarContainer">
+            {' '}
+            <span>Chorus</span>
+            <Slider
+              parentId={parentId}
+              property="wet"
+              step="0.01"
+              min="0"
+              max="1"
+              value={wet}
+              handleChange={handleEffectValueChange}
+            />
+            <p></p>
+          </div>
+        </div>
+        <div className="chorusEffectControlsContainer">
+          <div className="chorusEffectControls">
+            <h2 class="effectHeading">Frequency</h2>
+            <Slider
+              parentId={parentId}
+              property="frequency.value"
+              step="1"
+              min="0"
+              max="100"
+              value={frequency.value}
+              handleChange={handleEffectValueChange}
+            />
 
-        <h2>Frequency</h2>
-        <Slider
-          parentId={parentId}
-          property="frequency.value"
-          step="1"
-          min="0"
-          max="100"
-          value={frequency.value}
-          handleChange={handleEffectValueChange}
-        />
+            <h2 class="effectMiddleHeading">Delay Time</h2>
+            <Slider
+              parentId={parentId}
+              property="delayTime"
+              step="0.1"
+              min="0"
+              max="10"
+              value={delayTime}
+              handleChange={handleEffectValueChange}
+            />
 
-        <h2>Delay Time</h2>
-        <Slider
-          parentId={parentId}
-          property="delayTime"
-          step="0.1"
-          min="0"
-          max="10"
-          value={delayTime}
-          handleChange={handleEffectValueChange}
-        />
+            <h2 class="effectHeading">Depth</h2>
+            <Slider
+              parentId={parentId}
+              property="depth"
+              step="0.01"
+              min="0"
+              max="1"
+              value={depth}
+              handleChange={handleEffectValueChange}
+            />
+          </div>
+          <div className="chorusEffectControls">
+            <h2 class="effectHeading">Type</h2>
+            <ButtonSet
+              parentId={parentId}
+              property="type"
+              set={set}
+              value={type}
+              handleChange={handleEffectValueChange}
+            />
 
-        <h2>Depth</h2>
-        <Slider
-          parentId={parentId}
-          property="depth"
-          step="0.01"
-          min="0"
-          max="1"
-          value={depth}
-          handleChange={handleEffectValueChange}
-        />
-
-        <h2>Type</h2>
-        <ButtonSet
-          parentId={parentId}
-          property="type"
-          set={set}
-          value={type}
-          handleChange={handleEffectValueChange}
-        />
-
-        <h2>Spread</h2>
-        <Slider
-          parentId={parentId}
-          property="spread"
-          step="1"
-          min="0"
-          max="360"
-          value={spread}
-          handleChange={handleEffectValueChange}
-        />
+            <h2 class="effectHeading">Spread</h2>
+            <Slider
+              parentId={parentId}
+              property="spread"
+              step="1"
+              min="0"
+              max="360"
+              value={spread}
+              handleChange={handleEffectValueChange}
+            />
+          </div>
+        </div>
       </div>
     )
   }

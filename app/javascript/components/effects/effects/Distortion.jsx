@@ -18,7 +18,7 @@ export default class Distortion extends PureComponent {
 
     return (
       <div className="Effect" id="distortion">
-        <div className="distortionBar">
+        <div className="smallBar">
           <div>
             {' '}
             <span>Distortion</span>
@@ -27,7 +27,7 @@ export default class Distortion extends PureComponent {
         </div>
 
         <div className="effectControls">
-          <h2 className="distortionHeading">Wet</h2>
+          <h2 className="effectHeading">Wet</h2>
           <Slider
             parentId={parentId}
             property="wet"
@@ -38,7 +38,7 @@ export default class Distortion extends PureComponent {
             handleChange={handleEffectValueChange}
           />
 
-          <h2 className="distortionMiddleHeading">Distortion</h2>
+          <h2 className="effectMiddleHeading">Distortion</h2>
           <Slider
             parentId={parentId}
             property="distortion"
@@ -49,7 +49,7 @@ export default class Distortion extends PureComponent {
             handleChange={handleEffectValueChange}
           />
 
-          <h2 className="distortionHeading">Oversample</h2>
+          <h2 className="effectHeading">Oversample</h2>
           <ButtonSet
             parentId={parentId}
             property="oversample"

@@ -15,44 +15,47 @@
   height: 601px;
 }
 
-.distortionBar {
+.smallBar {
   height: 51px;
-  padding-top: 15px;
+  width: 300px;
+  position: relative;
 
   &::after {
-    // position: absolute;
-    // top: 0;
-    margin-top: 14px;
-    left: 28px;
+    /* margin-top: 19px; */
+    position: absolute;
+    /* left: 28px; */
     display: block;
     content: '';
+    top: 50px;
     width: 300px;
     height: 1px;
     background: var(--medium-grey);
   }
 }
 
-.distortionBar div {
+.smallBar div {
   display: flex;
   align-items: center;
   width: 260px;
   margin-left: 20px;
+  padding-top: 16px;
   justify-content: space-between;
+  /* height: 20px; */
 }
 
-.distortionBar p {
-  width: 13.46px;
-  height: 13.46px;
+.smallBar p {
+  width: 14px;
+  height: 14px;
   background-image: image-url('Cross.svg');
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.distortionBar span {
+.smallBar span {
   font-size: 16px;
   font-weight: 500;
+  height: 20px;
   text-transform: uppercase;
-  margin-left: 20px;
 }
 .effectControls {
   width: 180px;
@@ -60,16 +63,72 @@
   margin-left: 60px;
   margin-top: 90px;
 }
-.distortionMiddleHeading {
-  margin-top: 24px;
+.effectHeading {
+  margin-bottom: 12px;
 }
 
-.distortionHeading:last-of-type {
+.effectMiddleHeading {
   margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.effectHeading:last-of-type {
+  margin-top: 24px;
+  margin-bottom: 12px;
 }
 
 .effectControls h2 {
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 12px;
+}
+
+.mediumBar {
+  height: 51px;
+  width: 512px;
+  position: relative;
+
+  &::after {
+    /* margin-top: 19px; */
+    position: absolute;
+    /* left: 28px; */
+    display: block;
+    content: '';
+    top: 50px;
+    width: 512px;
+    height: 1px;
+    background: var(--medium-grey);
+  }
+}
+
+.mediumBarContainer {
+  display: flex;
+  align-items: center;
+  width: 470px;
+  margin-left: 20px;
+  padding-top: 16px;
+  justify-content: space-between;
+  /* height: 20px; */
+}
+
+.mediumBar p {
+  width: 14px;
+  height: 14px;
+  background-image: image-url('Cross.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.mediumBar span {
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.chorusEffectControlsContainer {
+  display: flex;
+  width: 390px;
+  margin-left: 60px;
+  margin-top: 80px;
+  justify-content: space-between;
 }
