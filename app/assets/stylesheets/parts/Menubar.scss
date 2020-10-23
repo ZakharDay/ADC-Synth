@@ -1,6 +1,5 @@
 .Menubar {
   display: flex;
-  width: 100vw;
   justify-content: space-between;
   align-items: center;
   height: 50px;
@@ -23,13 +22,15 @@
     justify-content: space-between;
     align-items: center;
     .AddButtonMedium {
-      margin: 0 56px 0 20px;
       span {
         width: 109px;
       }
     }
 
     .SimpleButton {
+      margin-left: 20px;
+    }
+    .logIn {
       margin-left: 20px;
     }
   }
