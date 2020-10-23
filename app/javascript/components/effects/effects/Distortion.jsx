@@ -17,37 +17,47 @@ export default class Distortion extends PureComponent {
     const set = ['none', '2x', '4x']
 
     return (
-      <div className="Effect">
-        <h2>Wet</h2>
-        <Slider
-          parentId={parentId}
-          property="wet"
-          step="0.01"
-          min="0"
-          max="1"
-          value={wet}
-          handleChange={handleEffectValueChange}
-        />
+      <div className="Effect" id="distortion">
+        <div className="distortionBar">
+          <div>
+            {' '}
+            <span>Distortion</span>
+            <p></p>
+          </div>
+        </div>
 
-        <h2>Distortion</h2>
-        <Slider
-          parentId={parentId}
-          property="distortion"
-          step="0.01"
-          min="0"
-          max="1"
-          value={distortion}
-          handleChange={handleEffectValueChange}
-        />
+        <div className="effectControls">
+          <h2 className="distortionHeading">Wet</h2>
+          <Slider
+            parentId={parentId}
+            property="wet"
+            step="0.01"
+            min="0"
+            max="1"
+            value={wet}
+            handleChange={handleEffectValueChange}
+          />
 
-        <h2>Oversample</h2>
-        <ButtonSet
-          parentId={parentId}
-          property="oversample"
-          set={set}
-          value={oversample}
-          handleChange={handleEffectValueChange}
-        />
+          <h2 className="distortionMiddleHeading">Distortion</h2>
+          <Slider
+            parentId={parentId}
+            property="distortion"
+            step="0.01"
+            min="0"
+            max="1"
+            value={distortion}
+            handleChange={handleEffectValueChange}
+          />
+
+          <h2 className="distortionHeading">Oversample</h2>
+          <ButtonSet
+            parentId={parentId}
+            property="oversample"
+            set={set}
+            value={oversample}
+            handleChange={handleEffectValueChange}
+          />
+        </div>
       </div>
     )
   }
