@@ -1,100 +1,93 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
-// import PlaySwitch from '../controls/PlaySwitch'
-import ToggleButton from '../../controls/ToggleButton'
 import Slider from '../../controls/Slider'
-import Knob from '../../controls/Knob'
 import ButtonSet from '../../controls/ButtonSet'
 import Select from '../../controls/Select'
 
-export default class Phaser extends React.Component {
+export default class Phaser extends PureComponent {
   constructor(props) {
     super(props)
   }
 
-  createProp = (prop) => {
-    return { phaser: prop }
-  }
-
   render() {
+    const { parentId, effect, handleEffectValueChange } = this.props
     const {
-      settings,
-      instrumentId,
-      chanheEffectSetValue,
-      existenceСheck
-    } = this.props
+      wet,
+      frequency,
+      octaves,
+      octaves,
+      effect,
+      filter,
+      baseFrequency
+    } = effect
 
     return (
       <div className="Effect">
-        <ToggleButton text="Phaser" on={on} handleClick={toggleEffect} />
+        <h2>Wet</h2>
+        <Slider
+          parentId={parentId}
+          property="wet"
+          step="0.01"
+          min="0"
+          max="1"
+          value={wet}
+          handleChange={handleEffectValueChange}
+        />
 
-        <div className="controlsContainer">
-          <div className="controlsRow">
-            <h2>Wet</h2>
-            <Slider
-              name={name}
-              property="wet"
-              min="0"
-              max="1"
-              value={wet}
-              handleValueChange={changeEffectWetValue}
-            />
+        <h2>Frequency</h2>
+        <Slider
+          parentId={parentId}
+          property="frequency.value"
+          step="1"
+          min="0"
+          max="100"
+          value={frequency.value}
+          handleChange={handleEffectValueChange}
+        />
 
-            <h2>Frequency</h2>
-            <Slider
-              name={name}
-              property="frequency.value"
-              min="0"
-              max="1"
-              value={effect.frequency.value}
-              handleValueChange={changeEffectValue}
-            />
+        <h2>Octaves</h2>
+        <Slider
+          parentId={parentId}
+          property="octaves"
+          step="0.01"
+          min="0"
+          max="6"
+          value={octaves}
+          handleChange={handleEffectValueChange}
+        />
 
-            <h2>Octaves</h2>
-            <Slider
-              name={name}
-              property="octaves.value"
-              min="0"
-              max="6"
-              on={on}
-              value={effect.octaves.value}
-              handleValueChange={changeEffectValue}
-            />
+        <h2>Stages</h2>
+        <Slider
+          parentId={parentId}
+          property="stages"
+          step="0.1"
+          min="0"
+          max="10"
+          value={effect.stages}
+          handleChange={handleEffectValueChange}
+        />
 
-            <h2>Stages</h2>
-            <Slider
-              name={name}
-              property="stages"
-              min="0"
-              max="10"
-              on={on}
-              value={effect.stages}
-              handleValueChange={changeEffectValue}
-            />
+        <h2>Q</h2>
+        <Slider
+          parentId={parentId}
+          property="filter.q"
+          step="0.1"
+          min="0"
+          max="10"
+          value={filter.q}
+          handleChange={handleEffectValueChange}
+        />
 
-            <h2>Q</h2>
-            <Slider
-              name={name}
-              property="q"
-              min="0"
-              max="10"
-              on={on}
-              value={effect.q}
-              handleValueChange={changeEffectValue}
-            />
-
-            <h2>Base Frequency</h2>
-            <Slider
-              name={name}
-              property="baseFrequency.value"
-              min="0"
-              max="1000"
-              on={on}
-              value={effect.baseFrequency.value}
-              handleValueChange={changeEffectValue}
-            />
-          </div>
-        </div>
+        <h2>Base Frequency</h2>
+        <Slider
+          parentId={parentId}
+          property="baseFrequency.value"
+          step="10"
+          min="0"
+          max="1000"
+          value={baseFrequency.value}
+          handleChange={handleEffectValueChange}
+        />
       </div>
     )
   }

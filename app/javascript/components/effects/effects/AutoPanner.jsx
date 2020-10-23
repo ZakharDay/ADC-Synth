@@ -1,77 +1,62 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
-// import PlaySwitch from '../controls/PlaySwitch'
-import ToggleButton from '../../controls/ToggleButton'
 import Slider from '../../controls/Slider'
-import Knob from '../../controls/Knob'
 import ButtonSet from '../../controls/ButtonSet'
 import Select from '../../controls/Select'
 
-export default class AutoPanner extends React.Component {
+export default class AutoPanner extends PureComponent {
   constructor(props) {
     super(props)
   }
-  createProp = (prop) => {
-    return { autoPanner: prop }
-  }
 
   render() {
+    const { parentId, effect, handleEffectValueChange } = this.props
+    const { wet, frequency, type, depth } = effect
     const set = ['sine', 'square', 'triangle', 'sawtooth']
-
-    const {
-      settings,
-      instrumentId,
-      chanheEffectSetValue,
-      existenceСheck
-    } = this.props
 
     return (
       <div className="Effect">
-        <ToggleButton text="Auto Panner" on={on} handleClick={toggleEffect} />
+        <h2>Wet</h2>
+        <Slider
+          parentId={parentId}
+          property="wet"
+          step="0.01"
+          min="0"
+          max="1"
+          value={wet}
+          handleChange={handleEffectValueChange}
+        />
 
-        <div className="controlsContainer">
-          <div className="controlsRow">
-            <h2>Wet</h2>
-            <Slider
-              name={name}
-              property="wet"
-              min="0"
-              max="1"
-              value={wet}
-              handleValueChange={changeEffectWetValue}
-            />
+        <h2>Frequency</h2>
+        <Slider
+          parentId={parentId}
+          property="frequency.value"
+          step="1"
+          min="0"
+          max="100"
+          value={frequency.value}
+          handleChange={handleEffectValueChange}
+        />
 
-            <h2>Frequency</h2>
-            <Slider
-              name={name}
-              property="frequency.value"
-              min="0"
-              max="100"
-              value={effect.frequency.value}
-              handleValueChange={changeEffectValue}
-            />
+        <h2>Type</h2>
+        <ButtonSet
+          parentId={parentId}
+          property="type"
+          set={set}
+          value={type}
+          handleChange={handleEffectValueChange}
+        />
 
-            <h2>Type</h2>
-            <ButtonSet
-              name={name}
-              property="type"
-              set={set}
-              value={effect.type}
-              handleValueChange={changeEffectValue}
-            />
-
-            <h2>Depth</h2>
-            <Slider
-              name={name}
-              property="depth.value"
-              min="0"
-              max="1"
-              on={on}
-              value={effect.depth.value}
-              handleValueChange={changeEffectValue}
-            />
-          </div>
-        </div>
+        <h2>Depth</h2>
+        <Slider
+          parentId={parentId}
+          property="depth.value"
+          step="0.01"
+          min="0"
+          max="1"
+          value={depth.value}
+          handleChange={handleEffectValueChange}
+        />
       </div>
     )
   }

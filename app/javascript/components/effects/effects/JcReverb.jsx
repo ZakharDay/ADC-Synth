@@ -1,56 +1,41 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
-// import PlaySwitch from '../controls/PlaySwitch'
-import ToggleButton from '../../controls/ToggleButton'
 import Slider from '../../controls/Slider'
-import Knob from '../../controls/Knob'
 import ButtonSet from '../../controls/ButtonSet'
 import Select from '../../controls/Select'
 
-export default class JcReverb extends React.Component {
+export default class JcReverb extends PureComponent {
   constructor(props) {
     super(props)
   }
 
-  createProp = (prop) => {
-    return { jcReverb: prop }
-  }
-
   render() {
-    const {
-      settings,
-      instrumentId,
-      chanheEffectSetValue,
-      existenceСheck
-    } = this.props
+    const { parentId, effect, handleEffectValueChange } = this.props
+    const { wet, roomSize } = effect
 
     return (
       <div className="Effect">
-        <ToggleButton text="JC Reverb" on={on} handleClick={toggleEffect} />
+        <h2>Wet</h2>
+        <Slider
+          parentId={parentId}
+          property="wet"
+          step="0.01"
+          min="0"
+          max="1"
+          value={wet}
+          handleChange={handleEffectValueChange}
+        />
 
-        <div className="controlsContainer">
-          <div className="controlsRow">
-            <h2>Wet</h2>
-            <Slider
-              name={name}
-              property="wet"
-              min="0"
-              max="1"
-              value={wet}
-              handleValueChange={changeEffectWetValue}
-            />
-
-            <h2>Room Size</h2>
-            <Slider
-              name={name}
-              property="roomSize.value"
-              min="0"
-              max="1"
-              value={effect.roomSize.value}
-              handleValueChange={changeEffectValue}
-            />
-          </div>
-        </div>
+        <h2>Room Size</h2>
+        <Slider
+          parentId={parentId}
+          property="roomSize.value"
+          step="0.01"
+          min="0"
+          max="1"
+          value={roomSize.value}
+          handleChange={handleEffectValueChange}
+        />
       </div>
     )
   }

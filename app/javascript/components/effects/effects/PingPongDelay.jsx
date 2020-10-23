@@ -1,70 +1,52 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
-// import PlaySwitch from '../controls/PlaySwitch'
-import ToggleButton from '../../controls/ToggleButton'
 import Slider from '../../controls/Slider'
-import Knob from '../../controls/Knob'
 import ButtonSet from '../../controls/ButtonSet'
 import Select from '../../controls/Select'
 
-export default class PingPongDelay extends React.Component {
+export default class PingPongDelay extends PureComponent {
   constructor(props) {
     super(props)
   }
 
-  createProp = (prop) => {
-    return { pingPongDelay: prop }
-  }
-
   render() {
-    const {
-      settings,
-      instrumentId,
-      chanheEffectSetValue,
-      existenceСheck
-    } = this.props
+    const { parentId, effect, handleEffectValueChange } = this.props
+    const { wet, delayTime, maxDelayTime } = effect
 
     return (
       <div className="Effect">
-        <ToggleButton
-          text="Ping Pong Delay"
-          on={on}
-          handleClick={toggleEffect}
+        <h2>Wet</h2>
+        <Slider
+          parentId={parentId}
+          property="wet"
+          step="0.01"
+          min="0"
+          max="1"
+          value={wet}
+          handleChange={handleEffectValueChange}
         />
 
-        <div className="controlsContainer">
-          <div className="controlsRow">
-            <h2>Wet</h2>
-            <Slider
-              name={name}
-              property="wet"
-              min="0"
-              max="1"
-              value={wet}
-              handleValueChange={changeEffectWetValue}
-            />
+        <h2>Delay Time</h2>
+        <Slider
+          parentId={parentId}
+          property="delayTime.value"
+          step="0.01"
+          min="0"
+          max="1"
+          value={delayTime.value}
+          handleChange={handleEffectValueChange}
+        />
 
-            <h2>Delay Time</h2>
-            <Slider
-              name={name}
-              property="delayTime.value"
-              min="0"
-              max="1"
-              value={effect.delayTime.value}
-              handleValueChange={changeEffectValue}
-            />
-
-            <h2>Max Delay Time</h2>
-            <Slider
-              name={name}
-              property="maxDelayTime"
-              min="0"
-              max="1"
-              value={effect.maxDelayTime}
-              handleValueChange={changeEffectValue}
-            />
-          </div>
-        </div>
+        <h2>Max Delay Time</h2>
+        <Slider
+          parentId={parentId}
+          property="maxDelayTime"
+          step="0.01"
+          min="0"
+          max="1"
+          value={maxDelayTime}
+          handleChange={handleEffectValueChange}
+        />
       </div>
     )
   }
