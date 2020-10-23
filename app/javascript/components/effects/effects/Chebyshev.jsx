@@ -1,68 +1,51 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
-// import PlaySwitch from '../controls/PlaySwitch'
-import ToggleButton from '../../controls/ToggleButton'
 import Slider from '../../controls/Slider'
-import Knob from '../../controls/Knob'
 import ButtonSet from '../../controls/ButtonSet'
 import Select from '../../controls/Select'
 
-export default class Chebyshev extends React.Component {
+export default class Chebyshev extends PureComponent {
   constructor(props) {
     super(props)
   }
 
-  createProp = (prop) => {
-    return { chebyshev: prop }
-  }
-
   render() {
+    const { parentId, effect, handleEffectValueChange } = this.props
+    const { wet, order } = this.props
     const set = ['none', '2x', '4x']
-
-    const {
-      settings,
-      instrumentId,
-      chanheEffectSetValue,
-      existenceСheck
-    } = this.props
 
     return (
       <div className="Effect">
-        <ToggleButton text="Chebyshev" on={on} handleClick={toggleEffect} />
+        <h2>Wet</h2>
+        <Slider
+          parentId={parentId}
+          property="wet"
+          step="0.01"
+          min="0"
+          max="1"
+          value={wet}
+          handleChange={handleEffectValueChange}
+        />
 
-        <div className="controlsContainer">
-          <div className="controlsRow">
-            <h2>Wet</h2>
-            <Slider
-              name={name}
-              property="wet"
-              min="0"
-              max="1"
-              value={wet}
-              handleValueChange={changeEffectWetValue}
-            />
+        <h2>Order</h2>
+        <Slider
+          parentId={parentId}
+          property="order"
+          step="1"
+          min="1"
+          max="100"
+          value={order}
+          handleChange={handleEffectValueChange}
+        />
 
-            <h2>Order</h2>
-            <Slider
-              name={name}
-              property="order"
-              min="1"
-              max="100"
-              on={on}
-              value={effect.order}
-              handleValueChange={changeEffectValue}
-            />
-
-            <h2>Oversample</h2>
-            <ButtonSet
-              name={name}
-              property="oversample"
-              set={set}
-              value={effect.oversample}
-              handleValueChange={changeEffectValue}
-            />
-          </div>
-        </div>
+        <h2>Oversample</h2>
+        <ButtonSet
+          name={name}
+          property="oversample"
+          set={set}
+          value={effect.oversample}
+          handleChange={handleEffectValueChange}
+        />
       </div>
     )
   }
