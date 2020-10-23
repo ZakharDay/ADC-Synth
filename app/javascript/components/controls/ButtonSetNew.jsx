@@ -12,7 +12,7 @@ export default class ButtonSet extends React.Component {
     let firstColumn = []
     let secondColumn = []
 
-    Object.keys(set).forEach((button, i) => {
+    set.forEach((button, i) => {
       console.log(current, button)
       if (current === button) {
         buttonList.push(
@@ -89,10 +89,14 @@ export default class ButtonSet extends React.Component {
     //     secondColumn.push(buttonList[7])
     //     break
     // }
+    // <div className="buttonSet">
+    //   <div>{firstColumn}</div>
+    //   <div>{secondColumn}</div>
+    // </div>
     return (
-      <div className="buttonSet">
-        <div>{firstColumn}</div>
-        <div>{secondColumn}</div>
+      <div className="ButtonSet">
+        <h3> {text}</h3>
+        <div className="buttonList">{buttonList}</div>
       </div>
     )
   }

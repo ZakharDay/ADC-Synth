@@ -144,7 +144,7 @@ export default class Knob extends PureComponent {
 
     return (
       <div className="Knob" onMouseDown={this.handleMouseDown}>
-        <div className="KnobName">name</div>
+        <div className="KnobName">{name}</div>
         <div className="KnobBody">
           <div className="body" style={styles}></div>
         </div>

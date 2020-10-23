@@ -1,23 +1,63 @@
-.ButtonSetLine {
-  display: flex;
-  margin-top: 4px;
-  padding-bottom: 4px;
+// .ButtonSetLine {
+//   display: flex;
+//   margin-top: 4px;
+//   padding-bottom: 4px;
+//
+//   .ButtonSets {
+//     height: 19px;
+//     width: 88px;
+//     line-height: 18px;
+//     font-size: 14px;
+//     color: var(--dark-grey);
+//     background: #ffff;
+//     cursor: pointer;
+//     &.on {
+//       background: var(--dark-green);
+//     }
+//     div {
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//     }
+//   }
+// }
+.ButtonSet {
+  margin-bottom: 16px;
 
-  .ButtonSets {
-    height: 19px;
-    width: 88px;
-    line-height: 18px;
-    font-size: 14px;
-    color: var(--dark-grey);
-    background: #ffff;
-    cursor: pointer;
-    &.on {
-      background: var(--dark-green);
-    }
-    div {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  h3 {
+    margin-bottom: 11px;
+  }
+  .buttonList {
+    display: flex;
+    width: 180px;
+    flex-wrap: wrap;
+
+    .buttonSetToggle {
+      font-size: 14px;
+      background-color: var(--white);
+      margin: 0 4px 4px 0;
+      text-align: center;
+      color: var(--black);
+      text-transform: capitalize;
+      span {
+        padding: 2px 5px;
+        width: 78px;
+        display: inline-block;
+        height: 19px;
+      }
+
+      &.on {
+        background-color: var(--dark-green);
+        span {
+          font-weight: 800;
+
+          color: var(--black);
+        }
+      }
+
+      & + .ToggleButton {
+        margin-top: 20px;
+      }
     }
   }
 }
