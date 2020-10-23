@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
+
 import Select from '../controls/Select'
-// import Button from '../controls/Button'
+import AddButtonNew from '../controls/AddButtonNew'
 
 import AutoFilter from './effects/AutoFilter'
 import AutoPanner from './effects/AutoPanner'
@@ -20,9 +21,8 @@ import Reverb from './effects/Reverb'
 import StereoWidener from './effects/StereoWidener'
 import Tremolo from './effects/Tremolo'
 import Vibrato from './effects/Vibrato'
-import AddButton from '../controls/AddButtonNew'
 
-export default class Effects extends React.Component {
+export default class Effects extends PureComponent {
   constructor(props) {
     super(props)
   }
@@ -247,33 +247,98 @@ export default class Effects extends React.Component {
     })
 
     const typeSetButtonEffects = {
-      autoFilter: () => handleEffectCreate(instrumentId, 'autoFilter'),
-      autoPanner: () => handleEffectCreate(instrumentId, 'autoPanner'),
-      autoWah: () => handleEffectCreate(instrumentId, 'autoWah'),
-      bitCrusher: () => handleEffectCreate(instrumentId, 'bitCrusher'),
-      chebyshev: () => handleEffectCreate(instrumentId, 'chebyshev'),
-      chorus: () => handleEffectCreate(instrumentId, 'chorus'),
-      distortion: () => handleEffectCreate(instrumentId, 'distortion'),
-      feedbackDelay: () => handleEffectCreate(instrumentId, 'feedbackDelay'),
-      feedbackEffect: () => handleEffectCreate(instrumentId, 'feedbackEffect'),
-      freeverb: () => handleEffectCreate(instrumentId, 'freeverb'),
-      jcReverb: () => handleEffectCreate(instrumentId, 'jcReverb'),
-      phaser: () => handleEffectCreate(instrumentId, 'phaser'),
-      pingPongDelay: () => handleEffectCreate(instrumentId, 'pingPongDelay'),
-      pitchShift: () => handleEffectCreate(instrumentId, 'pitchShift'),
-      reverb: () => handleEffectCreate(instrumentId, 'reverb'),
-      stereoWidener: () => handleEffectCreate(instrumentId, 'stereoWidener'),
-      tremolo: () => handleEffectCreate(instrumentId, 'tremolo'),
-      vibrato: () => handleEffectCreate(instrumentId, 'vibrato')
+      autoFilter: {
+        name: 'Auto Filter',
+        callback: () => handleEffectCreate(instrumentId, 'autoFilter')
+      },
+      autoPanner: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'autoPanner')
+      },
+      autoWah: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'autoWah')
+      },
+      bitCrusher: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'bitCrusher')
+      },
+      chebyshev: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'chebyshev')
+      },
+      chorus: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'chorus')
+      },
+      distortion: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'distortion')
+      },
+      feedbackDelay: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'feedbackDelay')
+      },
+      feedbackEffect: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'feedbackEffect')
+      },
+      freeverb: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'freeverb')
+      },
+      jcReverb: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'jcReverb')
+      },
+      phaser: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'phaser')
+      },
+      pingPongDelay: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'pingPongDelay')
+      },
+      pitchShift: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'pitchShift')
+      },
+      reverb: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'reverb')
+      },
+      stereoWidener: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'stereoWidener')
+      },
+      tremolo: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'tremolo')
+      },
+      vibrato: {
+        name: '',
+        callback: () => handleEffectCreate(instrumentId, 'vibrato')
+      }
     }
+
+    let addEffectButtons = []
+
+    Object.keys(typeSetButtonEffects).forEach((key, i) => {
+      addEffectButtons.push(
+        <AddButtonNew
+          text={typeSetButtonEffects[key].name}
+          size={'Medium'}
+          handleClick={typeSetButtonEffects[key].callback}
+          key={i}
+        />
+      )
+    })
 
     return (
       <div className="Effects">
-        <Select text="Add Effect" set={typeSetButtonEffects} />
         {this.renderEffects()}
-        <div>
-          <AddButton text="Add Chorus" size="medium" />
-        </div>
+
+        <div>{addEffectButtons}</div>
       </div>
     )
   }

@@ -6,13 +6,12 @@ export default class AddButton extends PureComponent {
   }
 
   render() {
-    const { text, handleClick, size } = this.props
+    const { text, size, handleClick } = this.props
 
     return (
       <div className={'AddButton' + size} onClick={handleClick}>
         <div className={'AddButton' + size + 'Circle'}>
-          {' '}
-          <div className={'AddButton' + size + 'Plus'}> </div>
+          <div className={'AddButton' + size + 'Plus'}></div>
         </div>
 
         <span>{text}</span>

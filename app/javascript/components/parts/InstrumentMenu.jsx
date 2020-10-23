@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
 import ToggleButton from '../controls/ToggleButton'
 import RecedingToggleButton from '../controls/RecedingToggleButton'
 import AddButtonNew from '../controls/AddButtonNew'
 
-export default class InstrumentMenu extends React.Component {
+export default class InstrumentMenu extends PureComponent {
   constructor(props) {
     super(props)
   }
@@ -43,6 +43,7 @@ export default class InstrumentMenu extends React.Component {
         <div className={'barHeading'}>
           <span>{name}</span>
         </div>
+
         <div className="ToggleButtons">{this.renderToggleButtons(buttons)}</div>
 
         {name === 'Parts' ? (

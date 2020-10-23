@@ -107,7 +107,21 @@ class RoomsController < ApplicationController
     instrument = Instrument.find(params[:instrument_id])
     effect_json = {}
 
-    if params[:effect_name] == 'feedbackDelay'
+    if params[:effect_name] == 'autoFilter'
+      new_effect = {
+        name: 'autoFilter',
+        frequency: 50,
+        type: 'square',
+        depth: 0.5,
+        baseFrequency: 900,
+        octaves: 3,
+        filter: {
+          type: 'lowpass',
+          rolloff: -24,
+          q: 5
+        }
+      }
+    elsif params[:effect_name] == 'feedbackDelay'
       new_effect = {
         name: 'feedbackDelay',
         delayTime: '8n',

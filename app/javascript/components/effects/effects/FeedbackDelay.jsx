@@ -23,7 +23,7 @@ export default class FeedbackDelay extends PureComponent {
         </div>
 
         <div className="effectControls">
-          <h2 class="effectHeading">Wet</h2>
+          <h2 className="effectHeading">Wet</h2>
           <Slider
             parentId={parentId}
             property="wet"
@@ -34,7 +34,7 @@ export default class FeedbackDelay extends PureComponent {
             handleChange={handleEffectValueChange}
           />
 
-          <h2 class="effectMiddleHeading">Delay Time</h2>
+          <h2 className="effectMiddleHeading">Delay Time</h2>
           <Slider
             parentId={parentId}
             property="delayTime.value"
@@ -45,7 +45,7 @@ export default class FeedbackDelay extends PureComponent {
             handleChange={handleEffectValueChange}
           />
 
-          <h2 class="effectHeading">Max Delay</h2>
+          <h2 className="effectHeading">Max Delay</h2>
           <Slider
             parentId={parentId}
             property="maxDelay"

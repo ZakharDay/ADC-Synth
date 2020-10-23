@@ -34,7 +34,7 @@ export default class Chorus extends PureComponent {
 
         <div className="chorusEffectControlsContainer">
           <div className="chorusEffectControls">
-            <h2 class="effectHeading">Frequency</h2>
+            <h2 className="effectHeading">Frequency</h2>
             <Slider
               parentId={parentId}
               property="frequency.value"
@@ -45,7 +45,7 @@ export default class Chorus extends PureComponent {
               handleChange={handleEffectValueChange}
             />
 
-            <h2 class="effectMiddleHeading">Delay Time</h2>
+            <h2 className="effectMiddleHeading">Delay Time</h2>
             <Slider
               parentId={parentId}
               property="delayTime"
@@ -56,7 +56,7 @@ export default class Chorus extends PureComponent {
               handleChange={handleEffectValueChange}
             />
 
-            <h2 class="effectHeading">Depth</h2>
+            <h2 className="effectHeading">Depth</h2>
             <Slider
               parentId={parentId}
               property="depth"
@@ -68,7 +68,7 @@ export default class Chorus extends PureComponent {
             />
           </div>
           <div className="chorusEffectControls">
-            <h2 class="effectHeading">Type</h2>
+            <h2 className="effectHeading">Type</h2>
             <ButtonSet
               parentId={parentId}
               property="type"
@@ -77,7 +77,7 @@ export default class Chorus extends PureComponent {
               handleChange={handleEffectValueChange}
             />
 
-            <h2 class="effectHeading">Spread</h2>
+            <h2 className="effectHeading">Spread</h2>
             <Slider
               parentId={parentId}
               property="spread"

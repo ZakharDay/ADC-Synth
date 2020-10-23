@@ -15,32 +15,26 @@
 }
 
 .AddButtonMediumCircle {
-  width: 25px;
-  height: 25px;
+  width: 24px;
+  height: 24px;
   background-color: var(--acid-green);
   border-radius: 100px;
   position: relative;
-  &::before {
+
+  &::before,
+  &::after {
     position: absolute;
-    top: 11.27px;
-    left: 5.77px;
+    top: 11px;
+    left: 5px;
     display: block;
     content: '';
-    width: 13.23px;
-    height: 2.12px;
     background: var(--black);
+    width: 14px;
+    height: 2px;
   }
 
   &::after {
-    position: absolute;
-    top: 11.45px;
-    left: 5.77px;
-    width: 13.46px;
-    height: 2.08px;
-    display: block;
-    content: '';
     transform: rotate(90deg);
-    background: var(--black);
   }
 }
 
