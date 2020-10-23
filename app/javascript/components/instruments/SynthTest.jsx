@@ -58,9 +58,16 @@ export default class SynthTest extends PureComponent {
     const { instrument } = this.props
     const { parts, webaudio } = instrument
 
-    // console.log(instrument.webaudio)
-
     if (webaudio) {
+      webaudio.detune.value = parts[0].synth.detune
+      webaudio.portamento = parts[0].synth.portamento
+
+      webaudio.oscillator.type = parts[0].synth.oscillator.type
+      webaudio.oscillator.sourceType = parts[0].synth.oscillator.sourceType
+      // prettier-ignore
+      webaudio.oscillator.modulationType = parts[0].synth.oscillator.modulationType
+      webaudio.oscillator.phase = parts[0].synth.oscillator.phase
+
       webaudio.envelope.attack = parts[0].synth.envelope.attack
       webaudio.envelope.decay = parts[0].synth.envelope.decay
       webaudio.envelope.sustain = parts[0].synth.envelope.sustain

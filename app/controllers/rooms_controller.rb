@@ -6,7 +6,7 @@ class RoomsController < ApplicationController
     :musician, :mixer,
     :create_part, :change_part,
     :create_instrument, :change_instrument,
-    :create_effect
+    :create_effect, :change_effects
   ]
 
   before_action :musician_props, only: :musician
@@ -139,6 +139,16 @@ class RoomsController < ApplicationController
     musician_props
 
     render json: @props
+  end
+
+  def change_effects
+    instrument = Instrument.find(params[:instrument_id])
+    setting = Setting.where(instrument_id: instrument.id, part_id: params[:part_id]).first
+
+    setting.update_attribute(:effects, params[:part_settings][:effects])
+    ActionCable.server.broadcast 'mixer_channel', mixer_props.to_json
+
+    render json: {}
   end
 
   # GET /rooms/new

@@ -311,8 +311,104 @@ export default class ADCSynth extends React.Component {
       })
   }
 
-  handleEffectValueChange = () => {
-    console.log('yo')
+  handleEffectValueChange = (id, effectName, property, value) => {
+    // console.log(id, effectName, property, value)
+    const { room, instruments, currentPartId } = this.state
+    let newInstruments = [...instruments]
+    let newInstrumentData = []
+
+    let instrument = instruments.filter((instrument) => {
+      if (instrument.id === id) {
+        return instrument
+      }
+    })[0]
+
+    let instrumentPart = instrument.parts.filter((part) => {
+      if (part.partId === currentPartId) {
+        return part
+      }
+    })[0]
+
+    let partEffect = instrumentPart.effects.filter((effect) => {
+      if (effect.name === effectName) {
+        return effect
+      }
+    })[0]
+
+    let regexBefore = /(.*)\./
+    let regexAfter = /\.(.*)/
+    let settingNameNamespace = property.match(regexBefore)
+    let settingNameInNamespace
+
+    if (settingNameNamespace) {
+      settingNameNamespace = settingNameNamespace[1]
+      settingNameInNamespace = property.match(regexAfter)[1]
+    }
+
+    if (settingNameNamespace == 'oscillator') {
+      // instrumentPart.synth.oscillator[settingNameInNamespace] = value
+    } else if (settingNameNamespace == 'envelope') {
+      // instrumentPart.synth.envelope[settingNameInNamespace] = value
+    } else {
+      partEffect[property] = value
+    }
+
+    newInstruments.map((newInstrument) => {
+      if (newInstrument.id === id) {
+        newInstrument.parts = [...newInstrument.parts]
+
+        newInstrument.parts.map((part) => {
+          if (instrumentPart.id === part.id) {
+            part.effects.map((effect) => {
+              if (effect.name === partEffect.name) {
+                return partEffect
+              } else {
+                return effect
+              }
+            })
+
+            return part
+          } else {
+            return part
+          }
+        })
+
+        newInstrumentData = newInstrument
+        return newInstrument
+      } else {
+        return newInstrument
+      }
+    })
+
+    const data = {
+      authenticity_token: utilities.getMeta('csrf-token'),
+      part_id: currentPartId,
+      instrument_id: newInstrumentData.id,
+      part_settings: newInstrumentData.parts.filter((part) => {
+        if (part.partId === currentPartId) {
+          return part
+        }
+      })[0]
+    }
+
+    fetch(`/rooms/${room.id}/change_effects`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data)
+      })
+      .catch((error) => {
+        console.error('Error:', error)
+      })
+
+    this.setState({
+      instruments: newInstruments
+    })
   }
 
   handleMixerDataReceived = (data) => {

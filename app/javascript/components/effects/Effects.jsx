@@ -27,14 +27,6 @@ export default class Effects extends React.Component {
     super(props)
   }
 
-  // filterEffectSettings = (name, settings) => {
-  //   return settings.effects.filter((effect) => {
-  //     if (effect.name === 'name') {
-  //       return effect
-  //     }
-  //   })
-  // }
-
   renderEffects = () => {
     const { settings, instrument, handleEffectValueChange } = this.props
     const { id } = instrument
@@ -46,7 +38,9 @@ export default class Effects extends React.Component {
           <AutoFilter
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -55,7 +49,9 @@ export default class Effects extends React.Component {
           <AutoPanner
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -64,7 +60,9 @@ export default class Effects extends React.Component {
           <AutoWah
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -73,7 +71,9 @@ export default class Effects extends React.Component {
           <BitCrusher
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -82,7 +82,9 @@ export default class Effects extends React.Component {
           <Chebyshev
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -91,7 +93,9 @@ export default class Effects extends React.Component {
           <Chorus
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -100,7 +104,9 @@ export default class Effects extends React.Component {
           <Distortion
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -109,7 +115,9 @@ export default class Effects extends React.Component {
           <FeedbackDelay
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -118,7 +126,9 @@ export default class Effects extends React.Component {
           <FeedbackEffect
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -127,7 +137,9 @@ export default class Effects extends React.Component {
           <Freeverb
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -136,7 +148,9 @@ export default class Effects extends React.Component {
           <JcReverb
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -145,7 +159,9 @@ export default class Effects extends React.Component {
           <Phaser
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -154,7 +170,9 @@ export default class Effects extends React.Component {
           <PingPongDelay
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -163,7 +181,9 @@ export default class Effects extends React.Component {
           <PitchShift
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -172,7 +192,9 @@ export default class Effects extends React.Component {
           <Reverb
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -181,7 +203,9 @@ export default class Effects extends React.Component {
           <StereoWidener
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -190,7 +214,9 @@ export default class Effects extends React.Component {
           <Tremolo
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )
@@ -199,7 +225,9 @@ export default class Effects extends React.Component {
           <Vibrato
             parentId={id}
             effect={effect}
-            handleEffectValueChange={handleEffectValueChange}
+            handleEffectValueChange={(id, property, value) =>
+              handleEffectValueChange(id, effect.name, property, value)
+            }
             key={i}
           />
         )

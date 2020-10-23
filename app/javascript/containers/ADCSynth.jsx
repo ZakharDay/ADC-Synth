@@ -175,35 +175,35 @@ export default class ADCSynth extends React.Component {
   //   // Set State
   // }
 
-  changeEnvelopeValue = (instrumentId, property, value) => {
-    const { instruments } = this.state
-    const instrument = instruments[instrumentId]
-
-    instrument.parts.forEach((part, i) => {
-      if (part.current) {
-        part.synth.envelope[property] = value
-      }
-    })
-
-    this.setState({
-      instruments
-    })
-  }
-
-  handleChangeDetune = (instrumentId, property, value) => {
-    const { instruments } = this.state
-    const instrument = instruments[instrumentId]
-
-    instrument.parts.forEach((part, i) => {
-      if (part.current) {
-        part.synth[property] = value
-      }
-    })
-
-    this.setState({
-      instruments
-    })
-  }
+  // changeEnvelopeValue = (instrumentId, property, value) => {
+  //   const { instruments } = this.state
+  //   const instrument = instruments[instrumentId]
+  //
+  //   instrument.parts.forEach((part, i) => {
+  //     if (part.current) {
+  //       part.synth.envelope[property] = value
+  //     }
+  //   })
+  //
+  //   this.setState({
+  //     instruments
+  //   })
+  // }
+  //
+  // handleChangeDetune = (instrumentId, property, value) => {
+  //   const { instruments } = this.state
+  //   const instrument = instruments[instrumentId]
+  //
+  //   instrument.parts.forEach((part, i) => {
+  //     if (part.current) {
+  //       part.synth[property] = value
+  //     }
+  //   })
+  //
+  //   this.setState({
+  //     instruments
+  //   })
+  // }
 
   // handleEffectCreate = (instrumentId, effectName) => {
   //   const { instruments } = this.state

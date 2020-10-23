@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get 'create_instrument'
       post 'change_instrument'
       get 'create_effect'
+      post 'change_effects'
     end
   end
 
