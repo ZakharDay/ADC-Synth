@@ -87,7 +87,7 @@ export default class AutoWah extends PureComponent {
         <Slider
           parentId={parentId}
           property="follower.attack"
-          step="0.1"
+          step="0.01"
           min="0"
           max="1"
           value={follower.attack}
@@ -98,7 +98,7 @@ export default class AutoWah extends PureComponent {
         <Slider
           parentId={parentId}
           property="follower.release"
-          step="0.1"
+          step="0.01"
           min="0"
           max="1"
           value={follower.release}

@@ -18,7 +18,6 @@ export default class Distortion extends PureComponent {
       <div className="Effect" id="distortion">
         <div className="smallBar">
           <div>
-            {' '}
             <span>Distortion</span>
             <p></p>
           </div>

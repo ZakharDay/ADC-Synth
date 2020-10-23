@@ -18,7 +18,6 @@ export default class Chorus extends PureComponent {
       <div className="Effect">
         <div className="mediumBar">
           <div className="mediumBarContainer">
-            {' '}
             <span>Chorus</span>
             <Slider
               parentId={parentId}
@@ -32,6 +31,7 @@ export default class Chorus extends PureComponent {
             <p></p>
           </div>
         </div>
+
         <div className="chorusEffectControlsContainer">
           <div className="chorusEffectControls">
             <h2 class="effectHeading">Frequency</h2>

@@ -30,7 +30,7 @@ export default class BitCrusher extends PureComponent {
         <Slider
           parentId={parentId}
           property="bits"
-          step="0.01"
+          step="1"
           min="1"
           max="8"
           value={bits}

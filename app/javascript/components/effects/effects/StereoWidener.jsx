@@ -11,16 +11,8 @@ export default class StereoWidener extends PureComponent {
 
   render() {
     const { parentId, effect, handleEffectValueChange } = this.props
-    const {
-      wet,
-      frequency,
-      effect,
-      depth,
-      baseFrequency,
-      octaves,
-      type,
-      filter
-    } = effect
+    const { wet, width } = effect
+
     return (
       <div className="Effect">
         <h2>Wet</h2>

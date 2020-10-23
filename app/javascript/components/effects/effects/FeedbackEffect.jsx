@@ -10,8 +10,8 @@ export default class FeedbackEffect extends PureComponent {
   }
 
   render() {
-    const { wet, feedback } = teffect
     const { parentId, effect, handleEffectValueChange } = this.props
+    const { wet, feedback } = effect
 
     return (
       <div className="Effect">

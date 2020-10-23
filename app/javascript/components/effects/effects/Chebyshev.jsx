@@ -11,7 +11,7 @@ export default class Chebyshev extends PureComponent {
 
   render() {
     const { parentId, effect, handleEffectValueChange } = this.props
-    const { wet, order } = this.props
+    const { wet, order, oversample } = this.props
     const set = ['none', '2x', '4x']
 
     return (
@@ -43,7 +43,7 @@ export default class Chebyshev extends PureComponent {
           name={name}
           property="oversample"
           set={set}
-          value={effect.oversample}
+          value={oversample}
           handleChange={handleEffectValueChange}
         />
       </div>

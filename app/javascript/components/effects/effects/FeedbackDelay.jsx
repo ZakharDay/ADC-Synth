@@ -17,7 +17,6 @@ export default class FeedbackDelay extends PureComponent {
       <div className="Effect">
         <div className="smallBar">
           <div>
-            {' '}
             <span>Feedback Delay</span>
             <p></p>
           </div>

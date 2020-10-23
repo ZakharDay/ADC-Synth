@@ -11,15 +11,7 @@ export default class Phaser extends PureComponent {
 
   render() {
     const { parentId, effect, handleEffectValueChange } = this.props
-    const {
-      wet,
-      frequency,
-      octaves,
-      octaves,
-      effect,
-      filter,
-      baseFrequency
-    } = effect
+    const { wet, frequency, octaves, filter, baseFrequency } = effect
 
     return (
       <div className="Effect">
@@ -63,7 +55,7 @@ export default class Phaser extends PureComponent {
           step="0.1"
           min="0"
           max="10"
-          value={effect.stages}
+          value={stages}
           handleChange={handleEffectValueChange}
         />
 
