@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 
-import Slider from '../../controls/Slider'
-import ButtonSet from '../../controls/ButtonSet'
+import Slider from '../../controls/SliderNew'
+import ButtonSet from '../../controls/ButtonSetNew'
 import Select from '../../controls/Select'
 
 export default class Freeverb extends PureComponent {
@@ -11,7 +11,7 @@ export default class Freeverb extends PureComponent {
 
   render() {
     const { parentId, effect, handleEffectValueChange } = this.props
-    const { wet, roomSize, dampening } = effect
+    const { on, wet, roomSize, dampening } = effect
     const set = ['sine', 'square', 'triangle', 'sawtooth']
 
     return (

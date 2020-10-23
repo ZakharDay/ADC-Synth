@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 
-import Slider from '../../controls/Slider'
-import ButtonSet from '../../controls/ButtonSet'
+import Slider from '../../controls/SliderNew'
+import ButtonSet from '../../controls/ButtonSetNew'
 import Select from '../../controls/Select'
 
 export default class Tremolo extends PureComponent {
@@ -55,7 +55,7 @@ export default class Tremolo extends PureComponent {
           min="0"
           max="1"
           value={depth.value}
-          handleValueChange={changeEffectValue}
+          handleValueChange={handleEffectValueChange}
         />
 
         <h2>Spread</h2>
@@ -66,7 +66,7 @@ export default class Tremolo extends PureComponent {
           min="0"
           max="180"
           value={spread}
-          handleValueChange={changeEffectValue}
+          handleValueChange={handleEffectValueChange}
         />
       </div>
     )

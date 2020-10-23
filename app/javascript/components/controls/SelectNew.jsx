@@ -20,11 +20,7 @@ export default class Select extends PureComponent {
 
     options.forEach((option, i) => {
       selectOptions.push(
-        <SelectToggleButton
-          onClick={option.handleClick}
-          text={option.text}
-          key={i}
-        />
+        <SelectToggleButton onClick={console.log(1)} text={option[i]} key={i} />
       )
     })
 

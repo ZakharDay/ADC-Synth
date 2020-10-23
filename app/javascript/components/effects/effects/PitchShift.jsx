@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 
-import Slider from '../../controls/Slider'
-import ButtonSet from '../../controls/ButtonSet'
+import Slider from '../../controls/SliderNew'
+import ButtonSet from '../../controls/ButtonSetNew'
 import Select from '../../controls/Select'
 
 export default class PitchShift extends PureComponent {
@@ -34,7 +34,7 @@ export default class PitchShift extends PureComponent {
           min="-24"
           max="24"
           value={pitch}
-          handleValueChange={changeEffectValue}
+          handleValueChange={handleEffectValueChange}
         />
 
         <h2>Window Size</h2>
@@ -45,7 +45,7 @@ export default class PitchShift extends PureComponent {
           min="0"
           max="0.2"
           value={windowSize}
-          handleValueChange={changeEffectValue}
+          handleValueChange={handleEffectValueChange}
         />
 
         <h2>Feedback</h2>
@@ -56,7 +56,7 @@ export default class PitchShift extends PureComponent {
           min="0"
           max="100"
           value={feedback.value}
-          handleValueChange={changeEffectValue}
+          handleValueChange={handleEffectValueChange}
         />
       </div>
     )

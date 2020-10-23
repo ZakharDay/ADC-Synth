@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 
-import Slider from '../../controls/Slider'
-import ButtonSet from '../../controls/ButtonSet'
+import Slider from '../../controls/SliderNew'
+import ButtonSet from '../../controls/ButtonSetNew'
 import Select from '../../controls/Select'
 
 export default class Chorus extends PureComponent {
@@ -32,8 +32,8 @@ export default class Chorus extends PureComponent {
           </div>
         </div>
 
-        <div className="chorusEffectControlsContainer">
-          <div className="chorusEffectControls">
+        <div className="middleEffectControlsContainer">
+          <div className="middleEffectControls">
             <h2 className="effectHeading">Frequency</h2>
             <Slider
               parentId={parentId}
@@ -67,13 +67,14 @@ export default class Chorus extends PureComponent {
               handleChange={handleEffectValueChange}
             />
           </div>
-          <div className="chorusEffectControls">
+          <div className="middleEffectControls">
             <h2 className="effectHeading">Type</h2>
             <ButtonSet
               parentId={parentId}
               property="type"
               set={set}
               value={type}
+              current={type}
               handleChange={handleEffectValueChange}
             />
 

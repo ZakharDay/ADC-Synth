@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 
-import Slider from '../../controls/Slider'
-import ButtonSet from '../../controls/ButtonSet'
+import Slider from '../../controls/SliderNew'
+import ButtonSet from '../../controls/ButtonSetNew'
 
 export default class Vibrato extends PureComponent {
   constructor(props) {

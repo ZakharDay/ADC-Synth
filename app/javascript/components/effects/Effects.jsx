@@ -252,71 +252,71 @@ export default class Effects extends PureComponent {
         callback: () => handleEffectCreate(instrumentId, 'autoFilter')
       },
       autoPanner: {
-        name: '',
+        name: 'Auto Panner',
         callback: () => handleEffectCreate(instrumentId, 'autoPanner')
       },
       autoWah: {
-        name: '',
+        name: 'Auto Wah',
         callback: () => handleEffectCreate(instrumentId, 'autoWah')
       },
       bitCrusher: {
-        name: '',
+        name: 'Bit Crusher',
         callback: () => handleEffectCreate(instrumentId, 'bitCrusher')
       },
       chebyshev: {
-        name: '',
+        name: 'Chebyshev',
         callback: () => handleEffectCreate(instrumentId, 'chebyshev')
       },
       chorus: {
-        name: '',
+        name: 'Chorus',
         callback: () => handleEffectCreate(instrumentId, 'chorus')
       },
       distortion: {
-        name: '',
+        name: 'Distortion',
         callback: () => handleEffectCreate(instrumentId, 'distortion')
       },
       feedbackDelay: {
-        name: '',
+        name: 'Feedback Delay',
         callback: () => handleEffectCreate(instrumentId, 'feedbackDelay')
       },
       feedbackEffect: {
-        name: '',
+        name: 'Feedback Effect',
         callback: () => handleEffectCreate(instrumentId, 'feedbackEffect')
       },
       freeverb: {
-        name: '',
+        name: 'Freeverb',
         callback: () => handleEffectCreate(instrumentId, 'freeverb')
       },
       jcReverb: {
-        name: '',
+        name: 'JC Reverb',
         callback: () => handleEffectCreate(instrumentId, 'jcReverb')
       },
       phaser: {
-        name: '',
+        name: 'Phaser',
         callback: () => handleEffectCreate(instrumentId, 'phaser')
       },
       pingPongDelay: {
-        name: '',
+        name: 'Ping-Pong Delay',
         callback: () => handleEffectCreate(instrumentId, 'pingPongDelay')
       },
       pitchShift: {
-        name: '',
+        name: 'Pitch Shift',
         callback: () => handleEffectCreate(instrumentId, 'pitchShift')
       },
       reverb: {
-        name: '',
+        name: 'Reverb',
         callback: () => handleEffectCreate(instrumentId, 'reverb')
       },
       stereoWidener: {
-        name: '',
+        name: 'Stereo Widener',
         callback: () => handleEffectCreate(instrumentId, 'stereoWidener')
       },
       tremolo: {
-        name: '',
+        name: 'Tremolo',
         callback: () => handleEffectCreate(instrumentId, 'tremolo')
       },
       vibrato: {
-        name: '',
+        name: 'Vibrato',
         callback: () => handleEffectCreate(instrumentId, 'vibrato')
       }
     }
