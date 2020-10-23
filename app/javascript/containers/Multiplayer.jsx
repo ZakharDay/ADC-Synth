@@ -1,6 +1,7 @@
 import * as Tone from 'tone'
 import React from 'react'
-import { ActionCableConsumer } from 'react-actioncable-provider'
+// import { ActionCableConsumer } from 'react-actioncable-provider'
+import { createConsumer } from '@rails/actioncable'
 
 import Menubar from '../components/views/Menubar'
 import Musician from '../components/views/Musician'
@@ -45,6 +46,18 @@ export default class ADCSynth extends React.Component {
     const { view } = this.props
 
     if (view === 'mixer') {
+      let consumer = createConsumer()
+      const { handleMixerDataReceived } = this
+
+      consumer.subscriptions.create(
+        { channel: 'MixerChannel' },
+        {
+          received(data) {
+            handleMixerDataReceived(data)
+          }
+        }
+      )
+
       const { instruments } = this.state
       let newInstruments = []
 
@@ -200,8 +213,9 @@ export default class ADCSynth extends React.Component {
   }
 
   handleSynthValueChange = (id, property, value) => {
-    const { instruments, currentPartId } = this.state
+    const { room, instruments, currentPartId } = this.state
     let newInstruments = [...instruments]
+    let newInstrumentData = []
 
     let instrument = instruments.filter((instrument) => {
       if (instrument.id === id) {
@@ -211,9 +225,9 @@ export default class ADCSynth extends React.Component {
 
     // const getSynthById = (id) => parts.find(part => partId === id)?.synth ?? 'default value'; если уникальный, то можно вот так
 
-    let instrumentSynthSettings = instrument.parts.filter((part) => {
+    let instrumentPart = instrument.parts.filter((part) => {
       if (part.partId === currentPartId) {
-        return part.synth
+        return part
       }
     })[0]
 
@@ -228,11 +242,11 @@ export default class ADCSynth extends React.Component {
     }
 
     if (settingNameNamespace == 'oscillator') {
-      instrumentSynthSettings.synth.oscillator[settingNameInNamespace] = value
+      instrumentPart.synth.oscillator[settingNameInNamespace] = value
     } else if (settingNameNamespace == 'envelope') {
-      instrumentSynthSettings.synth.envelope[settingNameInNamespace] = value
+      instrumentPart.synth.envelope[settingNameInNamespace] = value
     } else {
-      instrumentSynthSettings.synth[property] = value
+      instrumentPart.synth[property] = value
     }
 
     newInstruments.map((newInstrument) => {
@@ -240,19 +254,46 @@ export default class ADCSynth extends React.Component {
         newInstrument.parts = [...newInstrument.parts]
 
         newInstrument.parts.map((part) => {
-          if (instrumentSynthSettings.id === part.id) {
-            part = instrumentSynthSettings
+          if (instrumentPart.id === part.id) {
+            part = instrumentPart
             return part
           } else {
             return part
           }
         })
 
+        newInstrumentData = newInstrument
         return newInstrument
       } else {
         return newInstrument
       }
     })
+
+    const data = {
+      authenticity_token: utilities.getMeta('csrf-token'),
+      part_id: currentPartId,
+      instrument_id: newInstrumentData.id,
+      part_settings: newInstrumentData.parts.filter((part) => {
+        if (part.partId === currentPartId) {
+          return part
+        }
+      })[0]
+    }
+
+    fetch(`/rooms/${room.id}/change_instrument`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data)
+      })
+      .catch((error) => {
+        console.error('Error:', error)
+      })
 
     this.setState({
       instruments: newInstruments
@@ -279,7 +320,7 @@ export default class ADCSynth extends React.Component {
 
     if (view === 'musician') {
       console.log('Data received but not used')
-    } else if (view === 'mixer') {
+    } else if (view === 'mixer' && data != '{}') {
       console.log('Data received')
 
       const { room, instruments } = JSON.parse(data)
@@ -343,10 +384,12 @@ export default class ADCSynth extends React.Component {
 
     return (
       <div className="ADCSynth">
-        <ActionCableConsumer
-          channel={{ channel: 'MixerChannel' }}
-          onReceived={this.handleMixerDataReceived}
-        />
+        {
+          // <ActionCableConsumer
+          //   channel="MixerChannel"
+          //   onReceived={this.handleMixerDataReceived}
+          // />
+        }
 
         <Menubar
           view={view}
