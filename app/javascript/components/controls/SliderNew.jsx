@@ -12,10 +12,19 @@ export default class Slider extends React.Component {
   }
 
   render() {
-    const { min, max, handleChange, step, property, instrumentId } = this.props
+    const {
+      min,
+      max,
+      handleChange,
+      name,
+      step,
+      property,
+      instrumentId
+    } = this.props
 
     return (
       <div className="Slider">
+        <h3>{name}</h3>
         <input
           ref={this.input}
           type="range"
