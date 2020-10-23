@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 
 import Parts from '../instruments/Parts'
 import Instruments from '../parts/Instruments'
+import Channel from '../parts/Channel'
 
 export default class Musician extends PureComponent {
   constructor(props) {
@@ -59,6 +60,7 @@ export default class Musician extends PureComponent {
       <div className="Musician">
         {parts ? this.renderParts() : ''}
         {instruments ? this.renderInstruments() : ''}
+        <Channel />
       </div>
     )
   }

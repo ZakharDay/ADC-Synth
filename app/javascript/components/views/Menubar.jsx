@@ -42,7 +42,7 @@ export default class Menubar extends React.Component {
           size="Medium"
         />
 
-        <div> SIGN OUT </div>
+        <div className="logIn"> SIGN OUT </div>
       </div>
     )
   }

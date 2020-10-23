@@ -1,5 +1,6 @@
 .InstrumentMenu {
   display: flex;
+  width: 100%;
   align-items: center;
   height: 50px;
   padding-left: 20px;
@@ -13,6 +14,7 @@
     span {
       display: inline-block;
       width: 145px;
+      text-transform: uppercase;
     }
   }
 
@@ -53,7 +55,7 @@
     height: 20px;
     background-repeat: no-repeat;
     background-position: center;
-    margin: 15px 35px;
+    margin: 15px 35px 15px 114px;
 
     &.open {
       transform: rotate(180deg);
