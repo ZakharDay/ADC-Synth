@@ -18,8 +18,6 @@ export default class Synth extends React.Component {
   handleBarTabChange = (button) => {
     let newCurrentBarTab
 
-    console.log(button)
-
     if (this.state.currentTab === button) {
       newCurrentBarTab = 'none'
     } else {
@@ -36,9 +34,11 @@ export default class Synth extends React.Component {
 
     const {
       instrument,
+      instrumentId,
       handleSynthValueChange,
       handleEffectCreate,
-      handleEffectValueChange
+      handleEffectValueChange,
+      handleChangeSequence
     } = this.props
 
     let settings
@@ -71,6 +71,7 @@ export default class Synth extends React.Component {
     } else if (currentTab === 'Sequence') {
       return (
         <Sequencer
+          instrumentId={instrumentId}
           instrument={instrument}
           settings={settings}
           handleChangeSequence={handleChangeSequence}
