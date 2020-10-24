@@ -38,7 +38,7 @@ export default class Synth extends React.Component {
       handleSynthValueChange,
       handleEffectCreate,
       handleEffectValueChange,
-      handleChangeSequence
+      handleSequenceChange
     } = this.props
 
     let settings
@@ -74,7 +74,7 @@ export default class Synth extends React.Component {
           instrumentId={instrumentId}
           instrument={instrument}
           settings={settings}
-          handleChangeSequence={handleChangeSequence}
+          handleSequenceChange={handleSequenceChange}
         />
       )
     } else {

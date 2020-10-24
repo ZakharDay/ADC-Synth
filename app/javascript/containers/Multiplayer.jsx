@@ -345,10 +345,10 @@ export default class ADCSynth extends React.Component {
       settingNameInNamespace = property.match(regexAfter)[1]
     }
 
-    if (settingNameNamespace == 'oscillator') {
-      // instrumentPart.synth.oscillator[settingNameInNamespace] = value
-    } else if (settingNameNamespace == 'envelope') {
-      // instrumentPart.synth.envelope[settingNameInNamespace] = value
+    if (settingNameNamespace == 'filter') {
+      partEffect.filter[settingNameInNamespace] = value
+    } else if (settingNameNamespace == 'follower') {
+      partEffect.follower[settingNameInNamespace] = value
     } else {
       partEffect[property] = value
     }
@@ -358,7 +358,7 @@ export default class ADCSynth extends React.Component {
         newInstrument.parts = [...newInstrument.parts]
 
         newInstrument.parts.map((part) => {
-          if (instrumentPart.id === part.id) {
+          if (instrumentPart.partId === part.partId) {
             part.effects.map((effect) => {
               if (effect.name === partEffect.name) {
                 return partEffect
@@ -409,6 +409,10 @@ export default class ADCSynth extends React.Component {
     this.setState({
       instruments: newInstruments
     })
+  }
+
+  handleSequenceChange = (instrumentId, step, noteKey, octave) => {
+    console.log(instrumentId, step, noteKey, octave)
   }
 
   handleMixerDataReceived = (data) => {
@@ -465,6 +469,7 @@ export default class ADCSynth extends React.Component {
         handleSynthValueChange={this.handleSynthValueChange}
         handleEffectCreate={this.handleEffectCreate}
         handleEffectValueChange={this.handleEffectValueChange}
+        handleSequenceChange={this.handleSequenceChange}
       />
     )
   }

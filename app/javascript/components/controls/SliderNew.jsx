@@ -1,40 +1,43 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
-export default class Slider extends React.Component {
+export default class Slider extends PureComponent {
   constructor(props) {
     super(props)
     this.input = React.createRef()
   }
 
   componentDidMount() {
-    const { current } = this.props
-    this.input.current.value = current
+    const { value } = this.props
+    this.input.current.value = value
   }
 
   render() {
     const {
-      min,
-      max,
-      handleChange,
+      parentId,
+      property,
       name,
       step,
-      property,
-      instrumentId
+      min,
+      max,
+      handleChange
     } = this.props
 
     return (
       <div className="Slider">
         <h3>{name}</h3>
         <input
+          className="slider"
           ref={this.input}
           type="range"
           step={step}
-          className="slider"
           min={min}
           max={max}
-          onInput={
-            console.log('clic') //() =>
-            //handleChange(instrumentId, property, this.input.current.value)
+          onInput={() =>
+            handleChange(
+              parentId,
+              property,
+              parseFloat(this.input.current.value)
+            )
           }
         />
       </div>

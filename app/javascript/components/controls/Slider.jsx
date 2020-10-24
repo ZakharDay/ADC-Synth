@@ -12,7 +12,7 @@ export default class Slider extends PureComponent {
   }
 
   render() {
-    const { min, max, handleChange, step, property, parentId } = this.props
+    const { parentId, property, min, max, step, handleChange } = this.props
 
     return (
       <div className="Slider">

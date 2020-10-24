@@ -121,27 +121,6 @@ class RoomsController < ApplicationController
           q: 5
         }
       }
-    elsif params[:effect_name] == 'feedbackDelay'
-      new_effect = {
-        name: 'feedbackDelay',
-        delayTime: '8n',
-        maxDelay: 0
-      }
-    elsif params[:effect_name] == 'chorus'
-      new_effect = {
-        name: 'chorus',
-        frequency: 0,
-        delayTime: 0,
-        depth: 0,
-        type: 'sine',
-        spread: 180
-      }
-    elsif params[:effect_name] == 'distortion'
-      new_effect = {
-        name: 'distortion',
-        distortion: 0,
-        oversample: '4x'
-      }
     elsif params[:effect_name] == 'autoPanner'
       new_effect = {
         name: 'autoPanner',
@@ -172,6 +151,27 @@ class RoomsController < ApplicationController
         name: 'chebyshev',
         order: 50,
         oversample: 'none',
+      }
+    elsif params[:effect_name] == 'chorus'
+      new_effect = {
+        name: 'chorus',
+        frequency: 0,
+        delayTime: 0,
+        depth: 0,
+        type: 'sine',
+        spread: 180
+      }
+    elsif params[:effect_name] == 'distortion'
+      new_effect = {
+        name: 'distortion',
+        distortion: 0,
+        oversample: '4x'
+      }
+    elsif params[:effect_name] == 'feedbackDelay'
+      new_effect = {
+        name: 'feedbackDelay',
+        delayTime: '8n',
+        maxDelay: 0
       }
     elsif params[:effect_name] == 'feedbackEffect'
       new_effect = {
@@ -228,7 +228,7 @@ class RoomsController < ApplicationController
       new_effect = {
         name: 'tremolo',
         frequency: 50,
-        type: "sine",
+        type: 'sine',
         depth: 0.5,
         spread: 90,
       }
@@ -238,7 +238,7 @@ class RoomsController < ApplicationController
         maxDelay: 0.5,
         frequency: 500,
         depth: 0.5,
-        type: "sine"
+        type: 'sine'
       }
     end
 

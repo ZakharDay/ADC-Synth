@@ -27,19 +27,13 @@ export default class Musician extends PureComponent {
     )
   }
 
-  changeEnvelopeValue = () => {}
-  handleChangeDetune = () => {}
-  handleChangeSequence = (instrumentId, step, noteKey, octave) => {
-    console.log(instrumentId, step, noteKey, octave)
-  }
-  changeEffectValue = () => {}
-
   renderInstruments = () => {
     const {
       instruments,
       handleSynthValueChange,
       handleEffectCreate,
-      handleEffectValueChange
+      handleEffectValueChange,
+      handleSequenceChange
     } = this.props
 
     return (
@@ -48,7 +42,7 @@ export default class Musician extends PureComponent {
         handleSynthValueChange={handleSynthValueChange}
         handleEffectCreate={handleEffectCreate}
         handleEffectValueChange={handleEffectValueChange}
-        handleChangeSequence={this.handleChangeSequence}
+        handleSequenceChange={handleSequenceChange}
       />
     )
   }

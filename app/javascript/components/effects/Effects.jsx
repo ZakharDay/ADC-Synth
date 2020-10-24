@@ -93,9 +93,10 @@ export default class Effects extends PureComponent {
           <Chorus
             parentId={id}
             effect={effect}
-            handleEffectValueChange={(id, property, value) =>
+            handleEffectValueChange={(id, property, value) => {
+              console.log(id, property, value)
               handleEffectValueChange(id, effect.name, property, value)
-            }
+            }}
             key={i}
           />
         )

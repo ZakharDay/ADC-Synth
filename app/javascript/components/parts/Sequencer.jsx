@@ -48,7 +48,7 @@ export default class Sequencer extends React.Component {
   // }
 
   renderRow = (note, noteKey, octave) => {
-    const { instrumentId, settings, handleChangeSequence } = this.props
+    const { instrumentId, settings, handleSequenceChange } = this.props
     const currentPatternSteps = settings.sequence
     const steps = currentPatternSteps.length
     let stepElements = []
@@ -70,7 +70,7 @@ export default class Sequencer extends React.Component {
           text={note}
           on={current}
           handleClick={() =>
-            handleChangeSequence(instrumentId, step, noteKey, octave)
+            handleSequenceChange(instrumentId, step, noteKey, octave)
           }
           key={i}
         />

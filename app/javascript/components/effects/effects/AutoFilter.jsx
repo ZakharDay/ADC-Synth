@@ -54,7 +54,7 @@ export default class AutoFilter extends PureComponent {
             </h2>
             <KnobNew
               parentId={parentId}
-              property="frequency.value"
+              property="frequency"
               min={0}
               max={100}
               value={0}
@@ -87,7 +87,7 @@ export default class AutoFilter extends PureComponent {
             <h2 className="effectHeading">Depth</h2>
             <Slider
               parentId={parentId}
-              property="depth.value"
+              property="depth"
               step="0.01"
               min="0"
               max="1"
