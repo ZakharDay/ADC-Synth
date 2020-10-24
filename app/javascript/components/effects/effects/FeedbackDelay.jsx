@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react'
 import Slider from '../../controls/SliderNew'
 import ButtonSet from '../../controls/ButtonSetNew'
 import Select from '../../controls/Select'
+import KnobNew from '../../controls/KnobNew'
 
 export default class FeedbackDelay extends PureComponent {
   constructor(props) {
@@ -22,7 +23,7 @@ export default class FeedbackDelay extends PureComponent {
           </div>
         </div>
 
-        <div className="effectControls">
+        <div className="narrowEffectControls">
           <h2 className="effectHeading">Wet</h2>
           <Slider
             parentId={parentId}
@@ -34,14 +35,14 @@ export default class FeedbackDelay extends PureComponent {
             handleChange={handleEffectValueChange}
           />
 
-          <h2 className="effectMiddleHeading">Delay Time</h2>
+          <h2 className="effectHeading">Delay Time</h2>
           <Slider
             parentId={parentId}
-            property="delayTime.value"
+            property="delayTime"
             step="1"
             min="0"
             max="100"
-            value={delayTime.value}
+            value={delayTime}
             handleChange={handleEffectValueChange}
           />
 

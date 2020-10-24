@@ -15,72 +15,93 @@ export default class Phaser extends PureComponent {
 
     return (
       <div className="Effect">
-        <h2>Wet</h2>
-        <Slider
-          parentId={parentId}
-          property="wet"
-          step="0.01"
-          min="0"
-          max="1"
-          value={wet}
-          handleChange={handleEffectValueChange}
-        />
+        <div className="mediumBar">
+          <div className="mediumBarContainer">
+            <span>Phaser</span>
+            <Slider
+              parentId={parentId}
+              property="wet"
+              step="0.01"
+              min="0"
+              max="1"
+              value={wet}
+              handleChange={handleEffectValueChange}
+            />
+            <p></p>
+          </div>
+        </div>
 
-        <h2>Frequency</h2>
-        <Slider
-          parentId={parentId}
-          property="frequency.value"
-          step="1"
-          min="0"
-          max="100"
-          value={frequency.value}
-          handleChange={handleEffectValueChange}
-        />
+        <div className="phaserMiddleEffectControlsContainer">
+          <div className="middleEffectControls">
+            <h2 className="effectHeading">Wet</h2>
+            <Slider
+              parentId={parentId}
+              property="wet"
+              step="0.01"
+              min="0"
+              max="1"
+              value={wet}
+              handleChange={handleEffectValueChange}
+            />
 
-        <h2>Octaves</h2>
-        <Slider
-          parentId={parentId}
-          property="octaves"
-          step="0.01"
-          min="0"
-          max="6"
-          value={octaves}
-          handleChange={handleEffectValueChange}
-        />
+            <h2 className="effectHeading">Frequency</h2>
+            <Slider
+              parentId={parentId}
+              property="frequency.value"
+              step="1"
+              min="0"
+              max="100"
+              value={frequency.value}
+              handleChange={handleEffectValueChange}
+            />
 
-        <h2>Stages</h2>
-        <Slider
-          parentId={parentId}
-          property="stages"
-          step="0.1"
-          min="0"
-          max="10"
-          value={stages}
-          handleChange={handleEffectValueChange}
-        />
+            <h2 className="effectHeading">Octaves</h2>
+            <Slider
+              parentId={parentId}
+              property="octaves"
+              step="0.01"
+              min="0"
+              max="6"
+              value={octaves}
+              handleChange={handleEffectValueChange}
+            />
 
-        <h2>Filter</h2>
-        <h2>Q</h2>
-        <Slider
-          parentId={parentId}
-          property="filter.q"
-          step="0.1"
-          min="0"
-          max="10"
-          value={filter.q}
-          handleChange={handleEffectValueChange}
-        />
+            <h2 className="effectHeading">Stages</h2>
+            <Slider
+              parentId={parentId}
+              property="stages"
+              step="0.1"
+              min="0"
+              max="10"
+              value={stages}
+              handleChange={handleEffectValueChange}
+            />
+          </div>
+          <div className="middleEffectControls">
+            <h2 className="subEffectHeading">Filter</h2>
+            <h2 className="effectHeading">Q</h2>
+            <Slider
+              parentId={parentId}
+              property="filter.q"
+              step="0.1"
+              min="0"
+              max="10"
+              value={filter.q}
+              handleChange={handleEffectValueChange}
+            />
 
-        <h2>Base Frequency</h2>
-        <Slider
-          parentId={parentId}
-          property="baseFrequency.value"
-          step="10"
-          min="0"
-          max="1000"
-          value={baseFrequency.value}
-          handleChange={handleEffectValueChange}
-        />
+            <h2 className="effectHeading">Base Frequency</h2>
+            <Slider
+              parentId={parentId}
+              property="baseFrequency.value"
+              step="10"
+              min="0"
+              max="1000"
+              value={baseFrequency.value}
+              handleChange={handleEffectValueChange}
+            />
+          </div>
+        </div>
       </div>
     )
   }

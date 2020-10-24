@@ -51,7 +51,7 @@ export default class Distortion extends PureComponent {
             parentId={parentId}
             property="oversample"
             set={set}
-            value={oversample}
+            value={'none'}
             handleChange={handleEffectValueChange}
           />
         </div>

@@ -37,11 +37,11 @@ export default class Chorus extends PureComponent {
             <h2 className="effectHeading">Frequency</h2>
             <Slider
               parentId={parentId}
-              property="frequency.value"
+              property="frequency"
               step="1"
               min="0"
               max="100"
-              value={frequency.value}
+              value={frequency}
               handleChange={handleEffectValueChange}
             />
 

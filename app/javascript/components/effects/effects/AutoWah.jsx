@@ -49,7 +49,7 @@ export default class AutoWah extends PureComponent {
               step="1"
               min="0"
               max="100"
-              value={frequency.value}
+              value={frequency}
               handleChange={handleEffectValueChange}
             />
 
@@ -91,11 +91,11 @@ export default class AutoWah extends PureComponent {
             <h2 className="effectHeading">Gain</h2>
             <Slider
               parentId={parentId}
-              property="gain.value"
+              property="gain"
               step="0.1"
               min="0"
               max="10"
-              value={gain.value}
+              value={gain}
               handleChange={handleEffectValueChange}
             />
 

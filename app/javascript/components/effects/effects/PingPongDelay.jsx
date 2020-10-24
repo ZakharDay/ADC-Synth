@@ -15,38 +15,47 @@ export default class PingPongDelay extends PureComponent {
 
     return (
       <div className="Effect">
-        <h2>Wet</h2>
-        <Slider
-          parentId={parentId}
-          property="wet"
-          step="0.01"
-          min="0"
-          max="1"
-          value={wet}
-          handleChange={handleEffectValueChange}
-        />
+        <div className="smallBar">
+          <div>
+            <span>Ping-Pong Delay</span>
+            <p></p>
+          </div>
+        </div>
 
-        <h2>Delay Time</h2>
-        <Slider
-          parentId={parentId}
-          property="delayTime.value"
-          step="0.01"
-          min="0"
-          max="1"
-          value={delayTime.value}
-          handleChange={handleEffectValueChange}
-        />
+        <div className="narrowEffectControls">
+          <h2 className="effectHeading">Wet</h2>
+          <Slider
+            parentId={parentId}
+            property="wet"
+            step="0.01"
+            min="0"
+            max="1"
+            value={wet}
+            handleChange={handleEffectValueChange}
+          />
 
-        <h2>Max Delay Time</h2>
-        <Slider
-          parentId={parentId}
-          property="maxDelayTime"
-          step="0.01"
-          min="0"
-          max="1"
-          value={maxDelayTime}
-          handleChange={handleEffectValueChange}
-        />
+          <h2 className="effectHeading">Delay Time</h2>
+          <Slider
+            parentId={parentId}
+            property="delayTime"
+            step="0.01"
+            min="0"
+            max="1"
+            value={delayTime}
+            handleChange={handleEffectValueChange}
+          />
+
+          <h2 className="effectHeading">Max Delay Time</h2>
+          <Slider
+            parentId={parentId}
+            property="maxDelayTime"
+            step="0.01"
+            min="0"
+            max="1"
+            value={maxDelayTime}
+            handleChange={handleEffectValueChange}
+          />
+        </div>
       </div>
     )
   }

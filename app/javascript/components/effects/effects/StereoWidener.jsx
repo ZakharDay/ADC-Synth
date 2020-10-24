@@ -15,27 +15,35 @@ export default class StereoWidener extends PureComponent {
 
     return (
       <div className="Effect">
-        <h2>Wet</h2>
-        <Slider
-          parentId={parentId}
-          property="wet"
-          step="0.01"
-          min="0"
-          max="1"
-          value={wet}
-          handleChange={handleEffectValueChange}
-        />
+        <div className="smallBar">
+          <div>
+            <span>Stereo Widner</span>
+            <p></p>
+          </div>
+        </div>
+        <div className="narrowEffectControls">
+          <h2 className="effectHeading">Wet</h2>
+          <Slider
+            parentId={parentId}
+            property="wet"
+            step="0.01"
+            min="0"
+            max="1"
+            value={wet}
+            handleChange={handleEffectValueChange}
+          />
 
-        <h2>Width</h2>
-        <Slider
-          parentId={parentId}
-          property="width.value"
-          step="0.01"
-          min="0"
-          max="1"
-          value={width.value}
-          handleChange={handleEffectValueChange}
-        />
+          <h2 className="effectHeading">Width</h2>
+          <Slider
+            parentId={parentId}
+            property="width"
+            step="0.01"
+            min="0"
+            max="1"
+            value={width}
+            handleChange={handleEffectValueChange}
+          />
+        </div>
       </div>
     )
   }

@@ -37,11 +37,11 @@ export default class AutoPanner extends PureComponent {
           <h2 className="effectHeading">Frequency</h2>
           <Slider
             parentId={parentId}
-            property="frequency.value"
+            property="frequency"
             step="1"
             min="0"
             max="100"
-            value={frequency.value}
+            value={frequency}
             handleChange={handleEffectValueChange}
           />
 
@@ -57,11 +57,11 @@ export default class AutoPanner extends PureComponent {
           <h2 className="effectHeading">Depth</h2>
           <Slider
             parentId={parentId}
-            property="depth.value"
+            property="depth"
             step="0.01"
             min="0"
             max="1"
-            value={depth.value}
+            value={depth}
             handleChange={handleEffectValueChange}
           />
         </div>
