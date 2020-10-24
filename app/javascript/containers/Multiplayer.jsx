@@ -113,10 +113,30 @@ export default class ADCSynth extends React.Component {
 
             webaudioObjects.push(newChannel.webaudio)
             newInstrument.webaudio.chain(...webaudioObjects)
+
+            newInstrument.webaudioPart = new Tone.Part((time, note) => {
+              newInstrument.webaudio.triggerAttackRelease(
+                note.noteName,
+                note.duration,
+                time,
+                note.velocity
+              )
+            }, [])
+
             newInstruments.push(newInstrument)
           } else {
             newInstrument.webaudio = new Tone.Synth()
             newInstrument.webaudio.chain(newChannel.webaudio)
+
+            newInstrument.webaudioPart = new Tone.Part((time, note) => {
+              newInstrument.webaudio.triggerAttackRelease(
+                note.noteName,
+                note.duration,
+                time,
+                note.velocity
+              )
+            }, [])
+
             newInstruments.push(newInstrument)
           }
         })
@@ -147,7 +167,7 @@ export default class ADCSynth extends React.Component {
   }
 
   handleTogglePlay = () => {
-    let { room, transportIsOn, transportScheduleId } = this.state
+    let { room, instruments, transportIsOn, transportScheduleId } = this.state
 
     if (transportIsOn) {
       Tone.Transport.pause()
@@ -169,9 +189,48 @@ export default class ADCSynth extends React.Component {
       transportIsOn = true
     }
 
+    // instruments.map((instrument, i) => {
+    //   let part = this.updatePart(instrument)
+    //   instrument.webaudioPart = part
+    //
+    //   return instrument
+    // })
+
+    const oldInstruments = instruments
+
+    let newInstruments = []
+
+    instruments.forEach((instrument, i) => {
+      let newInstrument = {
+        // effects: [...instrument.effects], // Mutable, need to be updated for parameter change
+        id: instrument.id,
+        kind: instrument.kind,
+        name: instrument.name,
+        webaudioPart: this.updatePart(instrument),
+        parts: [...instrument.parts] // Mutable, need to be updated for parameter change
+      }
+
+      oldInstruments.forEach((oldInstrument, i) => {
+        if (instrument.id === oldInstrument.id) {
+          newInstrument.webaudio = oldInstrument.webaudio
+          newInstrument.webaudioPart = oldInstrument.webaudioPart
+          newInstrument.effects = oldInstrument.effects
+        }
+      })
+
+      newInstruments.push(newInstrument)
+    })
+
+    // this.setState({
+    //   room,
+    //   instruments: newInstruments,
+    //   transportIsOn
+    // })
+
     this.setState({
       transportIsOn,
-      transportScheduleId
+      transportScheduleId,
+      instruments: newInstruments
     })
   }
 
@@ -431,6 +490,7 @@ export default class ADCSynth extends React.Component {
   handleSequenceChange = (instrumentId, partId, step, note, octave) => {
     console.log(instrumentId, partId, step, note, octave)
 
+    const { view } = this.props
     const { room, instruments, currentPartId } = this.state
     let newInstruments = [...instruments]
     let newInstrumentData = []
@@ -490,6 +550,11 @@ export default class ADCSynth extends React.Component {
         })
 
         newInstrumentData = newInstrument
+
+        // if (view === 'mixer') {
+        //   newInstrument.webaudioPart = this.updatePart(newInstrument)
+        // }
+
         return newInstrument
       } else {
         return newInstrument
@@ -527,6 +592,74 @@ export default class ADCSynth extends React.Component {
     })
   }
 
+  updatePart = (instrument) => {
+    // const { instrument, measure } = this.props
+    let sequence = []
+    let webaudioSequence = []
+
+    instrument.parts.forEach((part, i) => {
+      if (part.current) {
+        sequence = part.sequence
+      }
+    })
+
+    sequence.forEach((step, i) => {
+      // const currentTick = [measure.quarter, measure.sixteenth].join(':')
+      const stepQuarter = step.step <= 4 ? 0 : Math.floor(step.step / 4) - 1
+
+      const stepSixteenth =
+        step.step <= 4 ? step.step - 1 : step.step - stepQuarter * 4 - 1
+
+      const stepTick = [stepQuarter, stepSixteenth].join(':')
+
+      // console.log(step, currentTick, stepQuarter, stepSixteenth)
+
+      // if (currentTick === stepTick) {
+      //   instrument.webaudio.triggerAttackRelease(step.note + step.octave, '1n')
+      // }
+
+      // for (var i = 0; i < 16; i++) {
+      //   let synth = this.props.instrument.webaudio
+      const v = 1
+
+      webaudioSequence.push({
+        time: ['0', stepTick].join(':'),
+        noteName: [step.note, step.octave].join(''),
+        duration: '1n',
+        velocity: v
+      })
+      // }
+    })
+
+    console.log('yo', instrument)
+
+    let { webaudioPart } = instrument
+
+    console.log(webaudioPart)
+
+    if (webaudioPart) {
+      webaudioPart.clear()
+    }
+
+    webaudioPart = new Tone.Part((time, note) => {
+      instrument.webaudio.triggerAttackRelease(
+        note.noteName,
+        note.duration,
+        time,
+        note.velocity
+      )
+    }, webaudioSequence)
+
+    webaudioPart.loop = true
+    webaudioPart.loopEnd = '1m'
+    webaudioPart.mute = false
+    webaudioPart.start()
+
+    return webaudioPart
+
+    // webaudioPart = part
+  }
+
   handleMixerDataReceived = (data) => {
     const { view } = this.props
 
@@ -553,6 +686,7 @@ export default class ADCSynth extends React.Component {
         oldInstruments.forEach((oldInstrument, i) => {
           if (instrument.id === oldInstrument.id) {
             newInstrument.webaudio = oldInstrument.webaudio
+            newInstrument.webaudioPart = this.updatePart(oldInstrument)
             newInstrument.effects = oldInstrument.effects
           }
         })
@@ -588,7 +722,13 @@ export default class ADCSynth extends React.Component {
 
   renderMixerView = () => {
     const { instruments, measure } = this.state
-    return <Mixer instruments={instruments} measure={measure} />
+    return (
+      <Mixer
+        instruments={instruments}
+        measure={measure}
+        updatePart={this.updatePart}
+      />
+    )
   }
 
   render() {
