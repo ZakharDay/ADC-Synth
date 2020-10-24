@@ -15,58 +15,67 @@ export default class Vibrato extends PureComponent {
 
     return (
       <div className="Effect">
-        <h2>Wet</h2>
-        <Slider
-          parentId={parentId}
-          property="wet"
-          step="0.01"
-          min="0"
-          max="1"
-          value={wet}
-          handleChange={handleEffectValueChange}
-        />
+        <div className="smallBar">
+          <div>
+            <span>Vibrato</span>
+            <p></p>
+          </div>
+        </div>
+        <div className="narrowEffectControls">
+          <h2 className="effectHeading">Wet</h2>
+          <Slider
+            parentId={parentId}
+            property="wet"
+            step="0.01"
+            min="0"
+            max="1"
+            value={wet}
+            handleChange={handleEffectValueChange}
+          />
 
-        <h2>Max Delay</h2>
-        <Slider
-          parentId={parentId}
-          property="maxDelay"
-          step="0.01"
-          min="0"
-          max="1"
-          value={maxDelay}
-          handleChange={handleEffectValueChange}
-        />
+          <h2 className="effectHeading">Max Delay</h2>
+          <Slider
+            parentId={parentId}
+            property="maxDelay"
+            step="0.01"
+            min="0"
+            max="1"
+            value={maxDelay}
+            handleChange={handleEffectValueChange}
+          />
 
-        <h2>Frequency</h2>
-        <Slider
-          parentId={parentId}
-          property="frequency.value"
-          step="1"
-          min="0"
-          max="1000"
-          value={frequency.value}
-          handleChange={handleEffectValueChange}
-        />
+          <h2 className="effectHeading">Frequency</h2>
+          <Slider
+            parentId={parentId}
+            property="frequency"
+            step="1"
+            min="0"
+            max="1000"
+            value={frequency}
+            handleChange={handleEffectValueChange}
+          />
 
-        <h2>Depth</h2>
-        <Slider
-          parentId={parentId}
-          property="depth.value"
-          step="0.01"
-          min="0"
-          max="1"
-          value={depth.value}
-          handleChange={handleEffectValueChange}
-        />
+          <h2 className="effectHeading">Depth</h2>
+          <Slider
+            parentId={parentId}
+            property="depth"
+            step="0.01"
+            min="0"
+            max="1"
+            value={depth}
+            handleChange={handleEffectValueChange}
+          />
 
-        <h2>Type</h2>
-        <ButtonSet
-          parentId={parentId}
-          property="type"
-          set={set}
-          value={type}
-          handleChange={handleEffectValueChange}
-        />
+          <h2 className="effectHeading">Type</h2>
+          <ButtonSet
+            parentId={parentId}
+            property="type"
+            set={set}
+            value={type}
+            current={type}
+            handleChange={handleEffectValueChange}
+          />
+        </div>
       </div>
     )
   }

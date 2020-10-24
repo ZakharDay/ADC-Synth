@@ -338,7 +338,14 @@ export default class Effects extends PureComponent {
       <div className="Effects">
         {this.renderEffects()}
 
-        <div>{addEffectButtons}</div>
+        <div>
+          <div className="effectsBar">
+            <div>
+              <span>Effects</span>
+            </div>
+          </div>
+          <div className="addButtonsContainer">{addEffectButtons}</div>
+        </div>
       </div>
     )
   }

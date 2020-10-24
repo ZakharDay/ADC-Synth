@@ -33,7 +33,7 @@ export default class AutoFilter extends PureComponent {
     return (
       <div className="Effect">
         <div className="largeBar">
-          <div className="largeContainer">
+          <div className="largeBarContainer">
             <span>Auto Filter</span>
             <Slider
               parentId={parentId}
@@ -49,20 +49,15 @@ export default class AutoFilter extends PureComponent {
         </div>
         <div className="autoFilterLargeEffectControlsContainer">
           <div className="largeEffectControls">
-            <h2 id="firstInAutoFilter" className="effectHeading">
-              Frequency
-            </h2>
             <KnobNew
               parentId={parentId}
-              property="frequency.value"
+              property="frequency"
               min={0}
               max={100}
               value={0}
               name="Frequency"
               handleChange={handleEffectValueChange}
             />
-
-            <h2 className="effectHeading">Base Frequency</h2>
             <KnobNew
               parentId={parentId}
               property="baseFrequency"
@@ -72,14 +67,13 @@ export default class AutoFilter extends PureComponent {
               name="Base Frequency"
               handleChange={handleEffectValueChange}
             />
-            <h2 className="effectHeading">Octaves</h2>
-            <Slider
+            <KnobNew
               parentId={parentId}
               property="octaves"
-              step="1"
-              min="0"
-              max="6"
-              value={octaves}
+              min={0}
+              max={6}
+              value={0}
+              name="Octaves"
               handleChange={handleEffectValueChange}
             />
           </div>
@@ -87,7 +81,7 @@ export default class AutoFilter extends PureComponent {
             <h2 className="effectHeading">Depth</h2>
             <Slider
               parentId={parentId}
-              property="depth.value"
+              property="depth"
               step="0.01"
               min="0"
               max="1"

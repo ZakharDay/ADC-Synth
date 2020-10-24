@@ -15,49 +15,57 @@ export default class PitchShift extends PureComponent {
 
     return (
       <div className="Effect">
-        <h2>Wet</h2>
-        <Slider
-          parentId={parentId}
-          property="wet"
-          step="0.01"
-          min="0"
-          max="1"
-          value={wet}
-          handleChange={handleEffectValueChange}
-        />
+        <div className="smallBar">
+          <div>
+            <span>Pitch Shift</span>
+            <p></p>
+          </div>
+        </div>
+        <div className="narrowEffectControls">
+          <h2 className="effectHeading">Wet</h2>
+          <Slider
+            parentId={parentId}
+            property="wet"
+            step="0.01"
+            min="0"
+            max="1"
+            value={wet}
+            handleChange={handleEffectValueChange}
+          />
 
-        <h2>Pitch</h2>
-        <Slider
-          parentId={parentId}
-          property="pitch"
-          step="0.1"
-          min="-24"
-          max="24"
-          value={pitch}
-          handleValueChange={handleEffectValueChange}
-        />
+          <h2 className="effectHeading">Pitch</h2>
+          <Slider
+            parentId={parentId}
+            property="pitch"
+            step="0.1"
+            min="-24"
+            max="24"
+            value={pitch}
+            handleValueChange={handleEffectValueChange}
+          />
 
-        <h2>Window Size</h2>
-        <Slider
-          parentId={parentId}
-          property="windowSize"
-          step="0.001"
-          min="0"
-          max="0.2"
-          value={windowSize}
-          handleValueChange={handleEffectValueChange}
-        />
+          <h2 className="effectHeading">Window Size</h2>
+          <Slider
+            parentId={parentId}
+            property="windowSize"
+            step="0.001"
+            min="0"
+            max="0.2"
+            value={windowSize}
+            handleValueChange={handleEffectValueChange}
+          />
 
-        <h2>Feedback</h2>
-        <Slider
-          parentId={parentId}
-          property="feedback.value"
-          step="1"
-          min="0"
-          max="100"
-          value={feedback.value}
-          handleValueChange={handleEffectValueChange}
-        />
+          <h2 className="effectHeading">Feedback</h2>
+          <Slider
+            parentId={parentId}
+            property="feedback"
+            step="1"
+            min="0"
+            max="100"
+            value={feedback}
+            handleValueChange={handleEffectValueChange}
+          />
+        </div>
       </div>
     )
   }
