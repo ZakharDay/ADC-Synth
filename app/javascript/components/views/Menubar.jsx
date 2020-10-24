@@ -51,13 +51,17 @@ export default class Menubar extends React.Component {
     const { view } = this.props
 
     return (
-      <div className="Menubar">
-        <div className="logo"></div>
+      <div>
+        <div className="Menubar">
+          <div className="menuBarContainer">
+            <div className="logo"></div>
 
-        {
-          // prettier-ignore
-          view === 'musician' ? this.renderMusicianMenu() : this.renderMixerMenu()
-        }
+            {
+              // prettier-ignore
+              view === 'musician' ? this.renderMusicianMenu() : this.renderMixerMenu()
+            }
+          </div>
+        </div>
       </div>
     )
   }
