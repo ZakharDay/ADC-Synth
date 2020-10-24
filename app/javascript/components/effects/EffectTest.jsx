@@ -112,7 +112,6 @@ export default class EffectTest extends PureComponent {
 
     return (
       <div>
-        <div className="channelBar">Effect </div>
         <div className="ChannelTest">
           <div>12%</div>
           <MixerSlider

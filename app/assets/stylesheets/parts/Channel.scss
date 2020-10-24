@@ -13,9 +13,10 @@
   width: 205px;
   /* padding-bottom: 80px; */
   padding-top: 40px;
-  border: 1px solid var(--medium-grey);
-  border-top: 0px;
-  border-right: 0px;
+  border-right: 1px solid var(--medium-grey);
+  border-bottom: 1px solid var(--medium-grey);
+  // border-top: 0px;
+  // border-right: 0px;
   /* padding-right: 18px; */
 }
 .channelBar {

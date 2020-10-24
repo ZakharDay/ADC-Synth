@@ -20,7 +20,6 @@ export default class ChannelTest extends React.Component {
 
     return (
       <div>
-        <div className="channelBar">Channel </div>
         <div className="ChannelTest">
           <div>12%</div>
           <MixerSlider
