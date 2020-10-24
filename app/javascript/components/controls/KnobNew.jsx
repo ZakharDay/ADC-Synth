@@ -35,8 +35,14 @@ export default class Knob extends PureComponent {
   }
 
   calcDeg = (value) => {
+    const { min } = this.props
     const { coef } = this.state
-    return (value * coef) / 10
+
+    if (min < 0) {
+      return value * coef
+    } else {
+      return value * coef - 140
+    }
   }
 
   calcRotation = (range) => {
@@ -45,8 +51,15 @@ export default class Knob extends PureComponent {
   }
 
   calcValue = (deg) => {
+    const { min } = this.props
     const { range } = this.state
-    return Math.floor((range / 280) * deg)
+
+    if (min < 0) {
+      return Math.floor((range / 280) * deg)
+    } else {
+      console.log(deg, Math.floor((range / 280) * (deg + 140)))
+      return Math.floor((range / 280) * (deg + 140))
+    }
   }
 
   renderBilletValues = () => {
@@ -58,30 +71,24 @@ export default class Knob extends PureComponent {
       for (var i = 0; i < 5; i++) {
         localBillets.push(Math.floor(stepCoef * (i + 1)))
       }
-      console.log(localBillets)
     } else if (Math.sign(min) == -1) {
       if (Math.sign(max) == -1) {
         for (var i = 0; i < 5; i++) {
           localBillets.push(Math.floor(-stepCoef * (i + 1)))
         }
         localBillets.reverse()
-        console.log(localBillets)
       } else {
         localBillets.push(Math.floor(-stepCoef * 2))
         localBillets.push(Math.floor(-stepCoef * 1))
         localBillets.push(Math.floor(stepCoef * 0))
         localBillets.push(Math.floor(stepCoef * 1))
         localBillets.push(Math.floor(stepCoef * 2))
-
-        // console.log(localBillets)
       }
     } else if (Math.sign(min) == 0) {
       for (var i = 0; i < 5; i++) {
         localBillets.push(Math.floor(stepCoef * (i + 1)))
       }
     }
-
-    console.log(this.state)
 
     this.setState({
       billets: localBillets
@@ -98,7 +105,7 @@ export default class Knob extends PureComponent {
   }
 
   handleMouseMove = (e) => {
-    const { min, max, handleChange, parentId, property } = this.props
+    const { min, max } = this.props
     const { cursorY } = this.state
 
     if (this.state.mouseDown) {
@@ -116,8 +123,6 @@ export default class Knob extends PureComponent {
           nextValue = max
         }
 
-        handleChange(parentId, property, nextValue)
-
         this.setState({
           cursorY: e.screenY,
           deg: nextDeg
@@ -129,15 +134,23 @@ export default class Knob extends PureComponent {
   handleMouseUp = (e) => {
     e.preventDefault()
 
-    this.setState({
-      mouseDown: false,
-      cursorY: 0
-    })
+    const { deg, mouseDown } = this.state
+
+    if (mouseDown) {
+      const { parentId, property, handleChange } = this.props
+      handleChange(parentId, property, this.calcValue(deg))
+
+      this.setState({
+        mouseDown: false,
+        cursorY: 0
+      })
+    }
   }
 
   render() {
     const { min, max, value, name } = this.props
     const { billets, deg } = this.state
+
     const styles = {
       transform: `rotate(${deg}deg)`
     }

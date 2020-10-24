@@ -51,7 +51,7 @@ export default class Freeverb extends PureComponent {
             property="dampening"
             min={0}
             max={5000}
-            value={0}
+            value={dampening}
             name="Dampening"
             handleChange={handleEffectValueChange}
           />

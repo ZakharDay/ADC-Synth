@@ -41,7 +41,7 @@ export default class Chebyshev extends PureComponent {
             property="order"
             min={1}
             max={100}
-            value={0}
+            value={order}
             name="Order"
             handleChange={handleEffectValueChange}
           />

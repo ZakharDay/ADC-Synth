@@ -110,6 +110,7 @@ class RoomsController < ApplicationController
     if params[:effect_name] == 'autoFilter'
       new_effect = {
         name: 'autoFilter',
+        wet: 0.5,
         frequency: 50,
         type: 'square',
         depth: 0.5,
@@ -124,6 +125,7 @@ class RoomsController < ApplicationController
     elsif params[:effect_name] == 'autoPanner'
       new_effect = {
         name: 'autoPanner',
+        wet: 0.5,
         frequency: 50,
         type: 'sine',
         depth: 0.5
@@ -131,6 +133,7 @@ class RoomsController < ApplicationController
     elsif params[:effect_name] == 'autoWah'
       new_effect = {
         name: 'autoWah',
+        wet: 0.5,
         frequency: 50,
         octaves: 1,
         sensitivity: 0,
@@ -144,17 +147,20 @@ class RoomsController < ApplicationController
     elsif params[:effect_name] == 'bitCrusher'
       new_effect = {
         name: 'bitCrusher',
+        wet: 0.5,
         bits: 0.5,
       }
     elsif params[:effect_name] == 'chebyshev'
       new_effect = {
         name: 'chebyshev',
+        wet: 0.5,
         order: 50,
         oversample: 'none',
       }
     elsif params[:effect_name] == 'chorus'
       new_effect = {
         name: 'chorus',
+        wet: 0.5,
         frequency: 0,
         delayTime: 0,
         depth: 0,
@@ -164,34 +170,40 @@ class RoomsController < ApplicationController
     elsif params[:effect_name] == 'distortion'
       new_effect = {
         name: 'distortion',
+        wet: 0.5,
         distortion: 0,
         oversample: '4x'
       }
     elsif params[:effect_name] == 'feedbackDelay'
       new_effect = {
         name: 'feedbackDelay',
+        wet: 0.5,
         delayTime: '8n',
         maxDelay: 0
       }
     elsif params[:effect_name] == 'feedbackEffect'
       new_effect = {
         name: 'feedbackEffect',
+        wet: 0.5,
         feedback: 0.5,
       }
     elsif params[:effect_name] == 'freeverb'
       new_effect = {
         name: 'freeverb',
+        wet: 0.5,
         roomSize: 0.5,
         dampening: 1000,
       }
     elsif params[:effect_name] == 'jcReverb'
       new_effect = {
         name: 'jcReverb',
+        wet: 0.5,
         roomSize: 0.5,
       }
     elsif params[:effect_name] == 'phaser'
       new_effect = {
         name: 'phaser',
+        wet: 0.5,
         frequency: 50,
         octaves: 1,
         stages: 5,
@@ -203,12 +215,14 @@ class RoomsController < ApplicationController
     elsif params[:effect_name] == 'pingPongDelay'
       new_effect = {
         name: 'pingPongDelay',
+        wet: 0.5,
         delayTime: 0.5,
         maxDelayTime: 0.5,
       }
     elsif params[:effect_name] == 'pitchShift'
       new_effect = {
         name: 'pitchShift',
+        wet: 0.5,
         pitch: 0,
         windowSize: 0.050,
         feedback: 50,
@@ -216,17 +230,20 @@ class RoomsController < ApplicationController
     elsif params[:effect_name] == 'reverb'
       new_effect = {
         name: 'reverb',
+        wet: 0.5,
         decay: 5,
         preDelay: 0.5,
       }
     elsif params[:effect_name] == 'stereoWidener'
       new_effect = {
         name: 'stereoWidener',
+        wet: 0.5,
         width: 0.5,
         }
     elsif params[:effect_name] == 'tremolo'
       new_effect = {
         name: 'tremolo',
+        wet: 0.5,
         frequency: 50,
         type: 'sine',
         depth: 0.5,
@@ -235,6 +252,7 @@ class RoomsController < ApplicationController
     elsif params[:effect_name] == 'vibrato'
       new_effect = {
         name: 'vibrato',
+        wet: 0.5,
         maxDelay: 0.5,
         frequency: 500,
         depth: 0.5,

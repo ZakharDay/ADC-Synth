@@ -21,6 +21,7 @@ export default class Reverb extends PureComponent {
             <p></p>
           </div>
         </div>
+
         <div className="narrowEffectControls">
           <h2 className="effectHeading">Wet</h2>
           <Slider

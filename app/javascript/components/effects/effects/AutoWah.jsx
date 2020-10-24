@@ -45,7 +45,7 @@ export default class AutoWah extends PureComponent {
             <h2 className="effectHeading">Base Frequency</h2>
             <Slider
               parentId={parentId}
-              property="frequency.value"
+              property="frequency"
               step="1"
               min="0"
               max="100"

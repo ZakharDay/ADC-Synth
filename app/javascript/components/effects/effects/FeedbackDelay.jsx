@@ -39,9 +39,9 @@ export default class FeedbackDelay extends PureComponent {
           <Slider
             parentId={parentId}
             property="delayTime"
-            step="1"
+            step="0.01"
             min="0"
-            max="100"
+            max="1"
             value={delayTime}
             handleChange={handleEffectValueChange}
           />

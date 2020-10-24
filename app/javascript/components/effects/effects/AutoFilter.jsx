@@ -54,7 +54,7 @@ export default class AutoFilter extends PureComponent {
               property="frequency"
               min={0}
               max={100}
-              value={0}
+              value={frequency}
               name="Frequency"
               handleChange={handleEffectValueChange}
             />
@@ -63,7 +63,7 @@ export default class AutoFilter extends PureComponent {
               property="baseFrequency"
               min={0}
               max={1800}
-              value={0}
+              value={baseFrequency}
               name="Base Frequency"
               handleChange={handleEffectValueChange}
             />
@@ -72,7 +72,7 @@ export default class AutoFilter extends PureComponent {
               property="octaves"
               min={0}
               max={6}
-              value={0}
+              value={octaves}
               name="Octaves"
               handleChange={handleEffectValueChange}
             />

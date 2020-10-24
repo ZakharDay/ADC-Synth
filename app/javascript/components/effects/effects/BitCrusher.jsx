@@ -40,7 +40,7 @@ export default class BitCrusher extends PureComponent {
             property="bits"
             min={1}
             max={8}
-            value={0}
+            value={bits}
             name="Bits"
             handleChange={handleEffectValueChange}
           />

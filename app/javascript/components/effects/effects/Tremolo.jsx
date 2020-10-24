@@ -22,6 +22,7 @@ export default class Tremolo extends PureComponent {
             <p></p>
           </div>
         </div>
+
         <div className="narrowEffectControls">
           <h2 className="effectHeading">Wet</h2>
           <Slider
@@ -48,7 +49,7 @@ export default class Tremolo extends PureComponent {
           <h2 className="effectHeading">Type</h2>
           <ButtonSet
             parentId={parentId}
-            property="filter.type"
+            property="type"
             set={set}
             value={type}
             current={type}

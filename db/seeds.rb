@@ -77,12 +77,14 @@
 
 @effect1 = {
   name: 'feedbackDelay',
+  wet: 0.5,
   delayTime: '8n',
   maxDelay: 0
 }
 
 @effect2 = {
   name: 'chorus',
+  wet: 0.5,
   frequency: 0,
   delayTime: 0,
   depth: 0,
@@ -92,6 +94,7 @@
 
 @effect3 = {
   name: 'distortion',
+  wet: 0.5,
   distortion: 0,
   oversample: '4x'
 }
