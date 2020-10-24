@@ -73,7 +73,7 @@ export default class SynthTest extends PureComponent {
     webaudioPart = part
   }
 
-  // thiggerAttackRelease = () => {
+  // triggerAttackRelease = () => {
   //   // console.log(this.props)
   //   const { instrument, measure } = this.props
   //   let sequence = []
@@ -146,7 +146,7 @@ export default class SynthTest extends PureComponent {
       webaudio.envelope.sustain = parts[0].synth.envelope.sustain
       webaudio.envelope.release = parts[0].synth.envelope.release
 
-      // this.thiggerAttackRelease()
+      // this.triggerAttackRelease()
       // this.updatePart()
       // console.log('inst', instrument)
       // updatePart(instrument)

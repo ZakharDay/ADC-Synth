@@ -189,43 +189,28 @@ export default class ADCSynth extends React.Component {
       transportIsOn = true
     }
 
-    // instruments.map((instrument, i) => {
-    //   let part = this.updatePart(instrument)
-    //   instrument.webaudioPart = part
-    //
-    //   return instrument
-    // })
-
     const oldInstruments = instruments
-
     let newInstruments = []
 
     instruments.forEach((instrument, i) => {
       let newInstrument = {
-        // effects: [...instrument.effects], // Mutable, need to be updated for parameter change
         id: instrument.id,
         kind: instrument.kind,
         name: instrument.name,
-        webaudioPart: this.updatePart(instrument),
-        parts: [...instrument.parts] // Mutable, need to be updated for parameter change
+        webaudioPart: this.updatePart(instrument, instrument),
+        parts: [...instrument.parts]
       }
 
       oldInstruments.forEach((oldInstrument, i) => {
         if (instrument.id === oldInstrument.id) {
           newInstrument.webaudio = oldInstrument.webaudio
-          newInstrument.webaudioPart = oldInstrument.webaudioPart
+          newInstrument.channel = { webaudio: oldInstrument.channel.webaudio }
           newInstrument.effects = oldInstrument.effects
         }
       })
 
       newInstruments.push(newInstrument)
     })
-
-    // this.setState({
-    //   room,
-    //   instruments: newInstruments,
-    //   transportIsOn
-    // })
 
     this.setState({
       transportIsOn,
@@ -592,19 +577,17 @@ export default class ADCSynth extends React.Component {
     })
   }
 
-  updatePart = (instrument) => {
-    // const { instrument, measure } = this.props
+  updatePart = (oldInstrument, newInstrument) => {
     let sequence = []
     let webaudioSequence = []
 
-    instrument.parts.forEach((part, i) => {
+    newInstrument.parts.forEach((part, i) => {
       if (part.current) {
         sequence = part.sequence
       }
     })
 
     sequence.forEach((step, i) => {
-      // const currentTick = [measure.quarter, measure.sixteenth].join(':')
       const stepQuarter = step.step <= 4 ? 0 : Math.floor(step.step / 4) - 1
 
       const stepSixteenth =
@@ -612,14 +595,6 @@ export default class ADCSynth extends React.Component {
 
       const stepTick = [stepQuarter, stepSixteenth].join(':')
 
-      // console.log(step, currentTick, stepQuarter, stepSixteenth)
-
-      // if (currentTick === stepTick) {
-      //   instrument.webaudio.triggerAttackRelease(step.note + step.octave, '1n')
-      // }
-
-      // for (var i = 0; i < 16; i++) {
-      //   let synth = this.props.instrument.webaudio
       const v = 1
 
       webaudioSequence.push({
@@ -628,21 +603,13 @@ export default class ADCSynth extends React.Component {
         duration: '1n',
         velocity: v
       })
-      // }
     })
 
-    console.log('yo', instrument)
-
-    let { webaudioPart } = instrument
-
-    console.log(webaudioPart)
-
-    if (webaudioPart) {
-      webaudioPart.clear()
-    }
+    let { webaudioPart } = oldInstrument
+    webaudioPart.clear()
 
     webaudioPart = new Tone.Part((time, note) => {
-      instrument.webaudio.triggerAttackRelease(
+      oldInstrument.webaudio.triggerAttackRelease(
         note.noteName,
         note.duration,
         time,
@@ -656,8 +623,6 @@ export default class ADCSynth extends React.Component {
     webaudioPart.start()
 
     return webaudioPart
-
-    // webaudioPart = part
   }
 
   handleMixerDataReceived = (data) => {
@@ -671,22 +636,26 @@ export default class ADCSynth extends React.Component {
       const { room, instruments } = JSON.parse(data)
       const { transportIsOn } = this.state
       const oldInstruments = this.state.instruments
-
       let newInstruments = []
 
       instruments.forEach((instrument, i) => {
+        console.log(instrument)
+
         let newInstrument = {
-          // effects: [...instrument.effects], // Mutable, need to be updated for parameter change
           id: instrument.id,
           kind: instrument.kind,
           name: instrument.name,
-          parts: [...instrument.parts] // Mutable, need to be updated for parameter change
+          parts: [...instrument.parts]
         }
 
         oldInstruments.forEach((oldInstrument, i) => {
           if (instrument.id === oldInstrument.id) {
             newInstrument.webaudio = oldInstrument.webaudio
-            newInstrument.webaudioPart = this.updatePart(oldInstrument)
+            newInstrument.webaudioPart = this.updatePart(
+              oldInstrument,
+              newInstrument
+            )
+            newInstrument.channel = { webaudio: oldInstrument.channel.webaudio }
             newInstrument.effects = oldInstrument.effects
           }
         })

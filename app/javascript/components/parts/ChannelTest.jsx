@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import MixerSlider from '../controls/MixerSlider'
 import ChannelButton from '../controls/ChannelButtonNew'
 
-export default class ChannelTest extends React.Component {
+export default class ChannelTest extends PureComponent {
   constructor(props) {
     super(props)
   }
@@ -24,7 +24,7 @@ export default class ChannelTest extends React.Component {
           <div>12%</div>
           <MixerSlider
             parentId={null}
-            property="volume.value"
+            property="volume"
             step="0.1"
             min="0"
             max="100"
