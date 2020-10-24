@@ -581,7 +581,7 @@ export default class ADCSynth extends React.Component {
     const { transportIsOn } = this.state
 
     return (
-      <div className="ADCSynth">
+      <div id="mixerContainer" className="ADCSynth">
         <Menubar
           view={view}
           room={room}

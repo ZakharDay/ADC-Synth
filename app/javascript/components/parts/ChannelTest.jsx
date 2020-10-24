@@ -1,4 +1,6 @@
 import React from 'react'
+import MixerSlider from '../controls/MixerSlider'
+import ChannelButton from '../controls/ChannelButtonNew'
 
 export default class ChannelTest extends React.Component {
   constructor(props) {
@@ -16,6 +18,21 @@ export default class ChannelTest extends React.Component {
       webaudio.solo = settings.solo
     }
 
-    return <div className="ChannelTest">Channel</div>
+    return (
+      <div>
+        <div className="channelBar">Channel </div>
+        <div className="ChannelTest">
+          <div>12%</div>
+          <MixerSlider
+            parentId={null}
+            property="volume.value"
+            step="0.1"
+            min="0"
+            max="100"
+          />
+          <ChannelButton text="1" />
+        </div>
+      </div>
+    )
   }
 }

@@ -25,6 +25,11 @@ export default class Mixer extends PureComponent {
   }
 
   render() {
-    return <div className="Mixer">{this.renderSynths()}</div>
+    return (
+      <div className="Mixer">
+        <div className="MixerNameBar">MIIXER</div>
+        {this.renderSynths()}
+      </div>
+    )
   }
 }
