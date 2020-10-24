@@ -1,11 +1,15 @@
 .Effects {
   display: flex;
-  height: 600px;
+
+  .allEffects {
+    border-left: 1px solid var(--medium-grey);
+    width: 100%;
+  }
 }
 .Effect {
-  border: 1px solid var(--medium-grey);
+  border-left: 1px solid var(--medium-grey);
   box-sizing: border-box;
-  border-left: 0px;
+  height: 100%;
 }
 
 .Effects .Select {
@@ -270,6 +274,7 @@
   flex-wrap: wrap;
   margin-left: 30px;
   height: 500px;
+  width: 400px;
   flex-direction: column;
   margin-right: 240px;
 }
@@ -279,13 +284,11 @@
 }
 
 .effectsBar {
-  height: 52px;
-  width: 661px;
+  height: 51px;
+  width: 100%;
   position: relative;
-  border: 1px solid var(--medium-grey);
+  border-bottom: 1px solid var(--medium-grey);
   box-sizing: border-box;
-  border-left: 0px;
-  border-right: 0px;
 }
 
 .effectsBar div {

@@ -339,7 +339,7 @@ export default class Effects extends PureComponent {
       <div className="Effects">
         {this.renderEffects()}
 
-        <div>
+        <div className="allEffects">
           <div className="effectsBar">
             <div>
               <span>Effects</span>
