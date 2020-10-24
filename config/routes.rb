@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       post 'change_instrument'
       get 'create_effect'
       post 'change_effects'
+      post 'change_sequence'
     end
   end
 

@@ -1,11 +1,10 @@
-import React from 'react'
-// import * as Tone from 'tone'
+import React, { PureComponent } from 'react'
 
 import ToggleButton from '../controls/ToggleButton'
 
 import { notes } from '../../utilities/notes'
 
-export default class Sequencer extends React.Component {
+export default class Sequencer extends PureComponent {
   constructor(props) {
     super(props)
   }
@@ -26,56 +25,70 @@ export default class Sequencer extends React.Component {
     return gridElements
   }
 
-  // thiggerAttackRelease = () => {
-  //   const {
-  //     synth,
-  //     steps,
-  //     currentPattern,
-  //     patterns,
-  //     currentQuarter
-  //   } = this.props
-  //
-  //   const currentPatternSteps = patterns[currentPattern]
-  //
-  //   currentPatternSteps.forEach((patternStep, i) => {
-  //     if (patternStep.step == currentQuarter) {
-  //       synth.webaudio.triggerAttackRelease(
-  //         patternStep.note + patternStep.octave,
-  //         '4n'
-  //       )
-  //     }
-  //   })
-  // }
-
   renderRow = (note, noteKey, octave) => {
-    const { instrumentId, settings, handleSequenceChange } = this.props
+    const { instrument, settings, handleSequenceChange } = this.props
     const currentPatternSteps = settings.sequence
-    const steps = currentPatternSteps.length
+    // prettier-ignore
+    const stepCounter = ['','','','','','','','','','','','','','','','']
     let stepElements = []
-    let current = false
 
-    for (var i = 0; i < steps; i++) {
-      let step = i
-      if (
-        currentPatternSteps[i].step === i &&
-        note === currentPatternSteps[i].note + currentPatternSteps[i].octave
-      ) {
-        current = true
+    stepCounter.forEach((nothing, i) => {
+      let current = false
+      // let step = i
+      //
+      // currentPatternSteps.forEach((currentPatternStep, i) => {
+      //   if (
+      //     currentPatternStep.step === i &&
+      //     currentPatternStep.note + currentPatternStep.octave === note
+      //   ) {
+      //     current = true
+      //   }
+      // })
+
+      currentPatternSteps.forEach((currentPatternStep, i) => {
+        if (currentPatternStep.step === i) {
+          stepCounter[i] = currentPatternStep
+        }
+      })
+    })
+
+    stepCounter.forEach((item, i) => {
+      if (item === '') {
+        stepElements.push(
+          <ToggleButton
+            text={note}
+            on={false}
+            handleClick={() =>
+              handleSequenceChange(
+                instrument.id,
+                settings.partId,
+                i,
+                noteKey,
+                octave
+              )
+            }
+            key={i}
+          />
+        )
       } else {
-        current = false
+        stepElements.push(
+          <ToggleButton
+            text={note}
+            on={true}
+            handleClick={() =>
+              handleSequenceChange(
+                instrument.id,
+                settings.partId,
+                i,
+                noteKey,
+                octave
+              )
+            }
+            key={i}
+          />
+        )
       }
-
-      stepElements.push(
-        <ToggleButton
-          text={note}
-          on={current}
-          handleClick={() =>
-            handleSequenceChange(instrumentId, step, noteKey, octave)
-          }
-          key={i}
-        />
-      )
-    }
+    })
 
     return (
       <div className="row" key={Math.floor(Math.random() * 1000000)}>

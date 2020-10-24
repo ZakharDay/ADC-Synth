@@ -128,6 +128,8 @@ export default class ADCSynth extends React.Component {
     const regexBefore = /([\w]+)/gm
     const quarter = Tone.Transport.position.match(regexBefore)[1]
 
+    console.log(Tone.Transport.position)
+
     this.setState({
       currentQuarter: quarter
     })
@@ -146,7 +148,7 @@ export default class ADCSynth extends React.Component {
 
       transportScheduleId = Tone.Transport.scheduleRepeat(
         this.nextQuarter,
-        '4n'
+        '32n'
       )
 
       transportIsOn = true
@@ -411,8 +413,103 @@ export default class ADCSynth extends React.Component {
     })
   }
 
-  handleSequenceChange = (instrumentId, step, noteKey, octave) => {
-    console.log(instrumentId, step, noteKey, octave)
+  handleSequenceChange = (instrumentId, partId, step, note, octave) => {
+    console.log(instrumentId, partId, step, note, octave)
+
+    const { room, instruments, currentPartId } = this.state
+    let newInstruments = [...instruments]
+    let newInstrumentData = []
+
+    let instrument = instruments.filter((instrument) => {
+      if (instrument.id === instrumentId) {
+        return instrument
+      }
+    })[0]
+
+    let instrumentPart = instrument.parts.filter((part) => {
+      if (part.partId === currentPartId) {
+        return part
+      }
+    })[0]
+
+    let newSequence = [...instrumentPart.sequence]
+    let newSequenceStepNumbers = []
+
+    newSequence.forEach((sequenceStep, i) => {
+      const currentNote = [sequenceStep.note, sequenceStep.octave].join('')
+      const newNote = [note, octave].join('')
+      newSequenceStepNumbers.push(sequenceStep.step)
+
+      if (sequenceStep.step === step && currentNote != newNote) {
+        newSequence[i] = {
+          step: step,
+          note: note,
+          octave: octave
+        }
+      } else if (sequenceStep.step === step && currentNote === newNote) {
+        newSequence.splice(i, 1)
+      }
+    })
+
+    if (!newSequenceStepNumbers.includes(step)) {
+      newSequence.push({
+        step: step,
+        note: note,
+        octave: octave
+      })
+    }
+
+    console.log(newSequence)
+
+    newInstruments.map((newInstrument) => {
+      if (newInstrument.id === instrumentId) {
+        newInstrument.parts = [...newInstrument.parts]
+
+        newInstrument.parts.map((part) => {
+          if (instrumentPart.partId === part.partId) {
+            part.sequence = newSequence
+            return part
+          } else {
+            return part
+          }
+        })
+
+        newInstrumentData = newInstrument
+        return newInstrument
+      } else {
+        return newInstrument
+      }
+    })
+
+    const data = {
+      authenticity_token: utilities.getMeta('csrf-token'),
+      part_id: currentPartId,
+      instrument_id: newInstrumentData.id,
+      part_settings: newInstrumentData.parts.filter((part) => {
+        if (part.partId === currentPartId) {
+          return part
+        }
+      })[0]
+    }
+
+    fetch(`/rooms/${room.id}/change_sequence`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data)
+      })
+      .catch((error) => {
+        console.error('Error:', error)
+      })
+
+    this.setState({
+      instruments: newInstruments
+    })
   }
 
   handleMixerDataReceived = (data) => {
@@ -485,13 +582,6 @@ export default class ADCSynth extends React.Component {
 
     return (
       <div className="ADCSynth">
-        {
-          // <ActionCableConsumer
-          //   channel="MixerChannel"
-          //   onReceived={this.handleMixerDataReceived}
-          // />
-        }
-
         <Menubar
           view={view}
           room={room}

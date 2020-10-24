@@ -30,17 +30,15 @@ export default class Synth extends React.Component {
   }
 
   renderSettings = () => {
-    const { currentTab } = this.state
-
     const {
       instrument,
-      instrumentId,
       handleSynthValueChange,
       handleEffectCreate,
       handleEffectValueChange,
       handleSequenceChange
     } = this.props
 
+    const { currentTab } = this.state
     let settings
 
     instrument.parts.forEach((part, i) => {
@@ -71,7 +69,6 @@ export default class Synth extends React.Component {
     } else if (currentTab === 'Sequence') {
       return (
         <Sequencer
-          instrumentId={instrumentId}
           instrument={instrument}
           settings={settings}
           handleSequenceChange={handleSequenceChange}

@@ -29,7 +29,6 @@ export default class Instruments extends React.Component {
         instrumentElements.push(
           <Synth
             instrument={instrument}
-            instrumentId={i}
             handleSynthValueChange={handleSynthValueChange}
             handleEffectCreate={handleEffectCreate}
             handleEffectValueChange={handleEffectValueChange}
