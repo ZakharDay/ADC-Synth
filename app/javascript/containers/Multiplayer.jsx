@@ -29,6 +29,11 @@ export default class ADCSynth extends React.Component {
 
     if (view === 'mixer') {
       state.transportIsOn = false
+      state.measure = {
+        bar: 0,
+        quarter: 0,
+        sixteenth: 0
+      }
     } else if (view === 'musician') {
       state.parts = parts
 
@@ -124,14 +129,20 @@ export default class ADCSynth extends React.Component {
     }
   }
 
-  nextQuarter = () => {
+  nextSixteenth = () => {
     const regexBefore = /([\w]+)/gm
+    const bar = Tone.Transport.position.match(regexBefore)[0]
     const quarter = Tone.Transport.position.match(regexBefore)[1]
+    const sixteenth = Tone.Transport.position.match(regexBefore)[2]
 
-    console.log(Tone.Transport.position)
+    // console.log(Tone.Transport.position, bar, quarter, sixteenth)
 
     this.setState({
-      currentQuarter: quarter
+      measure: {
+        bar,
+        quarter,
+        sixteenth
+      }
     })
   }
 
@@ -142,14 +153,18 @@ export default class ADCSynth extends React.Component {
       Tone.Transport.pause()
       Tone.Transport.clear(transportScheduleId)
       transportIsOn = false
+
+      // clearInterval(this.loopIntervallCall)
     } else {
       Tone.Transport.bpm.value = room.tempo
       Tone.Transport.start()
 
-      transportScheduleId = Tone.Transport.scheduleRepeat(
-        this.nextQuarter,
-        '32n'
-      )
+      // this.loopIntervalCall = setInterval(() => this.nextSixteenth(), 1000 / 30)
+
+      // transportScheduleId = Tone.Transport.scheduleRepeat(
+      //   this.nextSixteenth,
+      //   '16n'
+      // )
 
       transportIsOn = true
     }
@@ -467,7 +482,7 @@ export default class ADCSynth extends React.Component {
 
         newInstrument.parts.map((part) => {
           if (instrumentPart.partId === part.partId) {
-            part.sequence = newSequence
+            part.sequence = [...newSequence]
             return part
           } else {
             return part
@@ -572,8 +587,8 @@ export default class ADCSynth extends React.Component {
   }
 
   renderMixerView = () => {
-    const { instruments, currentQuarter } = this.state
-    return <Mixer instruments={instruments} currentQuarter={currentQuarter} />
+    const { instruments, measure } = this.state
+    return <Mixer instruments={instruments} measure={measure} />
   }
 
   render() {

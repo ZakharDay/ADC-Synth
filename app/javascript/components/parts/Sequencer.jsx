@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 
 import ToggleButton from '../controls/ToggleButton'
 
 import { notes } from '../../utilities/notes'
 
-export default class Sequencer extends PureComponent {
+export default class Sequencer extends Component {
   constructor(props) {
     super(props)
   }
@@ -33,20 +33,23 @@ export default class Sequencer extends PureComponent {
     let stepElements = []
 
     stepCounter.forEach((nothing, i) => {
-      let current = false
-      // let step = i
+      //   let current = false
+      //   let step = i
       //
-      // currentPatternSteps.forEach((currentPatternStep, i) => {
-      //   if (
-      //     currentPatternStep.step === i &&
-      //     currentPatternStep.note + currentPatternStep.octave === note
-      //   ) {
-      //     current = true
-      //   }
-      // })
-
-      currentPatternSteps.forEach((currentPatternStep, i) => {
-        if (currentPatternStep.step === i) {
+      //   currentPatternSteps.forEach((currentPatternStep, i) => {
+      //     if (
+      //       currentPatternStep.step === i &&
+      //       currentPatternStep.note + currentPatternStep.octave === note
+      //     ) {
+      //       current = true
+      //     }
+      //   })
+      //
+      currentPatternSteps.forEach((currentPatternStep, index) => {
+        if (
+          currentPatternStep.step - 1 == i &&
+          currentPatternStep.note + currentPatternStep.octave == note
+        ) {
           stepCounter[i] = currentPatternStep
         }
       })
@@ -62,7 +65,7 @@ export default class Sequencer extends PureComponent {
               handleSequenceChange(
                 instrument.id,
                 settings.partId,
-                i,
+                i + 1,
                 noteKey,
                 octave
               )
@@ -79,7 +82,7 @@ export default class Sequencer extends PureComponent {
               handleSequenceChange(
                 instrument.id,
                 settings.partId,
-                i,
+                i + 1,
                 noteKey,
                 octave
               )
@@ -98,6 +101,7 @@ export default class Sequencer extends PureComponent {
   }
 
   render() {
+    console.log('render')
     return <div className="Sequencer">{this.renderGrid()}</div>
   }
 }

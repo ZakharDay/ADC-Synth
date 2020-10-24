@@ -73,6 +73,14 @@ class RoomsController < ApplicationController
       part.settings.create(
         instrument_id: instrument.id,
         synth: {
+          detune: 0,
+          portamento: 0,
+          oscillator: {
+            type: 'square',
+            sourceType: 'fm',
+            modulationType: 'sine',
+            phase: 0
+          },
           envelope: {
             attack: 0,
             decay: 0,

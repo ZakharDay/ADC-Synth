@@ -8,16 +8,12 @@ export default class Mixer extends PureComponent {
   }
 
   renderSynths = () => {
-    const { instruments, currentQuarter } = this.props
+    const { instruments, measure } = this.props
     let instrumentElements = []
 
     instruments.forEach((instrument, i) => {
       instrumentElements.push(
-        <SynthTest
-          instrument={instrument}
-          currentQuarter={currentQuarter}
-          key={i}
-        />
+        <SynthTest instrument={instrument} measure={measure} key={i} />
       )
     })
 

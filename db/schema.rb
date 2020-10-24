@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_200847) do
   create_table "rooms", force: :cascade do |t|
     t.string "name"
     t.string "main_channel_level", default: "0"
-    t.integer "tempo", default: 120
+    t.integer "tempo", default: 70
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

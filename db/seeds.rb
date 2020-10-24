@@ -8,22 +8,22 @@
 
 @sequence1 = [
   {
-    step: 0,
+    step: 1,
     note: 'C',
     octave: 1
   },
   {
-    step: 1,
+    step: 2,
     note: 'E',
     octave: 2
   },
   {
-    step: 2,
+    step: 3,
     note: 'G',
     octave: 1
   },
   {
-    step: 3,
+    step: 4,
     note: 'E',
     octave: 3
   }
@@ -31,22 +31,22 @@
 
 @sequence2 = [
   {
-    step: 0,
+    step: 1,
     note: 'C',
     octave: 3
   },
   {
-    step: 1,
+    step: 2,
     note: 'E',
     octave: 1
   },
   {
-    step: 2,
+    step: 3,
     note: 'G',
     octave: 2
   },
   {
-    step: 3,
+    step: 4,
     note: 'E',
     octave: 1
   }
@@ -54,22 +54,22 @@
 
 @sequence3 = [
   {
-    step: 0,
+    step: 1,
     note: 'G',
     octave: 3
   },
   {
-    step: 1,
+    step: 2,
     note: 'A',
     octave: 1
   },
   {
-    step: 2,
+    step: 3,
     note: 'C',
     octave: 2
   },
   {
-    step: 3,
+    step: 4,
     note: 'G',
     octave: 1
   }
@@ -159,17 +159,18 @@ end
 
 def create_instrument
   User.all.each do |user|
-    unless user.email == 'mixer@test.com'
+    # unless user.email == 'mixer@test.com'
+    if user.email == 'musician1@test.com'
       room = Room.first
 
       if user.email == 'musician1@test.com'
-        instrument1 = user.instruments.create!(name: "Synth 1 for User #{user.id}", kind: 'synth', effects: ['feedbackDelay', 'chorus'], room_id: room.id)
-      elsif user.email == 'musician2@test.com'
         instrument1 = user.instruments.create!(name: "Synth 1 for User #{user.id}", kind: 'synth', room_id: room.id)
-      elsif user.email == 'musician3@test.com'
-        instrument1 = user.instruments.create!(name: "Synth 1 for User #{user.id}", kind: 'synth', effects: ['chorus', 'distortion'], room_id: room.id)
-      else
-        instrument1 = user.instruments.create!(name: "Synth 1 for User #{user.id}", kind: 'synth', room_id: room.id)
+      # elsif user.email == 'musician2@test.com'
+      #   instrument1 = user.instruments.create!(name: "Synth 1 for User #{user.id}", kind: 'synth', room_id: room.id)
+      # elsif user.email == 'musician3@test.com'
+      #   instrument1 = user.instruments.create!(name: "Synth 1 for User #{user.id}", kind: 'synth', room_id: room.id)
+      # else
+      #   instrument1 = user.instruments.create!(name: "Synth 1 for User #{user.id}", kind: 'synth', room_id: room.id)
       end
 
       instrument1.user.parts.where(room_id: room.id).each do |part|
@@ -180,11 +181,11 @@ def create_instrument
         end
       end
 
-      instrument2 = user.instruments.create!(name: "Synth 2 for User #{user.id}", kind: 'synth', room_id: room.id)
-
-      instrument2.user.parts.where(room_id: room.id).each do |part|
-        create_settings_for_instrument(part.id, instrument2.id)
-      end
+      # instrument2 = user.instruments.create!(name: "Synth 2 for User #{user.id}", kind: 'synth', room_id: room.id)
+      #
+      # instrument2.user.parts.where(room_id: room.id).each do |part|
+      #   create_settings_for_instrument(part.id, instrument2.id)
+      # end
     end
   end
 end
@@ -192,19 +193,19 @@ end
 def create_settings_for_instrument(part_id, instrument_id, effects = [])
   effectsSettings = []
 
-  effects.each do |effect|
-    if effect == 'feedbackDelay'
-      effectsSettings << @effect1
-    end
-
-    if effect == 'chorus'
-      effectsSettings << @effect2
-    end
-
-    if effect == 'distortion'
-      effectsSettings << @effect3
-    end
-  end
+  # effects.each do |effect|
+  #   if effect == 'feedbackDelay'
+  #     effectsSettings << @effect1
+  #   end
+  #
+  #   if effect == 'chorus'
+  #     effectsSettings << @effect2
+  #   end
+  #
+  #   if effect == 'distortion'
+  #     effectsSettings << @effect3
+  #   end
+  # end
 
   Setting.create!(
     part_id: part_id,
