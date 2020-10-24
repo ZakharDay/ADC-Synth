@@ -33,17 +33,6 @@ export default class Phaser extends PureComponent {
 
         <div className="phaserMiddleEffectControlsContainer">
           <div className="middleEffectControls">
-            <h2 className="effectHeading">Wet</h2>
-            <Slider
-              parentId={parentId}
-              property="wet"
-              step="0.01"
-              min="0"
-              max="1"
-              value={wet}
-              handleChange={handleEffectValueChange}
-            />
-
             <h2 className="effectHeading">Frequency</h2>
             <Slider
               parentId={parentId}

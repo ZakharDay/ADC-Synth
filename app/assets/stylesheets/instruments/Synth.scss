@@ -2,6 +2,7 @@
   overflow-y: hidden;
   height: auto;
   .settings {
+    overflow-y: auto;
     height: 86vh;
     display: flex;
     width: 100%;
@@ -9,12 +10,11 @@
       .smallBar {
         width: 100%;
         div {
-          width: 220px;
+          justify-content: flex-start;
           margin: 0;
           padding: 16px 20px 0 30px;
           span {
-            margin-right: 40px;
-            width: 112px;
+            margin-right: 8px;
           }
           p {
             background: image-url('SelectTriangle.svg');
