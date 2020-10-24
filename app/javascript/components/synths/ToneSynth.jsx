@@ -32,7 +32,7 @@ export default class ToneSynth extends PureComponent {
         </div>
         <div className="controlsRow">
           <div className="commonCettings">
-            <h2>Common Cettings</h2>
+            <h3>Common Cettings</h3>
 
             <KnobNew
               parentId={id}
@@ -61,59 +61,74 @@ export default class ToneSynth extends PureComponent {
             />
             <ButtonSet text="Type" set={typeSet} current="sine" />
 
-            <Slider
-              parentId={id}
-              property="phase"
-              step="1"
-              min="0"
-              max="360"
-              value={phase}
-              name="Phase"
-              handleChange={handleSynthValueChange}
-            />
+            <div>
+              <h2 className="effectHeading">Attack</h2>
+              <Slider
+                parentId={id}
+                property="phase"
+                step="1"
+                min="0"
+                max="360"
+                value={phase}
+                name="Phase"
+                handleChange={handleSynthValueChange}
+              />
+            </div>
           </div>
           <div className="envelope">
-            <h2>Envelope</h2>
-            <Slider
-              parentId={id}
-              property="envelope.attack"
-              step="0.01"
-              min="0"
-              max="1"
-              value={attack}
-              name="Attack"
-              handleChange={handleSynthValueChange}
-            />
-            <Slider
-              parentId={id}
-              property="envelope.decay"
-              step="0.01"
-              min="0"
-              max="1"
-              value={decay}
-              name="Decay"
-              handleChange={handleSynthValueChange}
-            />
-            <Slider
-              parentId={id}
-              property="envelope.sustain"
-              step="0.01"
-              min="0"
-              max="1"
-              value={sustain}
-              name="Sustain"
-              handleChange={handleSynthValueChange}
-            />
-            <Slider
-              parentId={id}
-              property="envelope.release"
-              step="0.01"
-              min="0"
-              max="1"
-              value={release}
-              name="Release"
-              handleChange={handleSynthValueChange}
-            />
+            <h3 className>Envelope</h3>
+            <div>
+              <h2 className="effectHeading">Attack</h2>
+              <Slider
+                parentId={id}
+                property="envelope.attack"
+                step="0.01"
+                min="0"
+                max="1"
+                value={attack}
+                name="Attack"
+                handleChange={handleSynthValueChange}
+              />
+            </div>
+            <div>
+              <h2 className="effectHeading">Decay</h2>
+              <Slider
+                parentId={id}
+                property="envelope.decay"
+                step="0.01"
+                min="0"
+                max="1"
+                value={decay}
+                name="Decay"
+                handleChange={handleSynthValueChange}
+              />
+            </div>
+            <div>
+              <h2 className="effectHeading">Sustain</h2>
+              <Slider
+                parentId={id}
+                property="envelope.sustain"
+                step="0.01"
+                min="0"
+                max="1"
+                value={sustain}
+                name="Sustain"
+                handleChange={handleSynthValueChange}
+              />
+            </div>
+            <div>
+              <h2 className="effectHeading">Release</h2>
+              <Slider
+                parentId={id}
+                property="envelope.release"
+                step="0.01"
+                min="0"
+                max="1"
+                value={release}
+                name="Release"
+                handleChange={handleSynthValueChange}
+              />
+            </div>
           </div>
         </div>
       </div>
