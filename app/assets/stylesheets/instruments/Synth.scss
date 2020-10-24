@@ -37,7 +37,7 @@
           display: flex;
           flex-wrap: wrap;
           width: 360px;
-          h2 {
+          h3 {
             display: inline-block;
             width: 300px;
             margin-bottom: 25px;
@@ -54,7 +54,7 @@
           flex-wrap: wrap;
           align-content: flex-start;
           width: 390px;
-          h2 {
+          h3 {
             display: inline-block;
             width: 300px;
             margin-bottom: 25px;
@@ -110,4 +110,10 @@
   //     }
   //   }
   // }
+}
+
+.Synth .settings .controlsContainer .controlsRow .envelope .effectHeading {
+  margin-bottom: 12px;
+  margin-top: 24px;
+  font-weight: 400;
 }

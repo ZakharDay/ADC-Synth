@@ -95,7 +95,7 @@ export default class ButtonSet extends React.Component {
     // </div>
     return (
       <div className="ButtonSet">
-        <h3> {text}</h3>
+        <h2 className="effectHeading"> {text}</h2>
         <div className="buttonList">{buttonList}</div>
       </div>
     )
