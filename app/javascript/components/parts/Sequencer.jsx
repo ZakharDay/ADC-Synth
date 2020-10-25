@@ -10,13 +10,14 @@ export default class Sequencer extends Component {
   }
 
   renderGrid = () => {
+    console.log('renderGrid')
     let gridElements = []
     let octave = 0
 
     for (var i = 0; i < 8; i++) {
-      Object.keys(notes).forEach((noteKey, i) => {
+      Object.keys(notes).forEach((noteKey, index) => {
         const fullNote = noteKey + octave
-        gridElements.push(this.renderRow(fullNote, noteKey, octave))
+        gridElements.push(this.renderRow(fullNote, noteKey, octave, index, i))
       })
 
       octave++
@@ -25,7 +26,8 @@ export default class Sequencer extends Component {
     return gridElements
   }
 
-  renderRow = (note, noteKey, octave) => {
+  renderRow = (note, noteKey, octave, rowIndex, rowIndex2) => {
+    console.log('renderRow')
     const { instrument, settings, handleSequenceChange } = this.props
     const currentPatternSteps = settings.sequence
     // prettier-ignore
@@ -94,7 +96,7 @@ export default class Sequencer extends Component {
     })
 
     return (
-      <div className="row" key={Math.floor(Math.random() * 1000000)}>
+      <div className="row" key={'row' + rowIndex + '_' + rowIndex2}>
         {stepElements}
       </div>
     )

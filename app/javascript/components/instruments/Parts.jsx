@@ -26,6 +26,13 @@ export default class Parts extends React.Component {
         handleClick: () => handlePartChange(part.id)
       })
     })
-    return <InstrumentMenu name="Parts" buttons={items} />
+
+    return (
+      <InstrumentMenu
+        name="Parts"
+        buttons={items}
+        handlePartCreate={handlePartCreate}
+      />
+    )
   }
 }

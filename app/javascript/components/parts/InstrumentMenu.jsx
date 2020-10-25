@@ -37,7 +37,8 @@ export default class InstrumentMenu extends PureComponent {
   }
 
   render() {
-    const { name, buttons, open } = this.props
+    const { name, buttons, open, handlePartCreate } = this.props
+
     return (
       <div className={'InstrumentMenu'}>
         <div className={'barHeading'}>
@@ -49,7 +50,7 @@ export default class InstrumentMenu extends PureComponent {
         {name === 'Parts' ? (
           <AddButtonNew
             text={'Add part'}
-            handleClick={() => console.log('create new part')}
+            handleClick={handlePartCreate}
             size={'Medium'}
           />
         ) : open === 'none' ? (

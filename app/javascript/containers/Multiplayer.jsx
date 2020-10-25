@@ -34,6 +34,7 @@ export default class ADCSynth extends React.Component {
         quarter: 0,
         sixteenth: 0
       }
+      state.nextParts = []
     } else if (view === 'musician') {
       state.parts = parts
 
@@ -149,20 +150,42 @@ export default class ADCSynth extends React.Component {
     }
   }
 
-  nextSixteenth = () => {
-    const regexBefore = /([\w]+)/gm
-    const bar = Tone.Transport.position.match(regexBefore)[0]
-    const quarter = Tone.Transport.position.match(regexBefore)[1]
-    const sixteenth = Tone.Transport.position.match(regexBefore)[2]
+  nextMeasure = () => {
+    // const regexBefore = /([\w]+)/gm
+    // const bar = Tone.Transport.position.match(regexBefore)[0]
+    // const quarter = Tone.Transport.position.match(regexBefore)[1]
+    // const sixteenth = Tone.Transport.position.match(regexBefore)[2]
 
     // console.log(Tone.Transport.position, bar, quarter, sixteenth)
 
-    this.setState({
-      measure: {
-        bar,
-        quarter,
-        sixteenth
+    // this.setState({
+    //   measure: {
+    //     bar,
+    //     quarter,
+    //     sixteenth
+    //   }
+    // })
+
+    const oldInstruments = this.state.instruments
+    let newInstruments = []
+
+    oldInstruments.forEach((oldInstrument, i) => {
+      let newInstrument = {
+        id: oldInstrument.id,
+        kind: oldInstrument.kind,
+        name: oldInstrument.name,
+        parts: [...oldInstrument.parts],
+        webaudio: oldInstrument.webaudio,
+        webaudioPart: this.updatePart(oldInstrument, oldInstrument),
+        channel: { webaudio: oldInstrument.channel.webaudio },
+        effects: oldInstrument.effects
       }
+
+      newInstruments.push(newInstrument)
+    })
+
+    this.setState({
+      instruments: newInstruments
     })
   }
 
@@ -181,10 +204,10 @@ export default class ADCSynth extends React.Component {
 
       // this.loopIntervalCall = setInterval(() => this.nextSixteenth(), 1000 / 30)
 
-      // transportScheduleId = Tone.Transport.scheduleRepeat(
-      //   this.nextSixteenth,
-      //   '16n'
-      // )
+      transportScheduleId = Tone.Transport.scheduleRepeat(
+        this.nextMeasure,
+        '1n'
+      )
 
       transportIsOn = true
     }
@@ -600,7 +623,7 @@ export default class ADCSynth extends React.Component {
       webaudioSequence.push({
         time: ['0', stepTick].join(':'),
         noteName: [step.note, step.octave].join(''),
-        duration: '1n',
+        duration: '16n',
         velocity: v
       })
     })
@@ -641,20 +664,36 @@ export default class ADCSynth extends React.Component {
       instruments.forEach((instrument, i) => {
         console.log(instrument)
 
+        let newParts = []
+
+        instrument.parts.forEach((part, i) => {
+          let newPart = Object.assign({}, part)
+          let newSequence = []
+
+          part.sequence.forEach((sequenceStep, i) => {
+            let newStep = Object.assign({}, sequenceStep)
+            newSequence.push(newStep)
+          })
+
+          newPart.sequence = newSequence
+          newParts.push(newPart)
+        })
+
         let newInstrument = {
           id: instrument.id,
           kind: instrument.kind,
           name: instrument.name,
-          parts: [...instrument.parts]
+          parts: newParts
         }
 
         oldInstruments.forEach((oldInstrument, i) => {
           if (instrument.id === oldInstrument.id) {
             newInstrument.webaudio = oldInstrument.webaudio
-            newInstrument.webaudioPart = this.updatePart(
-              oldInstrument,
-              newInstrument
-            )
+            // newInstrument.webaudioPart = this.updatePart(
+            //   oldInstrument,
+            //   newInstrument
+            // )
+            newInstrument.webaudioPart = oldInstrument.webaudioPart
             newInstrument.channel = { webaudio: oldInstrument.channel.webaudio }
             newInstrument.effects = oldInstrument.effects
           }
