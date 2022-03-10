@@ -2,26 +2,22 @@
   "name": "ADC_Synth",
   "private": true,
   "dependencies": {
-    "@babel/preset-react": "^7.10.4",
+    "@babel/preset-react": "^7.14.5",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "4.3.0",
+    "@rails/webpacker": "5.4.3",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "classnames": "^2.2.6",
+    "classnames": "^2.3.1",
     "prop-types": "^15.7.2",
-    "react": "^16.13.1",
+    "react": "^17.0.2",
     "react-actioncable-provider": "^2.0.0",
-    "react-dom": "^16.13.1",
-    "tone": "^14.7.58",
+    "react-dom": "^17.0.2",
+    "tone": "^14.7.77",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "^3.11.0"
-  },
-  "volta": {
-    "node": "12.12.0",
-    "yarn": "1.19.2"
+    "webpack-dev-server": "^3"
   }
 }
